@@ -22,10 +22,10 @@
 #include <queue>
 #include <limits>
 #include <iomanip>
+#include <iconv.h>
 
 namespace cv
 {
-
 /* Limits on the maximum size of QR-codes and their content. */
 #define  MAX_BITMAP	3917
 #define  MAX_PAYLOAD	8896
@@ -35,11 +35,11 @@ namespace cv
 #define  MAX_ALIGNMENT   7
 #define MAX_POLY       64
 
-#define MAX_VERSION     40
-#define MAX_ALIGNMENT   7
-
 #define INVALID_REGION 110 /*for the reserved value when reading the data*/
 #define  CODEWORD_LEN 8
+using std::vector;
+using std::cout;
+using std::endl;
 
 enum OUTPUT{
     HEX,OCT,ALPHA
@@ -59,9 +59,50 @@ typedef enum {
     QR_MODE_FNC1SECOND = 0b1001, ///< FNC1, second position
 } QRencodeMode;
 
-using std::vector;
-using std::cout;
-using std::endl;
+/* This enum describes the various decoder errors which may occur. */
+typedef enum {
+    SUCCESS = 0,
+    ERROR_INVALID_GRID_SIZE,
+    ERROR_INVALID_VERSION,
+    ERROR_FORMAT_ECC,
+    ERROR_DATA_ECC,
+    ERROR_UNKNOWN_DATA_TYPE,
+    ERROR_DATA_OVERFLOW,
+    ERROR_DATA_UNDERFLOW
+}  decode_error ;
+
+enum ENCODING_SET {
+    CP437 = 0,  // (Cp437 0)
+    ISO_8859_1, // (ECI codes 1)
+    CP437_,     // (Cp437 2
+    ISO_8859_1_,// (ECI codes 3)
+    ISO_8859_2, // (ECI code 4)
+    ISO_8859_3, // (ECI code 5)
+    ISO_8859_4, // (ECI code 6)
+    ISO_8859_5, // (ECI code 7)
+    ISO_8859_6, // (ECI code 8)
+    ISO_8859_7, // (ECI code 9)
+    ISO_8859_8, // (ECI code 10)
+    ISO_8859_9, // (ECI code 11)
+    ISO_8859_10, //(ECI code 12)
+    ISO_8859_11, //(ECI code 13)
+    ISO_8859_13 =15 , //(ECI code 15)
+    ISO_8859_14, //(ECI code 16)
+    ISO_8859_15, //(ECI code 17)
+    ISO_8859_16, //(ECI code 18)
+    Shift_JIS =20 ,   //(ECI code 20)
+    CP1250,      // windows_1250,//(ECI code 21)
+    CP1251,      // windows_1251,//(ECI code 22)
+    CP1252,      // windows_1252,//(ECI code 23)
+    CP1256,      // windows_1256,//(ECI code 24)
+    UTF_16BE,    // UnicodeBig,UnicodeBigUnmarked,  (ECI code 25)
+    UTF_8,       //(ECI code 26)
+    US_ASCII,    //(ECI codes 27,170)
+    Big5,        //(ECI code 28)
+    GBK,         //GB18030, GB2312, EUC_CN, (ECI code 29)
+    EUC_KR       //(ECI code 30)
+};
+
 
 std::string D2B(uint16_t my_format);
 int ecc_code2level(int code);
@@ -88,6 +129,10 @@ int hamming_detect(uint16_t fmt);
 
 int block_syndromes(const Mat & block, int synd_num,vector<uint8_t>& synd);
 int get_bits(const int& bits,uint8_t * & ptr);
+const char * getSrcMode(const int& eci_mode);
+void output_final_data(const Mat& data);
+
+
 
 /*total codewords are divided into two groups
  *The ecc_codewords are the same in two groups*/
@@ -592,18 +637,68 @@ static const uint8_t gf_log[256] = {
         0x4f, 0xae, 0xd5, 0xe9, 0xe6, 0xe7, 0xad, 0xe8,
         0x74, 0xd6, 0xf4, 0xea, 0xa8, 0x50, 0x58, 0xaf
 };
-
-/* This enum describes the various decoder errors which may occur. */
-typedef enum {
-    SUCCESS = 0,
-    ERROR_INVALID_GRID_SIZE,
-    ERROR_INVALID_VERSION,
-    ERROR_FORMAT_ECC,
-    ERROR_DATA_ECC,
-    ERROR_UNKNOWN_DATA_TYPE,
-    ERROR_DATA_OVERFLOW,
-    ERROR_DATA_UNDERFLOW
-}  decode_error ;
+const char * getSrcMode(const int& eci_mode){
+    switch (eci_mode){
+        case CP437:
+        case CP437_:
+            return "CP437";
+        case ISO_8859_1:
+        case ISO_8859_1_:
+            return "ISO-8859-1";
+        case ISO_8859_2:
+            return "ISO-8859-2";
+        case ISO_8859_3:
+            return "ISO-8859-3";
+        case ISO_8859_4:
+            return "ISO-8859-4";
+        case ISO_8859_5:
+            return "ISO-8859-5";
+        case ISO_8859_6:
+            return "ISO-8859-6";
+        case ISO_8859_7:
+            return "ISO-8859-7";
+        case ISO_8859_8:
+            return "ISO-8859-8";
+        case ISO_8859_9:
+            return "ISO-8859-9";
+        case ISO_8859_10:
+            return "ISO-8859-10";
+        case ISO_8859_11:
+            return "ISO-8859-11";
+        case ISO_8859_13:
+            return "ISO-8859-13";
+        case ISO_8859_14:
+            return "ISO-8859-14";
+        case ISO_8859_15:
+            return "ISO-8859-15";
+        case ISO_8859_16:
+            return "ISO-8859-16";
+        case Shift_JIS:
+            return "SHIFT_JIS";
+        case CP1250:
+            return "CP1250";
+        case CP1251:
+            return "CP1251";
+        case CP1252:
+            return "CP1252";
+        case CP1256:
+            return "CP1256";
+        case UTF_16BE:
+            return "UTF−16BE";
+        case UTF_8:
+            return "UTF−8";
+        case US_ASCII:
+            return "ASCII";
+        case Big5:
+            return "BIG5";
+        case GBK:
+            return "GBK";
+        case EUC_KR:
+            return "EUC−KR";
+        default:
+            return "UTF−8";
+    }
+}
 /*
  * params @ ecc_level
  * func   @ make the ecc_level more direct
@@ -1646,10 +1741,14 @@ protected:
 
     decode_error decode_payload();
     decode_error decode_numeric(uint8_t * &ptr);
-
+    decode_error decode_kanji(uint8_t * &ptr);
     decode_error decode_byte( uint8_t * &ptr);
+    decode_error decode_alpha( uint8_t * &ptr);
+    decode_error decode_eci(uint8_t * &ptr);
 
     int bits_remaining(const uint8_t *ptr);
+
+    void convert2utf8(char* src,const char * fromcode );
 
     Mat original, no_border_intermediate, intermediate, straight;
     Mat unmasked_data;
@@ -1659,7 +1758,7 @@ protected:
     uint8_t rearranged_data[MAX_PAYLOAD];
 
     Mat final_data;// vector
-    uint8_t final[MAX_PAYLOAD];
+    uint8_t final_[MAX_PAYLOAD];
 
     int			version;
     int			ecc_level;
@@ -1680,9 +1779,35 @@ protected:
 QRDecode::QRDecode(){
     memset(orignal_data,0,sizeof(uint8_t)*MAX_PAYLOAD);
     memset(rearranged_data,0,sizeof(uint8_t)*MAX_PAYLOAD);
-    memset(final,0,sizeof(uint8_t)*MAX_PAYLOAD);
+    memset(final_,0,sizeof(uint8_t)*MAX_PAYLOAD);
     memset(payload,0,sizeof(uint8_t)*MAX_PAYLOAD);
     payload_len=0;
+}
+/*convert2utf8
+ * params @ src(the original info ) fromcode(the original coding mode)
+ * func   @ convert from $(fromcode) to utf-8 and update the payload and payload_len
+ * return @
+ * */
+void QRDecode::convert2utf8(char* src,const char * fromcode ){
+    /*input characters */
+    char *inbuf=src;
+    size_t inlen=strlen(inbuf);
+    /*output characters */
+    char dst_utf8 [255]={};
+    char *outbuf = dst_utf8 ;
+    size_t outlen=255;
+
+    cout<<"before @ inlen : "<<inlen << "inbuf : "<<inbuf<<endl;
+    /*convert to utf-8 by iconv*/
+    iconv_t cd=iconv_open("UTF-8",fromcode);
+    iconv(cd, &inbuf, &inlen, &outbuf, &outlen);
+
+    cout<<"after @ outlen : "<<strlen(dst_utf8) <<"  outbuf : "<<dst_utf8<<endl;
+    for(int j = 0; j < (int)strlen(dst_utf8) ; j++){
+        payload[payload_len++] = dst_utf8[j];
+    }
+    iconv_close(cd);
+    return ;
 }
 
 /*
@@ -1921,10 +2046,8 @@ Mat gf_poly_mul(const Mat &p,const Mat &q){
         for (int i = 0; i < len_p; i++) {
             if(!p.ptr(0)[i])
                 continue;
-
             r.ptr(0)[i+j] ^= gf_mul(p.ptr(0)[i], q.ptr(0)[j]);
         }
-
     }
     return r;
 }
@@ -2000,11 +2123,11 @@ void QRDecode:: unmask_data(){
             else if((mask_pattren==0&&!((i + j) % 2)) ||
                     (mask_pattren==1&&!(i % 2)) ||
                     (mask_pattren==2&&!(j % 3)) ||
-                    (mask_pattren==3 && (i + j) % 3 != 0) ||
+                    (mask_pattren==3 && !((i + j) % 3 )) ||
                     (mask_pattren==4&&!(((i / 2) + (j / 3)) % 2)) ||
                     (mask_pattren==5&&!((i * j) % 2 + (i * j) % 3))||
                     (mask_pattren==6&&!(((i * j) % 2 + (i * j) % 3) % 2))||
-                    ((mask_pattren==7 && ((i * j) % 3 + (i + j) % 2) % 2 != 0))
+                    ((mask_pattren==7 && !(((i * j) % 3 + (i + j) % 2) % 2)))
                     ){
                 unmasked_data.ptr(i)[j]^=255;
             }
@@ -2071,7 +2194,6 @@ int block_syndromes(const Mat & block, int synd_num,vector <uint8_t>& synd){
             nonzero = 1;
         synd.push_back(tmp);
     }
-    cout<<endl;
     return nonzero;
 }
 
@@ -2192,11 +2314,9 @@ Mat error_correct(const Mat & msg_in ,const vector<uint8_t>&synd,const Mat & e_l
 
     Mat syndrome(1,border,CV_8UC1,Scalar(0));
     /*change syndrom to mat from calculation*/
-
     for(int i = 1 ; i < border ; i++){
         syndrome.ptr(0)[i]=synd[i];//border-1-
     }
-
 
     /*First calculate the error evaluator polynomial*/
     Mat Omega= gf_poly_mul(syndrome,e_loc_poly);
@@ -2228,7 +2348,6 @@ Mat error_correct(const Mat & msg_in ,const vector<uint8_t>&synd,const Mat & e_l
 
         /*divded them to get the magnitude*/
         uint8_t error_magnitude = gf_div(numerator,denominator);
-
         msg_out.ptr(0)[error_index[i]]^=error_magnitude;
 
     }
@@ -2343,7 +2462,7 @@ void QRDecode::rearrange_blocks(){
         int total =border +cur_ecc->ecc_codewords;
 
         for(int j = 0 ;j < border ; j++){
-            final[count++]=corrected.ptr(0)[total-1-j];
+            final_[count++]=corrected.ptr(0)[total-1-j];
         }
 
         std::string s =" " ;
@@ -2543,6 +2662,23 @@ bool QRDecode::samplingForVersion()
     }
     return true;
 }
+
+void output_final_data(const Mat& data){
+
+    for(int i = 0 ; i< data.cols ;){
+        uint word = 0;
+        for(int j = 0 ; j < CODEWORD_LEN ; j++){
+            word =word << 1;
+            //cout<<(int)data.ptr(0)[i];
+            word += data.ptr(0)[i++];
+        }
+        cout<<std::hex<<(int)word<<" ";
+        if((((i-1)/CODEWORD_LEN)%10)==9)
+            cout<<endl;
+    }
+    cout<<endl;
+}
+
 /* get_bits
  * params @ bits(the number of bits you need) ptr(the starting position)
  * func   @ from the postion $PTR to get $BITS bits
@@ -2557,7 +2693,6 @@ int get_bits(const int& bits,uint8_t * & ptr){
     ptr+=bits;
     return result;
 }
-
 /* bits_remaining
  * params @ ptr(current bit postion)
  * func   @ calculate the remaining number of bits
@@ -2631,23 +2766,186 @@ decode_error QRDecode::decode_byte(uint8_t * &ptr){
         return ERROR_DATA_UNDERFLOW;
     }
 
+    const char* fromcode = getSrcMode(eci);
+
     for (int i = 0; i < count; i++){
         int tmp =get_bits(8,ptr);
-        payload[payload_len++]= uint8_t(tmp);
+        if(!strcmp(fromcode , "UTF−8")){
+            payload[payload_len++]=tmp;
+        }
+        else{
+            char src_shift_jis[3]={char(tmp)};
+            convert2utf8(src_shift_jis,fromcode);
+        }
+    }
+    return SUCCESS;
+}
+
+
+/* decode_kanji
+ * params @ ptr(current bit postion)
+ * func   @ decode the KANJI mode
+ *
+ * Assume X = Shift JIS value , Y = 13bits value
+ * P = X -8140 or X - C140
+ * L = P % 16^2   H = P / 16^2
+ * H*C0 + L = Y
+ * H + L/C0 = Y/C0 ~ H ( L>=C0 )
+ * L % C0 = Y % C0 ~ _ _ + + + + + +  (when L <0xCO ,L = Y%0xCO
+ */
+decode_error QRDecode::decode_kanji(uint8_t * &ptr){
+
+    const int per_char_len = 13;
+    /*initialize the count indicator*/
+    int bits = 12;
+    if(version<10)
+        bits = 8;
+    else if(version < 27)
+        bits = 10;
+
+    /*initialize the count length*/
+    int count = 0;
+    count = get_bits(bits,ptr);
+
+    /*one char = two byte*/
+    if (payload_len + count * 2 + 1 >  MAX_PAYLOAD)
+        return ERROR_DATA_OVERFLOW;
+    /*one char = 13 bits*/
+    if (bits_remaining(ptr) < count * per_char_len)
+        return ERROR_DATA_UNDERFLOW;
+
+    decode_error err = SUCCESS;
+    /*correction for L_mod_C0*/
+    const int addition[2] = {0b00000000 , 0b11000000};
+    for (int i = 0; i < count; i++){
+        /*Get My bits*/
+        int Y =get_bits(per_char_len,ptr);
+        int L_mod_C0 = Y % 0xc0; /*the real L is L_mod_C0 + addition*/
+        int H_around = Y / 0xc0; /*the real H is H_around + (L>=C0)*/
+        /*the real L and H */
+        int L = 0; int H = 0 ;
+        bool is_err = true ;
+        /*correction for L_mod */
+        for(int j = 0 ; j < 2 ; j++){
+            L = addition[j] + L_mod_C0 ;
+            H = H_around - (L>=0xc0);
+            /*check if is equal to the original bits*/
+            if(Y == H*0xc0+L){
+                is_err = false;
+                break;
+            }
+        }
+
+        if(is_err){
+            return  ERROR_UNKNOWN_DATA_TYPE;
+        }
+        /*get the subtract value */
+        uint16_t subtract = (H<<8) + L ;
+        uint16_t result = 0;
+        if (subtract + 0x8140 <= 0x9ffc) {
+            /* bytes are in the range 0x8140 to 0x9FFC */
+            result = subtract + 0x8140;
+        } else {
+            /* bytes are in the range 0xE040 to 0xEBBF */
+            result = subtract + 0xc140;
+        }
+        if(eci==UTF_8){
+            /*use iconv_open to convert coding set*/
+            const char* fromcode = getSrcMode(Shift_JIS);
+            char src_shift_jis[3]={char(result >> 8),char(result & 0xff)};
+            convert2utf8(src_shift_jis,fromcode);
+        }
+    }
+    return SUCCESS;
+}
+
+/* decode_alpha
+* params @ ptr(current bit postion)
+* func   @ decode the alpha mode
+* */
+decode_error QRDecode::decode_alpha(uint8_t * &ptr){
+    /*alpha table*/
+    static const char *alpha_map =
+            "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
+
+    int count = 0;
+    /*initialize the count indicator*/
+    int bits = 13;
+    if(version<10)
+        bits = 9;
+    else if(version < 27)
+        bits = 11;
+    /*string length*/
+    count = get_bits(bits,ptr);
+
+    if (payload_len + count + 1 > MAX_PAYLOAD){
+        return ERROR_DATA_OVERFLOW;
+    }
+    /*11bits at a time */
+    while (count >= 2) {
+        if(bits_remaining(ptr)<11)
+            return ERROR_DATA_UNDERFLOW;
+        int num = get_bits(11,ptr);
+        /*divided into to parts*/
+        int H = num/45;
+        int L = num%45;
+        payload[payload_len++] = alpha_map[H];
+        payload[payload_len++] = alpha_map[L] ;
+        count -= 2;
+    }
+    /*remaining 6 bits*/
+    if (count!=0){
+        if(bits_remaining(ptr)<6)
+            return ERROR_DATA_UNDERFLOW;
+        int num = get_bits(6,ptr);
+        payload[payload_len++] = alpha_map[num];
     }
 
     return SUCCESS;
 }
+
+/* decode_eci
+* params @ ptr(current bit postion)
+* func   @ decode the ECI mode
+* */
+decode_error QRDecode::decode_eci(uint8_t * &ptr){
+    /*ECI Assignment Number is at least 8bits*/
+    if (bits_remaining(ptr) < 8)
+        return  ERROR_DATA_UNDERFLOW;
+
+    /*get ECI Assignment Number*/
+    eci = (uint32_t)get_bits(8,ptr);
+
+    /*check the highest two bits*/
+    int codeword_value = eci & 0xc0;
+
+    if(codeword_value == 0x80){
+        /*two codeword*/
+        if (bits_remaining(ptr) < 8)
+            return ERROR_DATA_UNDERFLOW;
+        eci = (eci << 8) | get_bits(8,ptr);
+    }else if(codeword_value == 0xc0){
+        /*three codeword*/
+        if (bits_remaining(ptr) < 16)
+            return ERROR_DATA_UNDERFLOW;
+        eci = (eci << 16) | get_bits(8,ptr);
+    }
+
+    return SUCCESS;
+}
+
+
 /* decode_payload
  * params @
  * func   @ decode the data according to its corresponding mode
  * */
 decode_error QRDecode::decode_payload(){
-    decode_error err = SUCCESS;
+    decode_error err ;
+    err = SUCCESS;
     uint8_t * ptr = &final_data.ptr(0)[0];
    /*test for output*/
    // output_final_data(final_data);
-
+    eci = UTF_8;
     while(bits_remaining(ptr)>=4){
         int mode=get_bits(4,ptr);
         /*select the corresponding decode mode */
@@ -2661,13 +2959,19 @@ decode_error QRDecode::decode_payload(){
             case QR_MODE_BYTE:
                 err = decode_byte(ptr);
                 break;
-
-
+            case QR_MODE_ALPHA:
+                err = decode_alpha(ptr);
+                break;
+            case QR_MODE_KANJI:
+                err = decode_kanji(ptr);
+                break;
+            case QR_MODE_ECI:
+                err = decode_eci(ptr);
+                break;
         }
     }
-    if(err)
-        return ERROR_UNKNOWN_DATA_TYPE;
-    return SUCCESS;
+
+    return err;
 }
 
 bool QRDecode::decodingProcess()
@@ -2739,7 +3043,19 @@ bool QRDecode::decodingProcess()
 
     rearrange_blocks();
 
-    if (err != 0) { return false; }
+
+    err = decode_payload();
+
+
+
+    if (err) {
+        return false;
+    }
+
+    for (int i = 0; i < payload_len; i++)
+    {
+        result_info += payload[i];
+    }
 
     return true;
 #endif
@@ -3877,7 +4193,8 @@ bool QRCodeDetector::decodeMulti(
         for (size_t i = 0; i < straight_barcode.size(); i++)
         {
             Mat tmp_straight_qrcode;
-            tmp_straight_qrcodes.push_back(tmp_straight_qrcode);
+            tmp_straight_qrcodes.push_back(tmp_straight_qrcode);        
+
             straight_barcode[i].convertTo(((OutputArray)tmp_straight_qrcodes[i]),
                                              ((OutputArray)tmp_straight_qrcodes[i]).fixedType() ?
                                              ((OutputArray)tmp_straight_qrcodes[i]).type() : CV_32FC2);
@@ -3922,5 +4239,4 @@ bool QRCodeDetector::detectAndDecodeMulti(
     ok = decodeMulti(inarr, points, decoded_info, straight_qrcode);
     return ok;
 }
-
 }  // namespace
