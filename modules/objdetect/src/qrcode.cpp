@@ -2983,20 +2983,20 @@ decode_error QRDecode::decode_kanji(uint8_t * &ptr){
         }
         /*get the subtract value */
         uint16_t subtract = (H<<8) + L ;
-        uint16_t result = 0;
-        if (subtract + 0x8140 <= 0x9ffc) {
-            /* bytes are in the range 0x8140 to 0x9FFC */
-            result = subtract + 0x8140;
-        } else {
-            /* bytes are in the range 0xE040 to 0xEBBF */
-            result = subtract + 0xc140;
-        }
-        if(eci==UTF_8){
-            /*use iconv_open to convert coding set*/
-            //const char* fromcode = getSrcMode(Shift_JIS);
-            //char src_shift_jis[3]={char(result >> 8),char(result & 0xff)};
-            //convert2utf8(src_shift_jis,fromcode);
-        }
+//        uint16_t result = 0;
+//        if (subtract + 0x8140 <= 0x9ffc) {
+//            /* bytes are in the range 0x8140 to 0x9FFC */
+//            result = subtract + 0x8140;
+//        } else {
+//            /* bytes are in the range 0xE040 to 0xEBBF */
+//            result = subtract + 0xc140;
+//        }
+//        if(eci==UTF_8){
+//            /*use iconv_open to convert coding set*/
+//            //const char* fromcode = getSrcMode(Shift_JIS);
+//            //char src_shift_jis[3]={char(result >> 8),char(result & 0xff)};
+//            //convert2utf8(src_shift_jis,fromcode);
+//        }
     }
     return SUCCESS;
 }
@@ -3216,8 +3216,7 @@ decode_error QRDecode::decode_fnc1_second(const std::string & fnc_buffer){
 }
 
 decode_error QRDecode::decode_payload(){
-    decode_error err ;
-    err = SUCCESS;
+    decode_error err = SUCCESS;
     uint8_t * ptr = &final_data.ptr(0)[0];
    /*test for output*/
    // output_final_data(final_data);
@@ -3256,7 +3255,7 @@ decode_error QRDecode::decode_payload(){
         }
     }
 
-    return SUCCESS;
+    return err;
 
 }
 bool QRDecode::decodingProcess()
@@ -4478,7 +4477,7 @@ bool QRCodeDetector::decodeMulti(
         for (size_t i = 0; i < straight_barcode.size(); i++)
         {
             Mat tmp_straight_qrcode;
-            tmp_straight_qrcodes.push_back(tmp_straight_qrcode);        
+            tmp_straight_qrcodes.push_back(tmp_straight_qrcode);
 
             straight_barcode[i].convertTo(((OutputArray)tmp_straight_qrcodes[i]),
                                              ((OutputArray)tmp_straight_qrcodes[i]).fixedType() ?
