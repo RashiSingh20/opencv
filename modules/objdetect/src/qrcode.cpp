@@ -2046,7 +2046,6 @@ uint8_t gf_poly_eval(const Mat& poly,uint8_t x){
          * */
     int index=poly.cols-1;
     uint8_t y=poly.ptr(0)[index];
-
     for(int i =index-1;i>=0;i--){
         y = gf_mul(x,y) ^ poly.ptr(0)[i];
     }
@@ -2513,10 +2512,6 @@ void QRDecode::rearrange_blocks(){
         for(int j = 0;j <cur_ecc->data_codewords_in_G1;j++){
             rearranged_data[index]=orignal_data[i+j*offset];
 
-            if(rearranged_data[index]==71)
-                rearranged_data[index]=7;
-            if(rearranged_data[index]==3)
-                rearranged_data[index]=30;
             if(show)
                 cout<<std::setw(3)<<(int)rearranged_data[index]<<" ";
             index++;
@@ -2706,6 +2701,10 @@ bool QRDecode::samplingForVersion()
     const int delta_rows = cvRound((postIntermediate.rows * 1.0) / size);
     const int delta_cols = cvRound((postIntermediate.cols * 1.0) / size);
 
+    /*采样存入straight*/
+    straight = Mat(Size(size, size), CV_8UC1, Scalar(0));
+
+
     vector<double> listFrequencyElem;
     for (int r = 0; r < postIntermediate.rows; r += delta_rows)
     {
@@ -2736,7 +2735,6 @@ bool QRDecode::samplingForVersion()
             experimentalFrequencyElem = expVal;
         }
     }
-
     straight = Mat(Size(size, size), CV_8UC1, Scalar(0));
     for (int r = 0; r < size * size; r++)
     {
@@ -3318,6 +3316,7 @@ bool QRDecode::decodingProcess()
     if (straight.empty()) { return false; }
     size=straight.size().width;
 
+    cout<<"straight:\n"<<straight<<endl;
 
     if ((size - 17) % 4)
         return ERROR_INVALID_GRID_SIZE;
@@ -3371,7 +3370,6 @@ bool QRDecode::decodingProcess()
     }
 
     return true;
-
 }
 
 bool QRDecode::fullDecodingProcess()
