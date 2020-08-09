@@ -2459,6 +2459,12 @@ decode_error  QRDecode::correct_block(int num , int head,Mat & corrected){
 
     Mat corrected_block = error_correct(cur_block ,synd, sigma, error_index);
 
+    cout<<" @after _ data@ "<<endl;
+    for(int i = 0; i < cur_length ; i++ ){
+        cout<<std::setw(3)<<(int)corrected_block.ptr(0)[cur_length-1-i]<<" ";
+    }
+    cout<<endl;
+
     /*check once again*/
     if (block_syndromes(corrected_block,ecc_num,synd))
         return ERROR_DATA_ECC;
@@ -2473,6 +2479,7 @@ decode_error  QRDecode::correct_block(int num , int head,Mat & corrected){
  * func   @ rearrange the interleaved blocks for later codewode correction
  * */
 void QRDecode::rearrange_blocks(){
+    int show=1;
     const version_info *ver =&version_db[version];
     const  block_params *cur_ecc = &ver->ecc[ecc_code2level(ecc_level)];
 
@@ -2497,9 +2504,11 @@ void QRDecode::rearrange_blocks(){
 
 
     int cur_block_head=0;
+    cout<<"total_blocks : "<<total_blocks<<endl;
     /*get block in group1*/
     for(int i =0;i<total_blocks;i++){
-
+        if(show)
+            cout<<"\nblock "<<i << "  :  "<<endl;
         /*get the data codeword*/
         for(int j = 0;j <cur_ecc->data_codewords_in_G1;j++){
             rearranged_data[index]=orignal_data[i+j*offset];
@@ -2508,17 +2517,25 @@ void QRDecode::rearrange_blocks(){
                 rearranged_data[index]=7;
             if(rearranged_data[index]==3)
                 rearranged_data[index]=30;
+            if(show)
+                cout<<std::setw(3)<<(int)rearranged_data[index]<<" ";
             index++;
 
         }
         /*one more  col in G2*/
         if(i>=cur_ecc->num_blocks_in_G1){
             rearranged_data[index++]=orignal_data[offset_one_more+i-cur_ecc->num_blocks_in_G1];
+            if(show)
+                cout<<std::setw(3)<<(int)orignal_data[offset_one_more+i-cur_ecc->num_blocks_in_G1]<<" ";
         }
 
+        if(show)
+            cout<<std::setw(3)<<"|"<<" ";
         /*get the ecc codeword*/
         for(int j = 0;j <cur_ecc->ecc_codewords;j++){
             rearranged_data[index++]=orignal_data[offset_ecc+i+j*offset];
+            if(show)
+                cout<<std::setw(3)<<(int)orignal_data[offset_ecc+i+j*offset]<<" ";
         }
 
         Mat  corrected;
@@ -3329,6 +3346,9 @@ bool QRDecode::decodingProcess()
     u_int8_t fdata = my_format >> 10;
     ecc_level = fdata >> 3;
     mask_type = fdata & 7;
+
+    cout<<"data->mask : "<< mask_type<<"\ndata->ecc_level : "<< ecc_level<<endl;
+    cout<<"data->version : "<< version<<endl;
 
     unmask_data();
 
