@@ -3018,7 +3018,7 @@ decode_error QRDecode::decode_kanji(uint8_t * &ptr){
             /* bytes are in the range 0xE040 to 0xEBBF */
             result = subtract + 0xc140;
         }
-	payload[payload_len++] = result >> 8;
+        payload[payload_len++] = result >> 8;
         payload[payload_len++] = result & 0xff;
 //        if(eci==UTF_8){
 //            /*use iconv_open to convert coding set*/
