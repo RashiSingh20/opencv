@@ -1776,7 +1776,7 @@ protected:
     bool updatePerspective();
     bool versionDefinition();
     bool samplingForVersion();
-    bool decodingProcess();
+    decode_error decodingProcess();
 
     decode_error read_format(uint16_t& format,int which);
     decode_error correct_format(uint16_t& format);
@@ -2919,7 +2919,7 @@ decode_error QRDecode::decode_byte(uint8_t * &ptr){
     for (int i = 0; i < count; i++){
         int tmp =get_bits(8,ptr);
         if(!strcmp(fromcode , "UTF−8")){
-            fnc_buffer+=tmp;
+            fnc_buffer+=char(tmp);
         }
         else{
             //char src_shift_jis[3]={char(tmp)};
@@ -3007,7 +3007,7 @@ decode_error QRDecode::decode_kanji(uint8_t * &ptr){
             return  ERROR_UNKNOWN_DATA_TYPE;
         }
         /*get the subtract value */
-        uint16_t subtract = (H<<8) + L ;
+        uint16_t subtract =uint16_t((H<<8) + L);
         uint16_t result = 0;
         if (subtract + 0x8140 <= 0x9ffc) {
             /* bytes are in the range 0x8140 to 0x9FFC */
@@ -3309,12 +3309,12 @@ decode_error QRDecode::decode_payload(){
     return err;
 
 }
-bool QRDecode::decodingProcess()
+decode_error QRDecode::decodingProcess()
 {
     decode_error err;
     uint16_t my_format=0;
     if (straight.empty()) { return false; }
-    size=straight.size().width;
+    size=uint8_t(straight.size().width);
 
     cout<<"straight:\n"<<straight<<endl;
 
@@ -3355,21 +3355,16 @@ bool QRDecode::decodingProcess()
 
     rearrange_blocks();
 
-
     err = decode_payload();
 
-
-
     if (err) {
-        return false;
+        return err;
     }
 
-    for (int i = 0; i < payload_len; i++)
-    {
+    for (int i = 0; i < payload_len; i++){
         result_info += payload[i];
     }
-
-    return true;
+    return SUCCESS;
 }
 
 bool QRDecode::fullDecodingProcess()
@@ -3377,7 +3372,7 @@ bool QRDecode::fullDecodingProcess()
     if (!updatePerspective())  { return false; }
     if (!versionDefinition())  { return false; }
     if (!samplingForVersion()) { return false; }
-    if (!decodingProcess())    { return false; }
+    if (decodingProcess()!=SUCCESS)    { return false; }
     return true;
 }
 
