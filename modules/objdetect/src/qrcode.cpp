@@ -12,9 +12,7 @@
 #include "opencv2/objdetect.hpp"
 #include "opencv2/calib3d.hpp"
 
-#ifdef HAVE_QUIRC
-#include "quirc.h"
-#endif
+
 
 #include <limits>
 #include <cmath>
@@ -134,6 +132,7 @@ int get_bits(const int& bits,uint8_t * & ptr);
 void find_AI(const std::string & fnc1_AI, int & index,bool & is_find);
 void output_final_data(const Mat& data);
 const char * getSrcMode(const int& eci_mode);
+void load_string(uint8_t * payload,int& len,const std::string &str );
 
 const char * getSrcMode(const int& eci_mode){
     switch (eci_mode){
@@ -196,6 +195,16 @@ const char * getSrcMode(const int& eci_mode){
         default:
             return "UTF−8";
     }
+}
+/*
+ *params@  payload payload_len input str
+ *func@ add a str into the payload
+ */
+void load_string(uint8_t * payload,int& len,const std::string &str ){
+    for(int i = 0; i <(int)str.length();i++){
+        payload[len++]=uint8_t (str[i]);
+    }
+    return;
 }
 
 /*total codewords are divided into two groups
@@ -1785,6 +1794,7 @@ protected:
     decode_error decode_byte( uint8_t * &ptr);
     decode_error decode_alpha( uint8_t * &ptr);
     decode_error decode_eci(uint8_t * &ptr);
+    decode_error decode_structure(uint8_t * &ptr);
 
     decode_error decode_fnc1_first(const std::string & fnc_buffer);
     decode_error decode_fnc1_second(const std::string & fnc_buffer);
@@ -2863,14 +2873,8 @@ decode_error QRDecode::decode_numeric(uint8_t * &ptr){
             if(cur_pos >= (int)fnc_buffer.length()){
                 break;
             }
-
         }
-
     }
-
-
-
-
     return SUCCESS;
 
 }
@@ -2884,9 +2888,7 @@ decode_error QRDecode::decode_byte(uint8_t * &ptr){
     /*check version to update the bit counter*/
     if(version>9)
         bits=16;
-
     std::string fnc_buffer = "";
-
     count = get_bits(bits,ptr);
 
     if (payload_len + count + 1 > MAX_PAYLOAD){
@@ -2910,12 +2912,20 @@ decode_error QRDecode::decode_byte(uint8_t * &ptr){
         }
     }
     if(fnc1_first){
-        decode_fnc1_first(fnc_buffer);
+        if(payload_len == 0)
+            load_string(payload,payload_len,"]Q3");
+        for (int i = 0; i < (int) fnc_buffer.length(); i++) {
+            payload[payload_len++] = uint8_t(fnc_buffer[i]);
+        }
     }
     else if(fnc1_second){//
-
+        if(payload_len == 0)
+            load_string(payload,payload_len,"]Q5");
+        for (int i = 0; i < (int) fnc_buffer.length(); i++) {
+            payload[payload_len++] = uint8_t(fnc_buffer[i]);
+        }
     }
-    else {//if (!fnc1_first)
+    else {
         for (int i = 0; i < (int) fnc_buffer.length(); i++) {
             payload[payload_len++] = uint8_t(fnc_buffer[i]);
         }
@@ -2983,14 +2993,16 @@ decode_error QRDecode::decode_kanji(uint8_t * &ptr){
         }
         /*get the subtract value */
         uint16_t subtract = (H<<8) + L ;
-//        uint16_t result = 0;
-//        if (subtract + 0x8140 <= 0x9ffc) {
-//            /* bytes are in the range 0x8140 to 0x9FFC */
-//            result = subtract + 0x8140;
-//        } else {
-//            /* bytes are in the range 0xE040 to 0xEBBF */
-//            result = subtract + 0xc140;
-//        }
+        uint16_t result = 0;
+        if (subtract + 0x8140 <= 0x9ffc) {
+            /* bytes are in the range 0x8140 to 0x9FFC */
+            result = subtract + 0x8140;
+        } else {
+            /* bytes are in the range 0xE040 to 0xEBBF */
+            result = subtract + 0xc140;
+        }
+	payload[payload_len++] = result >> 8;
+        payload[payload_len++] = result & 0xff;
 //        if(eci==UTF_8){
 //            /*use iconv_open to convert coding set*/
 //            //const char* fromcode = getSrcMode(Shift_JIS);
@@ -3045,18 +3057,41 @@ decode_error QRDecode::decode_alpha(uint8_t * &ptr){
         int num = get_bits(6,ptr);
         fnc_buffer+=alpha_map[num];// payload[payload_len++] = alpha_map[num];
     }
-    if(!fnc1_first) {
-        for(int i = 0 ; i < (int)fnc_buffer.length();i++){
+
+    if(fnc1_first){
+        if(payload_len == 0)
+            load_string(payload,payload_len,"]Q3");
+        for (int i = 0; i < (int) fnc_buffer.length(); i++) {
             payload[payload_len++] = uint8_t(fnc_buffer[i]);
         }
     }
-    else{
-        decode_fnc1_first(fnc_buffer);
+    else if(fnc1_second){//
+        if(payload_len == 0)
+            load_string(payload,payload_len,"]Q5");
+        for (int i = 0; i < (int) fnc_buffer.length(); i++) {
+            payload[payload_len++] = uint8_t(fnc_buffer[i]);
+        }
     }
-
+    else {
+        for (int i = 0; i < (int) fnc_buffer.length(); i++) {
+            payload[payload_len++] = uint8_t(fnc_buffer[i]);
+        }
+    }
     return SUCCESS;
 }
-
+decode_error QRDecode::decode_structure(uint8_t * &ptr){
+    /*two Structured Append codewords follows indicators
+     *  The first codeword is symbol sequence indicator
+     *  the second one is parity data,
+     *      which is identical in all append message to enable all readable symbols are part of the same Structured Append message*/
+    if(bits_remaining(ptr)<16)
+        return ERROR_DATA_UNDERFLOW;
+    int sequence_indicator = get_bits(8,ptr);
+    int parity_data = get_bits(8,ptr);
+    cout<<"sequence_indicator : "<<sequence_indicator<<endl;
+    cout<<"parity_data : "<<parity_data<<endl;
+    return  SUCCESS;
+}
 /* decode_eci
 * params @ ptr(current bit postion)
 * func   @ decode the ECI mode
@@ -3152,7 +3187,6 @@ decode_error QRDecode::decode_fnc1_first(const std::string & fnc_buffer){
                 fnc1_AI+=fnc_buffer[cur_pos++];
                 find_AI(fnc1_AI, index,is_find);
                 cout<<"fnc1_AI : "<<fnc1_AI<<endl;
-
             }
         }
         if(!is_find){
@@ -3166,7 +3200,6 @@ decode_error QRDecode::decode_fnc1_first(const std::string & fnc_buffer){
             payload[payload_len++] = uint8_t(cur_AI->Data_title[i]);
         }
         payload[payload_len++] = uint8_t(':');
-
         /*load from the buffer*/
         load_from_buffer(fnc_buffer,cur_AI->data[0],cur_pos,AI_over);
         if(AI_over){
@@ -3234,6 +3267,9 @@ decode_error QRDecode::decode_payload(){
             case QR_MODE_ALPHA:
                 err = decode_alpha(ptr);
                 break;
+            case QR_MODE_STRUCTURE:
+                err = decode_structure(ptr);
+                break;
             case QR_MODE_BYTE:
                 err = decode_byte(ptr);
                 break;
@@ -3260,33 +3296,6 @@ decode_error QRDecode::decode_payload(){
 }
 bool QRDecode::decodingProcess()
 {
-#ifdef HAVE_QUIRC
-    if (straight.empty()) { return false; }
-
-    quirc_code qr_code;
-    memset(&qr_code, 0, sizeof(qr_code));
-
-    qr_code.size = straight.size().width;
-    for (int x = 0; x < qr_code.size; x++)
-    {
-        for (int y = 0; y < qr_code.size; y++)
-        {
-            int position = y * qr_code.size + x;
-            qr_code.cell_bitmap[position >> 3]
-                |= straight.ptr<uint8_t>(y)[x] ? 0 : (1 << (position & 7));
-        }
-    }
-
-    quirc_data qr_code_data;
-    quirc_decode_error_t errorCode = quirc_decode(&qr_code, &qr_code_data);
-    if (errorCode != 0) { return false; }
-
-    for (int i = 0; i < qr_code_data.payload_len; i++)
-    {
-        result_info += qr_code_data.payload[i];
-    }
-    return true;
-#else
     decode_error err;
     uint16_t my_format=0;
     if (straight.empty()) { return false; }
@@ -3342,26 +3351,16 @@ bool QRDecode::decodingProcess()
     }
 
     return true;
-#endif
+
 }
 
 bool QRDecode::fullDecodingProcess()
 {
-#ifdef HAVE_QUIRC
     if (!updatePerspective())  { return false; }
     if (!versionDefinition())  { return false; }
     if (!samplingForVersion()) { return false; }
     if (!decodingProcess())    { return false; }
     return true;
-#else
-    if (!updatePerspective())  { return false; }
-    if (!versionDefinition())  { return false; }
-    if (!samplingForVersion()) { return false; }
-    if (!decodingProcess())    { return false; }
-    return true;
-    std::cout << "Library QUIRC is not linked. No decoding is performed. Take it to the OpenCV repository." << std::endl;
-    return false;
-#endif
 }
 
 bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode)
