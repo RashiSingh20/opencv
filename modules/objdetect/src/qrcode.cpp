@@ -3342,7 +3342,7 @@ decode_error QRDecode::decodingProcess()
 
     /*EC level （1-2）+Mask(3-5) + EC for this string( 6-15) */
     /*get rid of the ecc_code*/
-    u_int8_t fdata = my_format >> 10;
+    uint8_t fdata = my_format >> 10;
     ecc_level = fdata >> 3;
     mask_type = fdata & 7;
 
