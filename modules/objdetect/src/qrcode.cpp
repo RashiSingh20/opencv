@@ -3313,7 +3313,7 @@ decode_error QRDecode::decodingProcess()
 {
     decode_error err;
     uint16_t my_format=0;
-    if (straight.empty()) { return false; }
+    if (straight.empty()) { return ERROR_INVALID_GRID_SIZE; }
     size=uint8_t(straight.size().width);
 
     cout<<"straight:\n"<<straight<<endl;
