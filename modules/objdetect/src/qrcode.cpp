@@ -2178,7 +2178,7 @@ void QRDecode:: unmask_data(){
     const struct version_info *ver = &version_db[version];
     unmasked_data=straight.clone();
     /*get mask pattern according to the format*/
-    int mask_pattren=mask_type;
+
 
     for(int i= 0;i<size;i++){
         for(int j= 0;j<size;j++){
@@ -2200,14 +2200,14 @@ void QRDecode:: unmask_data(){
                     unmasked_data.ptr(i)[j]=INVALID_REGION;
             }
                 /*unmask*/
-            else if((mask_pattren==0&&!((i + j) % 2)) ||
-                    (mask_pattren==1&&!(i % 2)) ||
-                    (mask_pattren==2&&!(j % 3)) ||
-                    (mask_pattren==3 && !((i + j) % 3 )) ||
-                    (mask_pattren==4&&!(((i / 2) + (j / 3)) % 2)) ||
-                    (mask_pattren==5&&!((i * j) % 2 + (i * j) % 3))||
-                    (mask_pattren==6&&!(((i * j) % 2 + (i * j) % 3) % 2))||
-                    ((mask_pattren==7 && !(((i * j) % 3 + (i + j) % 2) % 2)))
+            else if((mask_type==0&&!((i + j) % 2)) ||
+                    (mask_type==1&&!(i % 2)) ||
+                    (mask_type==2&&!(j % 3)) ||
+                    (mask_type==3 && !((i + j) % 3 )) ||
+                    (mask_type==4&&!(((i / 2) + (j / 3)) % 2)) ||
+                    (mask_type==5&&!((i * j) % 2 + (i * j) % 3))||
+                    (mask_type==6&&!(((i * j) % 2 + (i * j) % 3) % 2))||
+                    ((mask_type==7 && !(((i * j) % 3 + (i + j) % 2) % 2)))
                     ){
                 unmasked_data.ptr(i)[j]^=255;
             }
@@ -4794,7 +4794,7 @@ void QREncoder::ecc_correction(vector<Mat>& data_blocks,vector<Mat>& ecc_blocks)
         /**get the data codeword*/
         Block_i = Mat(Size(block_len,1),CV_8UC1,Scalar(0));
         for(int j = 0 ;j < block_len; j++){
-            Block_i.ptr(0)[block_len-1-j] = get_bits(8,pay_ptr);
+            Block_i.ptr(0)[block_len-1-j] = (uchar)get_bits(8,pay_ptr);
             if(is_show){
                 cout<<std::setw(3)<<(int)Block_i.ptr(0)[block_len-1-j]<<" ";
             }
@@ -4920,7 +4920,6 @@ void QREncoder::mask_data(){
  */
 void QREncoder::write_reserved_area(){
     /*get mask pattern according to the format*/
-    int mask_pattren=mask_type;
     int locator_position[2] = { 3 , version_size -1 -3 };
     /**draw locator pattern*/
     for (int a = 0 ; a < 2 ; a++ ){
@@ -4989,8 +4988,8 @@ void QREncoder::write_reserved_area(){
     /** Exclude alignment patterns */
     for (int a = 0; a < MAX_ALIGNMENT && ver->apat[a]; a++) {
         for (int p = a; p < MAX_ALIGNMENT && ver->apat[p]; p++) {
-            int x=ver->apat[a];
-            int y=ver->apat[p];
+            x=ver->apat[a];
+            y=ver->apat[p];
             /*the alignment patterns MUST NOT overlap the finder patterns or separators*/
             if(original.ptr(x)[y]==INVALID_REGION)
                 continue;
@@ -5074,7 +5073,7 @@ void QREncoder::write_data(){
 void QREncoder::fill_reserved(){
     /**write to the left-bottom and upper-right */
     cout<<"@@fill_reserved@@"<<endl;
-    int i , j ;
+    int i  ;
     /**format area*/
     if(version<7){
         /*left-bottom 0-7*/
@@ -5123,7 +5122,7 @@ Mat QREncoder::QRcode_generate(){
     structure_final_message();
 
     resize(masked_data,tmp,Size(600,600),0,0,INTER_AREA);
-    int border = tmp.cols*0.05;
+    int border = int(tmp.cols*0.05);
     copyMakeBorder(tmp, tmp, border, border, border, border, BORDER_CONSTANT, Scalar(255));
     return tmp;
 }
