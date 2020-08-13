@@ -2171,6 +2171,21 @@ Mat gf_poly_div(const Mat& dividend,const Mat& divisor,const int& ecc_num) {
     return ecc;
 }
 
+Mat poly_generator(const int & n ){
+    Mat result = (Mat_<uint8_t >(1,1)<<1);
+    Mat temp =   (Mat_<uint8_t >(1,2)<<1,1);
+
+    CV_Assert(n>=2);
+    //cout<<"G("<<n<<") : "<<show_poly(result)<<endl;
+
+    for(int i = 1; i <= n; i++){
+        temp.ptr(0)[0]=gf_pow(2,i-1);
+        //cout<<i<<" : "<<show_poly(temp,ALPHA)<<endl;
+        result = gf_poly_mul(result,temp);
+    }
+    cout<<"G("<<n<<") : "<<show_poly(result,ALPHA)<<endl;
+    return result;
+}
 /*unmask_data
  *func @  unmask the data and make the pixels in the reserved area Scalar(INVALID_REGION)
  */
@@ -4573,7 +4588,7 @@ class QREncoder{
     Mat masked_data;
 
     uint32_t eci;
-    uint32_t fnc1_second_AI;
+    //uint32_t fnc1_second_AI;
     bool fnc1_first;
     bool fnc1_second;
     /**basic information */
