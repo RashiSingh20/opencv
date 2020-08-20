@@ -4791,7 +4791,7 @@ bool QREncoder::encode_numeric(){
  * */
 bool QREncoder::encode_kanji(){
 
-    const int per_char_len = 13;
+    //const int per_char_len = 13;
     /*initialize the count indicator*/
     int bits = 12;
     if(version<10)
