@@ -1969,8 +1969,9 @@ void QRDecode::read_bit(int x, int y, int& count){
     int v = (unmasked_data.ptr(y)[x]==0);
 
     /* first read,first lead*/
-    if (v)
+    if (v){
         orignal_data[bytepos] |= (0x80 >> bitpos);
+    }
     count++;
 }
 
@@ -2430,6 +2431,7 @@ Mat error_correct(const Mat & msg_in ,const vector<uint8_t>&synd,const Mat & e_l
 
         uint8_t numerator = gf_poly_eval(Omega, xinv);
 
+
         /*divded them to get the magnitude*/
         uint8_t error_magnitude = gf_div(numerator,denominator);
         msg_out.ptr(0)[error_index[i]]^=error_magnitude;
@@ -2515,6 +2517,7 @@ void QRDecode::rearrange_blocks(){
     int offset_ecc= cur_ecc->data_codewords_in_G1*cur_ecc->num_blocks_in_G1
                     +
                     cur_ecc->data_codewords_in_G2*cur_ecc->num_blocks_in_G2;
+
 
     final_data=Mat(1,offset_ecc*8,CV_8UC1,Scalar(0)).clone();
 
@@ -3347,7 +3350,7 @@ bool QRDecode::decodingProcess()
     bool err;
     uint16_t my_format=0;
     if (straight.empty()) { return false; }
-    size=straight.size().width;
+    size=uint8_t(straight.size().width);
 
 
     if ((size - 17) % 4){
@@ -4695,8 +4698,8 @@ void QREncoder::encode_alpha(){
     /**encode data*/
     int i;
     for( i = 0 ; i < str_len ; i+=2 ){
-        int index_1 = alpha_map.find(input_info[i]);
-        int index_2 = alpha_map.find(input_info[i+1]);
+        int index_1 = (int)alpha_map.find(input_info[i]);
+        int index_2 = (int)alpha_map.find(input_info[i+1]);
 
         int result = index_1*45 + index_2;
 
@@ -4705,7 +4708,7 @@ void QREncoder::encode_alpha(){
     }
     /**last character*/
     if( i %2 !=0 ){
-        int index = alpha_map.find(input_info[i-1]);
+        int index = (int)alpha_map.find(input_info[i-1]);
         std::string per_byte = dec2bin(index,6);
         load_string(payload,payload_len,per_byte, true);
     }
