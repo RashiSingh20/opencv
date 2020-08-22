@@ -1895,7 +1895,7 @@ QRDecode::QRDecode(){
         int my_size = (int)size;
         Mat mat_format(1,FORMAT_LENGTH,CV_8UC1,Scalar(0));
 
-        cout<<"straight : \n"<<straight<<endl;
+        //cout<<"straight : \n"<<straight<<endl;
 
 
         /*read from the left-bottom and upper-right */
@@ -1905,24 +1905,19 @@ QRDecode::QRDecode(){
         const int ys[2][FORMAT_LENGTH] = {{my_size-1,my_size-2,my_size-3,my_size-4,my_size-5,my_size-6,my_size-7,my_size-8,8, 8, 8, 8, 8, 8, 8 },
                                                  {8,   8, 8, 8, 8, 8, 8,     8,     7,     5,     4,     3,     2,     1,     0}} ;//{{8, 8, 8, 8, 8, 8, 8, 8,size-7,size-6,size-5,size-4,size-3,size-2,size-1},
                                                 // {0     , 1    , 2    , 3    , 4    , 5    , 7    , 8, 8, 8, 8, 8, 8, 8, 8}
-        for(int j = 0 ; j < 2 ; j++){
-            for(int i = 0 ; i < FORMAT_LENGTH ; i++ ){
-                cout<<"("<<xs[j][i]<<","<<ys[j][i]<<") ";
-            }
-            cout<<endl;
-        }
+
         int round = 0;
         bool err;
 
         for(round = 0 ; round < 2 ; round ++ ){
-            std::cout<<"format: round [ "<< round << "]\n";
+            //std::cout<<"format: round [ "<< round << "]\n";
 
             for (i = 0; i <FORMAT_LENGTH; i++) {
                 uint8_t value=(straight.ptr<uint8_t>(ys[round][i])[xs[round][i]]==0);
-                cout<<i<<"  pos : ("<<xs[round][i]<<","<<ys[round][i]<<") value : "<<(straight.ptr<uint8_t>(ys[round][i])[xs[round][i]]==0)<<" \n";
+                //cout<<i<<"  pos : ("<<xs[round][i]<<","<<ys[round][i]<<") value : "<<(straight.ptr<uint8_t>(ys[round][i])[xs[round][i]]==0)<<" \n";
                 my_format = my_format*2 + value ;
             }
-            cout<<endl;
+            //cout<<endl;
             err = correct_format(my_format);
             if(!err){
                 my_format = 0 ;
