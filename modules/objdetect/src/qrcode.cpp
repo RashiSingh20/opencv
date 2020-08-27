@@ -24,7 +24,7 @@ const int   max_payload_len = 8896;
 const int max_format_length = 15;
 const int  max_version = 40;
 const int  max_alignment = 7;
-const int  max_poly = 64;
+//const int  max_poly = 64;
 const int  error_mode_occur = 99999;
 /*for the reserved value when reading the data*/
 const int invalid_region_value = 110;
