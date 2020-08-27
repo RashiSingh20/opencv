@@ -2235,9 +2235,9 @@ Mat findErrorLocator(const vector<uint8_t>&synd,size_t & errors_len){
     /*initialize two arrays b and c ,to be zeros , expcet b0<- 1 c0<- 1*/
     size_t synd_num =synd.size();
     /*err_loc & Sigma*/
-    Mat C(1,synd_num,CV_8UC1,Scalar(0));
+    Mat C(1,(int)synd_num,CV_8UC1,Scalar(0));
     /*old_loc */
-    Mat B(1,synd_num,CV_8UC1,Scalar(0));//a copy of the last C
+    Mat B(1,(int)synd_num,CV_8UC1,Scalar(0));//a copy of the last C
 
     B.ptr(0)[0]=1;
     C.ptr(0)[0]=1;
@@ -2253,7 +2253,7 @@ Mat findErrorLocator(const vector<uint8_t>&synd,size_t & errors_len){
             delta ^= gfMul(C.ptr(0)[j], synd[i - j]);
         }
         /*shift = x^m*/
-        Mat shift(1,synd_num,CV_8UC1,Scalar(0));
+        Mat shift(1,(int)synd_num,CV_8UC1,Scalar(0));
         shift.ptr(0)[m]=1;
         /*scale_coeffi = d/b */
         Mat scale_coeffi = gfPolyScaling(shift,gfMul(delta,gfInverse(b)));
@@ -2335,7 +2335,7 @@ Mat errorCorrect(const Mat & msg_in ,const vector<uint8_t>&synd,const Mat & e_lo
     size_t err_len= error_index.size();
     Mat msg_out = msg_in.clone() ;
 
-    Mat syndrome(1,border,CV_8UC1,Scalar(0));
+    Mat syndrome(1,(int)border,CV_8UC1,Scalar(0));
     /*change syndrom to mat from calculation*/
     for(size_t i = 1 ; i < border ; i++){
         syndrome.ptr(0)[i]=synd[i];
@@ -2345,7 +2345,7 @@ Mat errorCorrect(const Mat & msg_in ,const vector<uint8_t>&synd,const Mat & e_lo
     Mat Omega= gfPolyMul(syndrome,e_loc_poly);
 
     /*get rid of the first zero ! */
-    Omega = Omega(Range(0,1),Range(1,border));
+    Omega = Omega(Range(0,1),Range(1,(int)border));
 
     /*Second use Forney algorithm to compute the magnitudes*/
 
@@ -2676,7 +2676,7 @@ int getBits(const int& bits,const vector<uint8_t>& payload , int &pay_index){
  * */
 int QRDecode::remainingBitsCount(const int &index)
 {
-    return (final_data.size()-1 - index);
+    return ((int)final_data.size()-1 - index);
 }
 /* numericDecoding
  * params @ ptr(current bit postion)
@@ -3148,7 +3148,7 @@ bool QRDecode::decodeCurrentStream(){
         /*select the corresponding decode mode */
         switch (mode){
             case QR_MODE_NUL:
-                index = final_data.size()-1;
+                index = (int)final_data.size()-1;
                 break;
             case QR_MODE_NUM:
                 err = numericDecoding(index);
