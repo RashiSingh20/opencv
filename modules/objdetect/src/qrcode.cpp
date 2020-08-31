@@ -4831,7 +4831,7 @@ bool QREncoder::versionEstimate(const int &input_length,vector<int>&possible_ver
 
 int QREncoder::versionAuto(const std::string & input_str){
     vector<int> possible_version;
-    versionEstimate(input_str.length(),possible_version);
+    versionEstimate((int)input_str.length(),possible_version);
     int v = 0;
     vector<uint8_t> payload_tmp;
     int version_range[5]={0,1,10,27,41};
@@ -4847,7 +4847,7 @@ int QREncoder::versionAuto(const std::string & input_str){
             v = 27;
         }
         encodeAuto(input_str,payload_tmp);
-        v = findVersionCapacity(payload_tmp.size(),ecc_level,
+        v = findVersionCapacity((int)payload_tmp.size(),ecc_level,
                                             version_range[version_range_index],version_range[version_range_index+1]);
         if(v!= -1)
             break;
@@ -4874,13 +4874,13 @@ QREncoder::QREncoder(const std::string& input ,int mode,int v  = 0 ,int ecc = 0 
         /**can't be over 16*/
         if(struct_num>16)
             struct_num = 16;
-        total_num = struct_num - 1 ;
+        total_num =(uint8_t)struct_num - 1 ;
 
     }
 
-    int segment_len = ceil((int)input.length()/struct_num);
+    int segment_len = (int)ceil((int)input.length()/struct_num);
     for(int i = 0; i < struct_num ; i ++){
-        sequence_num = i;
+        sequence_num = (uint8_t)i;
         /**get the sub string for structure mode*/
         int segment_begin = i * segment_len;
         int segemnt_end   = min( (i+1)*segment_len ,(int)input.length()) -1 ;
@@ -5211,7 +5211,7 @@ bool QREncoder::generateBlock(const std::string& input , int mode ,struct method
             result = encodeKanji(input,block.block_load );
             break;
     }
-    block.block_load_len = block.block_load.size();
+    block.block_load_len = (int)block.block_load.size();
     return  result;
 }
 
@@ -5226,7 +5226,7 @@ struct encodingMethods{
     int sum_len(){
         int bits_len = 0 ;
         for(size_t i = 0 ; i < blocks.size(); i++ ){
-            bits_len += blocks[i].block_load.size();
+            bits_len += (int)blocks[i].block_load.size();
         }
         return bits_len;
     }
@@ -5337,13 +5337,13 @@ void QREncoder::padBitStream(){
     /**total data codeword = total codeword - total ecc codeword*/
     int total_data = version_info->total_codewords - cur_ecc_params->ecc_codewords*(cur_ecc_params->num_blocks_in_G1+cur_ecc_params->num_blocks_in_G2);
     total_data *=8;
-    int pad_num = total_data - payload.size();
+    int pad_num = total_data - (int)payload.size();
     //CV_Assert(pad_num>=0);
     if(pad_num <= 0)
         return;
     else if (pad_num <= 4){
         /** Add a Terminator of 0s (for padding)*/
-        std::string pad = decToBin(0,payload.size());
+        std::string pad = decToBin(0,(int)payload.size());
         loadString(pad,payload, true);
     }
     else{
@@ -5356,7 +5356,7 @@ void QREncoder::padBitStream(){
             loadString(pad,payload, true);
         }
 
-        pad_num = total_data - payload.size();
+        pad_num = total_data - (int)payload.size();
         CV_Assert(pad_num>=0);
         if( pad_num > 0 ){
             /**Add Pad Bytes if the String is Still too Short*/
