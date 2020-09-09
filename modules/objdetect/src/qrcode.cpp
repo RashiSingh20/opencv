@@ -16,6 +16,7 @@
 #include <queue>
 #include <limits>
 #include <iomanip>
+#include <memory>
 
 namespace cv
 {
@@ -35,6 +36,7 @@ const int  codeword_len = 8;
  * Encoding mode.
  */
 typedef enum {
+    QR_MODE_AUTO       = -1    , ///< Terminator (NUL character). Internal use only
     QR_MODE_NUL        = 0b0000,   ///< Terminator (NUL character). Internal use only
     QR_MODE_ECI        = 0b0111,        ///< ECI mode
     QR_MODE_NUM        = 0b0001,    ///< Numeric mode
@@ -47,70 +49,232 @@ typedef enum {
 } QRencodeMode;
 
 
-enum ENCODING_SET {
-    CP437 = 0,  // (Cp437 0)
-    ISO_8859_1, // (ECI codes 1)
-    CP437_,     // (Cp437 2
-    ISO_8859_1_,// (ECI codes 3)
-    ISO_8859_2, // (ECI code 4)
-    ISO_8859_3, // (ECI code 5)
-    ISO_8859_4, // (ECI code 6)
-    ISO_8859_5, // (ECI code 7)
-    ISO_8859_6, // (ECI code 8)
-    ISO_8859_7, // (ECI code 9)
-    ISO_8859_8, // (ECI code 10)
-    ISO_8859_9, // (ECI code 11)
-    ISO_8859_10, //(ECI code 12)
-    ISO_8859_11, //(ECI code 13)
-    ISO_8859_13 =15 , //(ECI code 15)
-    ISO_8859_14, //(ECI code 16)
-    ISO_8859_15, //(ECI code 17)
-    ISO_8859_16, //(ECI code 18)
-    Shift_JIS =20 ,   //(ECI code 20)
-    CP1250,      // windows_1250,//(ECI code 21)
-    CP1251,      // windows_1251,//(ECI code 22)
-    CP1252,      // windows_1252,//(ECI code 23)
-    CP1256,      // windows_1256,//(ECI code 24)
-    UTF_16BE,    // UnicodeBig,UnicodeBigUnmarked,  (ECI code 25)
-    UTF_8,       //(ECI code 26)
-    US_ASCII,    //(ECI codes 27,170)
-    Big5,        //(ECI code 28)
-    GBK,         //GB18030, GB2312, EUC_CN, (ECI code 29)
-    EUC_KR       //(ECI code 30)
+enum EncodingSet {
+    CP437 = 0,  //! (Cp437 0)
+    ISO_8859_1, //! (ECI codes 1)
+    CP437_,     //! (Cp437 2
+    ISO_8859_1_,//! (ECI codes 3)
+    ISO_8859_2, //! (ECI code 4)
+    ISO_8859_3, //! (ECI code 5)
+    ISO_8859_4, //! (ECI code 6)
+    ISO_8859_5, //! (ECI code 7)
+    ISO_8859_6, //! (ECI code 8)
+    ISO_8859_7, //! (ECI code 9)
+    ISO_8859_8, //! (ECI code 10)
+    ISO_8859_9, //! (ECI code 11)
+    ISO_8859_10, //!(ECI code 12)
+    ISO_8859_11, //!(ECI code 13)
+    ISO_8859_13 =15 , //!(ECI code 15)
+    ISO_8859_14, //!(ECI code 16)
+    ISO_8859_15, //!(ECI code 17)
+    ISO_8859_16, //!(ECI code 18)
+    Shift_JIS =20 ,   //!(ECI code 20)
+    CP1250,      //! windows_1250,//(ECI code 21)
+    CP1251,      //! windows_1251,//(ECI code 22)
+    CP1252,      //! windows_1252,//(ECI code 23)
+    CP1256,      //! windows_1256,//(ECI code 24)
+    UTF_16BE,    //! UnicodeBig,UnicodeBigUnmarked,  (ECI code 25)
+    UTF_8,       //!(ECI code 26)
+    US_ASCII,    //!(ECI codes 27,170)
+    Big5,        //!(ECI code 28)
+    GBK,         //!GB18030, GB2312, EUC_CN, (ECI code 29)
+    EUC_KR       //!(ECI code 30)
 };
 using std::vector;
 
+/**@brief  convert a dec to bin
+ * @params my_format A decimal number
+ * @return a binary string for print
+ * */
 std::string decToBin(uint16_t my_format);
+
+/**
+ * @params my_format A decimal number
+ * @params total The total length of the output string
+ * @return a binary string for print
+ * */
 std::string decToBin(const int &format, const int &total);
 
+/**@brief make the ecc_level more direct
+ * @param code Code value of ECC
+ * @return the actual code value of ecc_level
+ * */
 int eccCodeToLevel(int code);
+
+/**@brief make the ecc_level more direct
+ * @param level ECC level
+ * @return the actual code value of ecc_level
+ * */
 int eccLevelToCode(int level);
 
+/**
+ * @brief exponentiation operator
+ * @param  x
+ * @param  power
+ * @return x^power
+ * @note EXP:
+ *     (a^n)^x =a^(x+n)
+ * */
 uint8_t gfPow(uint8_t x , int power);
 uint8_t gfInverse(uint8_t x);
+
+/**@brief multiplication in GF
+ * @param x
+ * @param y
+ * @return x * y
+ * @note EXP:
+ *     a^x * a^y =a^(x+y)
+ */
 uint8_t gfMul(const uint8_t &x,const uint8_t& y);
+
+/**@brief division in GF
+ * @param x
+ * @param y
+ * @return x / y
+ * @note EXP:
+ *     a^x / a^y =a^(x-y)=a^(x+255-y)
+ */
 uint8_t gfDiv(const uint8_t &x,const uint8_t& y);
+
+/**
+ * @brief evaluate a polynomial at a particular value of x, producing a scalar result
+ * @param poly 15bit format_Info
+ * @param x The input scalar
+ * @return result
+ * @note
+ *  using the Horner's method here:
+ *   01 x4 + 0f x3 + 36 x2 + 78 x + 40 = (((01 x + 0f) x + 36) x + 78) x + 40
+ *  doing this by simple addition and multiplication
+ * */
 uint8_t gfPolyEvaluate(const Mat& poly,uint8_t x);
-Mat gfPolyScaling(const Mat & p,int scalar);
+
+/**
+ * @brief  multiply a polynomial by a scalar
+ * */
+Mat gfPolyScaling(const Mat & poly,int scalar);
+
+/**
+ * @brief  "adds" two polynomials (using exclusive-or, as usual).
+ * */
 Mat gfPolyAdd(const Mat & p,const Mat & q);
+/**@brief multiplication between two polys
+ * @param  p  Poly1
+ * @param  q  Poly2
+ * @return result poly = p * q
+ * @note EXP:
+       10001001
+    *  00101010
+ ---------------
+      10001001
+^   10001001
+^ 10001001
+ ---------------
+  1010001111010*/
 Mat gfPolyMul(const Mat &p,const Mat &q);
+/**
+ * @brief This function is for getting the ECC for the data string ,which is implemented by doing a poly division.
+ * @param dividend
+ * @param divisor
+ * @param ecc_num The bits of ecc num
+ * @return ECC code/remainder
+ * @note EXP:
+ *                             12 da df
+ *               -----------------------
+ *01 0f 36 78 40 ) 12 34 56 00 00 00 00
+ *               ^ 12 ee 2b 23 f4
+ *              -------------------------
+ *                   da 7d 23 f4 00
+ *                 ^ da a2 85 79 84
+ *                  ---------------------
+ *                      df a6 8d 84 00
+ *                    ^ df 91 6b fc d9
+ *                    -------------------
+ *                         37 e6 78 d9
+ */
 Mat gfPolyDiv(const Mat& dividend,const Mat& divisor,const int& ecc_num);
+
+/**
+ * @biref Generate a polynomial of n items
+ * @param n The items of the generated polynomial
+ * @return The generated polynomial
+ */
 Mat polyGenerator(const int & n );
 
+/**
+ * @brief  using berlekamp_massey algorithm to calculate the error_locator
+ * @param synd (The syndromes of current block),
+ * @param  errors_len (The number of the errors),
+ * @return  findErrorLocator
+ * */
 Mat findErrorLocator(const vector<uint8_t>&synd,size_t & errors_len);
+/**
+ * @brief use Chien's search to calculate the the roots of error locator poly
+ *         and to calculate the index of the error in current block
+ * @param sigma (Error locator)
+ * @param errors_len (Length of sigma -1)
+ * @param msg_len (Length of the block)
+ * @return error index (The index of the error in current block)
+ * */
 vector<int > findErrors(const Mat& sigma,const size_t &errors_len,const int & msg_len);
+/**
+ * @brief use Forney algorithm to correct the erro
+ * @param msg_in(The orignial blcok) ,
+ * @param synd(Syndromes) ,
+ * @param e_loc_poly(Error locator poly) ,
+ * @param error_index(The index of the error)
+ * @return  the corrected block
+ * @note  :
+ *  Error location polynomial (short for A(x)) = 1 + sigma{lambda(i) * x(i)}
+ *  A(x)'=sigma{i * lambda(i) * x(i-1)}
+ * */
 Mat errorCorrect(const Mat & msg_in ,const vector<uint8_t>&synd,const Mat & e_loc_poly,const vector<int> &error_index);
 
+/**
+ * @brief get the distance by counting the number of 1
+ * @param uint16_t x(Input the XOR of two binary string)
+ * @return the distance
+ */
 int hammingWeight(uint16_t x);
+
+/**
+ * @brief find the best matched string
+ * @param uint16_t fmt(input format)
+ * @return the index of matched component in the look-up table
+*/
 int hammingDetect(uint16_t fmt);
 
+/**
+ * @brief calculate the syndromes for each block
+ * @param const Mat & block(Current block),
+ * @param int synd_num(The num of the syndromes),
+ * @param uint8_t *synd(Syndromes for output)
+ * */
 int calBlockSyndromes(const Mat & block, int synd_num,vector<uint8_t>& synd);
+
+/**
+ * @brief from the postion $PTR to get $BITS bits
+ * @param bits(the number of bits you need) ptr(the starting position)
+ * */
 int getBits(const int& bits,const vector<uint8_t>& payload , int &pay_index);
+/**
+ * @brief look up the AI_name in the table
+ * @param fnc1_AI(Input string ),
+ *        index(Matched index in the table),
+ *        is_find(Find or not))
+ * */
 void findAIofFNC1(const std::string & fnc1_AI, int & index,bool & is_find);
 
 const char * getSrcMode(const int& eci_mode);
+
+/**
+ *@param  cur_str cur_str_len input str
+ *@brief  add a str into the cur_str
+ */
 void loadString(const std::string &str ,vector<uint8_t>& cur_str , bool is_bit_stream);
-int findVersionCapacity(const int &input_length ,const int &ecc_level ,const int & version_begin, const int & version_end );
+
+bool detectQRCode(InputArray in, vector<Point> &points, double eps_x, double eps_y);
+bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode);
+bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode,int &mode,int&version,int&ecc_level,int&mask_type ,int&eci,int&eci_num);
 
 
 std::string decToBin(const int &format, const int &total){
@@ -186,10 +350,7 @@ const char * getSrcMode(const int& eci_mode){
             return "UTF−8";
     }
 }
-/**
- *params@  cur_str cur_str_len input str
- *func@ add a str into the cur_str
- */
+
 void loadString(const std::string &str ,vector<uint8_t>& cur_str,bool is_bit_stream = false){
     for(size_t i = 0; i < str.length();i++){
         if(is_bit_stream){
@@ -201,10 +362,10 @@ void loadString(const std::string &str ,vector<uint8_t>& cur_str,bool is_bit_str
     return;
 }
 
-/*total codewords are divided into two groups
+/**total codewords are divided into two groups
  *The ecc_codewords are the same in two groups*/
 struct BlockParams {
-    int ecc_codewords;           //Number of error correction blocks
+    int ecc_codewords;           //!Number of error correction blocks
     int num_blocks_in_G1;
     int data_codewords_in_G1;
     int num_blocks_in_G2;
@@ -213,7 +374,7 @@ struct BlockParams {
 
 struct VersionInfo {
     int	total_codewords;
-    int	alignment_pattern[max_alignment];  //(location of alignment pattern)
+    int	alignment_pattern[max_alignment];  //!(location of alignment pattern)
     BlockParams ecc[4];
 };
 struct DataOfAI{
@@ -227,7 +388,7 @@ struct AIinGS1{
     std::string data_title;
 };
 
-const AIinGS1 GS1_AI_database[999] = {
+const AIinGS1 GS1_AI_database[] = {
         {"00",2,{{18,true},{0,0}},"\nSSCC"},
         {"01",2,{{14,true},{0,0}}, "\nGTIN"},// Global Trade Item Number
         {"02",2,{{14,true},{0,0}}, "\nCONTENT"},//GTIN of contained trade items
@@ -253,7 +414,7 @@ const AIinGS1 GS1_AI_database[999] = {
         {"8200",4,{{70,false},{0,0}},"\nPRODUCT URL"}// Extended Packaging URL
 };
 
-/*int numeric_mode;
+/**int numeric_mode;
 int alpha_mode;
 int byte_mode;
 int kanji_mode;*/
@@ -1126,47 +1287,35 @@ static const uint8_t gf_log[256] = {
         0x74, 0xd6, 0xf4, 0xea, 0xa8, 0x50, 0x58, 0xaf
 };
 
-/*
- * params @ ecc_level
- * func   @ make the ecc_level more direct
- * return @ the actual value of ecc_level
- * */
+
 int eccCodeToLevel(int code){
     switch (code){
-        case 0b01://L	01
+        case 0b01://!L	01
             return 0;
-        case 0b00 ://M	00
+        case 0b00 ://!M	00
             return 1;
-        case 0b11 ://Q	11
+        case 0b11 ://!Q	11
             return 2;
-        case 0b10 ://H	10
+        case 0b10 ://!H	10
             return 3;
     }
     return 0;
 }
-/*
- * params @ eccLevelToCode
- * func   @ make the ecc_level more direct
- * return @ the actual value of ecc_code
- * */
+
 int eccLevelToCode(int level){
     switch (level){
-        case 0://L	01
+        case 0://!L	01
             return 0b01;
-        case 1 ://M	00
+        case 1 ://!M	00
             return 0b00;
-        case 2 ://Q	11
+        case 2 ://!Q	11
             return 0b11;
-        case 3 ://H	10
+        case 3 ://!H	10
             return 0b10;
     }
     return -1;
 }
-/*
- * params @ a number
- * func   @ convert a dec to bin
- * return @ a bin string for print
- * */
+
 
 std::string decToBin(uint16_t my_format){
     std::string f;
@@ -1179,11 +1328,7 @@ std::string decToBin(uint16_t my_format){
     return f;
 }
 
-/*hammingWeight:
- *      get the distance by counting the number of 1
- * params @ uint16_t x(input the XOR of two binary string)
- * return @ the distance
- */
+
 int hammingWeight(uint16_t x){
     int weight=0;
     while(x>0){
@@ -1193,11 +1338,7 @@ int hammingWeight(uint16_t x){
     return weight;
 }
 
-/*hammingDetect:
- *      find the best matched string
- * params @ uint16_t fmt(input format)
- * return @ the index of matched component in the look-up table
-*/
+
 
 int hammingDetect(uint16_t fmt){
     int best_fmt = -1;
@@ -1227,7 +1368,7 @@ static bool checkQRInputImage(InputArray img, Mat& gray)
 
     if (img.cols() <= 20 || img.rows() <= 20)
     {
-        return false;  // image data is not enough for providing reliable results
+        return false;  //! image data is not enough for providing reliable results
     }
     int incn = img.channels();
     CV_Check(incn, incn == 1 || incn == 3 || incn == 4, "");
@@ -2167,6 +2308,12 @@ public:
     std::string getDecodeInformation() { return result_info; }
     bool fullDecodingProcess();
 
+    int			version_level;
+    int			ecc_level;
+    int			mask_type;
+    uint32_t		eci;
+    int         mode_type;
+
 protected:
     bool updatePerspective();
     bool versionDefinition();
@@ -2174,29 +2321,75 @@ protected:
     bool decodingProcess();
 
     bool readAndCorrectFormat(uint16_t& format);
+    /**
+     *  @brief error correct
+     *  @params uint16_t& format
+     */
     bool correctFormat(uint16_t& format);
-
+    /**
+    * @brief  unmask the data and make the pixels in the reserved area Scalar(invalid_region_value)
+    */
     void  unmaskData();
+    /**
+     * @brief read data from the image into codewords in a zig-zag way
+     * */
     void  readData();
-    void  readBit(int x, int y,int& count);
-    void  rearrangeBlocks();
 
-    bool  correctSingleBlock(int num , int head,Mat & corrected);
+    /**@brief read from (x,y) as the bitpos^th bit of the  bytepos^th codeword
+     * @param (x,y)
+     */
+    void  readBit(int x, int y,int& count);
+    /**
+    * @brief  rearrange the interleaved blocks for later codewode correction
+     * */
+    void  rearrangeBlocks();
+    /**
+     * @brief correct NUM^th block
+     * @param num(the number of the current block)
+     * @param head(the beginning index of NUM^th block)
+     * */
+    bool  correctSingleBlock(int block_num , int block_head_index ,Mat & corrected);
 
     bool decodeCurrentStream();
+
+    /**@brief decode the numerical mode* */
     bool numericDecoding(int &index);
+
+    /**@brief decode the KANJI mode
+     * @param ptr(current bit postion)
+     * @note
+     * Assume X = Shift JIS value , Y = 13bits value
+     * P = X -8140 or X - C140
+     * L = P % 16^2   H = P / 16^2
+     * H*C0 + L = Y
+     * H + L/C0 = Y/C0 ~ H ( L>=C0 )
+     * L % C0 = Y % C0 ~ _ _ + + + + + +  (when L <0xCO ,L = Y%0xCO
+     */
     bool kanjiDecoding(int &index);
+
+    /**@brief decode the byte mode*/
     bool byteDecoding( int &index);
+
+    /**@brief  decode the alpha mode*/
     bool alphaDecoding( int &index);
+
+    /**@brief  decode the eci mode*/
     bool eciDecoding(int &index);
+
+    /**@brief  decode the structure mode*/
     bool structureDecoding(int &index);
 
     bool fncDecoding();
-    bool FNC1FirstDecoding(const std::string & fnc_buffer);
-    bool FNC1SecondDecoding(const std::string & fnc_buffer);
+    /**@brief  decode the mode of fnc1_first* */
+    bool FNC1FirstDecoding(const std::string & cur_buffer);
+    bool FNC1SecondDecoding(const std::string & cur_buffer);
 
-    void loadFromBuffer(const std::string & fnc_buffer, const struct DataOfAI &data,size_t & cur_pos,bool &AI_over);
+    void loadFromBuffer(const std::string & cur_buffer, const struct DataOfAI &data,size_t & cur_pos,bool &AI_over);
 
+/**
+ * @brief calculate the remaining number of bits
+ * @param ptr(current bit postion)
+ * */
     int remainingBitsCount(const int &index);
 
     void convertToUTF8(char* src,const char * fromcode );
@@ -2215,14 +2408,9 @@ protected:
 
     vector<uint8_t> final_data;
 
-    int			version_level;
-    int			ecc_level;
-    int			mask_type;
-
     vector<uint8_t>	cur_str;
     int			cur_str_len;
 
-    uint32_t		eci;
     uint32_t      fnc1_second_AI;
     bool fnc1_first;
     bool fnc1_second;
@@ -2235,25 +2423,13 @@ protected:
 
 };
 QRDecode::QRDecode(){
-    orignal_data.reserve(max_payload_len);
-    rearranged_data.reserve(max_payload_len);
-    cur_str.reserve(max_payload_len);
-    for(int i = 0 ; i < max_payload_len ;i++){
-        orignal_data.push_back(0);
-        rearranged_data.push_back(0);
-    }
-    fnc1_AI = "";
-    cur_str_len=0;
-    eci = 0;
-    fnc1_first = 0;
-    fnc1_second = 0;
+
 }
 /*convertToUTF8
  * params @ src(the original info ) fromcode(the original coding mode)
  * func   @ convert from $(fromcode) to utf-8 and update the cur_str and cur_str_len
  * return @
  * */
-
 
 /*
  * params @ format(uint16_t for returning the format bits) which(select from two different place)
@@ -2295,11 +2471,7 @@ bool QRDecode::readAndCorrectFormat(uint16_t& format){
     }
 }
 
-/*correctFormat:
- *  error correct
- *  params @ uint16_t *f_ret,const Mat& my_f_ret(my format info)
- *  return @
- */
+
 bool QRDecode:: correctFormat(uint16_t& format)
 {
     /*ori: 110101100100011*/
@@ -2318,11 +2490,7 @@ bool QRDecode:: correctFormat(uint16_t& format)
 }
 
 
-/**readBit:
- *  params @ (x,y)
- *  func @ read from (x,y) as the bitpos^th bit of the  bytepos^th codeword
- *  return @
- */
+
 void QRDecode::readBit(int x, int y, int& count){
     /**judge the reserved area*/
     if (unmasked_data.ptr(y)[x]==invalid_region_value)
@@ -2341,12 +2509,7 @@ void QRDecode::readBit(int x, int y, int& count){
     count++;
 }
 
-/* exponentiation operator
- * params @  x , power
- * return x^power
- * EXP:
- *     (a^n)^x =a^(x+n)
- * */
+
 uint8_t gfPow(uint8_t x , int power){
     return gf_exp[(gf_log[x] * power) % 255];
 }
@@ -2355,41 +2518,25 @@ uint8_t gfInverse(uint8_t x){
     return gf_exp[255 - gf_log[x]];
 }
 
-/*multiplication in GF
- * params @ x , y
- * return x * y
- * EXP:
- *     a^x * a^y =a^(x+y)
- */
+
 uint8_t gfMul(const uint8_t &x,const uint8_t& y){
     if (x==0 || y==0)
         return 0;
     return gf_exp[(gf_log[x] + gf_log[y])%255];
 }
 
-/*division in GF
- * params @ x , y
- * return x / y
- * EXP:
- *     a^x / a^y =a^(x-y)=a^(x+255-y)
- */
+
 uint8_t gfDiv(const uint8_t &x,const uint8_t& y) {
     if (x == 0)
         return 0;
     return gf_exp[(255 - gf_log[y] + gf_log[x]) % 255];
 }
-
-/* gfPolyEvaluate :
- *      evaluate a polynomial at a particular value of x, producing a scalar result
- * params @ poly 15bit format_Info,  uint8_t x(a scalar)
- * return @ result
-
- * using the Horner's method here:
- * 01 x4 + 0f x3 + 36 x2 + 78 x + 40 = (((01 x + 0f) x + 36) x + 78) x + 40
- * doing this by simple addition and multiplication
+/* polyDisplay
+ * params : const Mat& p(polynomial),Output o(output pattern)
+ * return :output string
  * */
 uint8_t gfPolyEvaluate(const Mat& poly,uint8_t x){
-    /*Note the calculation begins at the high times of items,
+    /**Note the calculation begins at the high times of items,
          * That's to say , start from the large index in Mat
          * */
     int index=poly.cols-1;
@@ -2399,21 +2546,17 @@ uint8_t gfPolyEvaluate(const Mat& poly,uint8_t x){
     }
     return y;
 }
-/*
- * func @  multiply a polynomial by a scalar
- * */
-Mat gfPolyScaling(const Mat & p,int scalar) {
-    int len = p.cols;
+
+Mat gfPolyScaling(const Mat & poly,int scalar) {
+    int len = poly.cols;
     Mat r(1,len,CV_8UC1,Scalar(0));
 
     for(int i = 0; i < len;i++){
-        r.ptr(0)[i] = gfMul(p.ptr(0)[i], (uint8_t)scalar);
+        r.ptr(0)[i] = gfMul(poly.ptr(0)[i], (uint8_t)scalar);
     }
     return r;
 }
-/*
- * func @  "adds" two polynomials (using exclusive-or, as usual).
- * */
+
 Mat gfPolyAdd(const Mat & p,const Mat & q){
     int p_len=p.cols;
     int q_len=q.cols;
@@ -2427,19 +2570,7 @@ Mat gfPolyAdd(const Mat & p,const Mat & q){
     return r;
 }
 
-/* multiplication between two polys
- * params @ poly p , poly q
- * return @ result poly = p * q
- */
-/*
-       10001001
-    *  00101010
- ---------------
-      10001001
-^   10001001
-^ 10001001
- ---------------
-  1010001111010*/
+
 Mat gfPolyMul(const Mat &p,const Mat &q){
     /* multiplication == addition among items*/
     Mat r(1,p.cols+q.cols-1,CV_8UC1,Scalar(0));
@@ -2457,25 +2588,9 @@ Mat gfPolyMul(const Mat &p,const Mat &q){
     return r;
 }
 
-/*gfPolyDiv:
- *   This function is for getting the ECC for the data string ,which is implemented by doing a poly division.
- * params@ const Mat& dividend,const Mat& divisor
- * return@ ECC code/remainder
- *                             12 da df
- *               -----------------------
- *01 0f 36 78 40 ) 12 34 56 00 00 00 00
- *               ^ 12 ee 2b 23 f4
- *              -------------------------
- *                   da 7d 23 f4 00
- *                 ^ da a2 85 79 84
- *                  ---------------------
- *                      df a6 8d 84 00
- *                    ^ df 91 6b fc d9
- *                    -------------------
- *                         37 e6 78 d9
- */
+
 Mat gfPolyDiv(const Mat& dividend,const Mat& divisor,const int& ecc_num) {
-    /* Note that the processing starts from the item with high number of times,
+    /** Note that the processing starts from the item with high number of times,
          * so item [total-i] is processed for the i-th round
          * Also before the division started , you need to do a shift to the dividend*/
     int times=dividend.cols-(divisor.cols-1);
@@ -2507,9 +2622,7 @@ Mat polyGenerator(const int & n ){
     }
     return result;
 }
-/*unmaskData
- *func @  unmask the data and make the pixels in the reserved area Scalar(invalid_region_value)
- */
+
 void QRDecode:: unmaskData(){
     unmasked_data=straight.clone();
     /*get mask pattern according to the format*/
@@ -2564,9 +2677,7 @@ void QRDecode:: unmaskData(){
 
 }
 
-/*readData
- * func @ read data from the image into codewords in a zig-zag way
- * */
+
 void QRDecode::readData(){
     int y = version_size - 1;
     int x = version_size - 1;
@@ -2589,12 +2700,7 @@ void QRDecode::readData(){
     }
 }
 
-/*calBlockSyndromes
- * params @ const Mat & block(current block),
- *          int synd_num(the num of the syndromes),
- *          uint8_t *synd(syndromes for output)
- * func   @ calculate the syndromes for each block
- * */
+
 int calBlockSyndromes(const Mat & block, int synd_num,vector <uint8_t>& synd){
     int nonzero = 0;
     /*the original method*/
@@ -2610,51 +2716,46 @@ int calBlockSyndromes(const Mat & block, int synd_num,vector <uint8_t>& synd){
 }
 
 
-/*findErrorLocator
- * params @ synd(the syndromes of current block),
- *          errors_len(the number of the errors),
- * func   @ using berlekamp_massey algorithm to calculate the error_locator
- * return @ findErrorLocator
- * */
+
 Mat findErrorLocator(const vector<uint8_t>&synd,size_t & errors_len){
-    /*initialize two arrays b and c ,to be zeros , expcet b0<- 1 c0<- 1*/
+    /**initialize two arrays b and c ,to be zeros , expcet b0<- 1 c0<- 1*/
     size_t synd_num =synd.size();
-    /*err_loc & Sigma*/
+    /**err_loc & Sigma*/
     Mat C(1,(int)synd_num,CV_8UC1,Scalar(0));
-    /*old_loc */
-    Mat B(1,(int)synd_num,CV_8UC1,Scalar(0));//a copy of the last C
+    /**old_loc */
+    Mat B(1,(int)synd_num,CV_8UC1,Scalar(0));//!a copy of the last C
 
     B.ptr(0)[0]=1;
     C.ptr(0)[0]=1;
 
-    uint8_t b=1;//a copy of the last discrepancy delta
-    size_t L = 0;//the current number of assumed errors
-    int m = 1;//the number of iterations
+    uint8_t b=1;//!a copy of the last discrepancy delta
+    size_t L = 0;//!the current number of assumed errors
+    int m = 1;//!the number of iterations
 
     for(size_t i = 0; i < synd_num ;i++){
         uint8_t delta = synd[i];
-        /*cal discrepancy =Sn+ C1*S(n-1) + ... + CL*S(n-L)*/
+        /**cal discrepancy =Sn+ C1*S(n-1) + ... + CL*S(n-L)*/
         for(size_t j = 1 ; j<= L; j++ ){
             delta ^= gfMul(C.ptr(0)[j], synd[i - j]);
         }
-        /*shift = x^m*/
+        /**shift = x^m*/
         Mat shift(1,(int)synd_num,CV_8UC1,Scalar(0));
         shift.ptr(0)[m]=1;
-        /*scale_coeffi = d/b */
+        /**scale_coeffi = d/b */
         Mat scale_coeffi = gfPolyScaling(shift,gfMul(delta,gfInverse(b)));
 
-        /*if delta == 0 c is the polynomial */
+        /**if delta == 0 c is the polynomial */
         if(delta == 0){
-            /*assumes that C(x) and L are correct for the moment, increments m, and continues*/
+            /**assumes that C(x) and L are correct for the moment, increments m, and continues*/
             m++;
 
         }
-            /*If delta !=0 , adjust C(x) so that a recalculation of d would be zero*/
+            /**If delta !=0 , adjust C(x) so that a recalculation of d would be zero*/
 
         else if(2 * L <= i){
-            /*L is updated and algorithm will update B(x), b, increase L, and reset m = 1*/
+            /**L is updated and algorithm will update B(x), b, increase L, and reset m = 1*/
             Mat t=C.clone();
-            /*C(t)=C(t)-(d/b)*x^m*B(t)    //t stands for the iteration times
+            /**C(t)=C(t)-(d/b)*x^m*B(t)    //!t stands for the iteration times
                  *    =C(t)-(d/b)*x^m*C(t-1)
                  *delta = Sn+ C1*S(n-1) + ... -(d/b)(Sj+ B1*S(j-1) + ...)
                  */
@@ -2668,7 +2769,7 @@ Mat findErrorLocator(const vector<uint8_t>&synd,size_t & errors_len){
         }
 
         else{
-            /*If L equals the actual number of errors, then during the iteration process,
+            /**If L equals the actual number of errors, then during the iteration process,
                  * the discrepancies will become zero before n becomes greater than or equal to 2L.*/
             C = gfPolyAdd(C, gfPolyMul(B,scale_coeffi));
             m++;
@@ -2676,16 +2777,11 @@ Mat findErrorLocator(const vector<uint8_t>&synd,size_t & errors_len){
 
     }
     errors_len=L;
-    /*L is the length of the minimal LFSR for the stream*/
+    /**L is the length of the minimal LFSR for the stream*/
     return C;
 }
 
-/*
-     * params @ sigma(error locator) , errors_len(length of sigma -1) , msg_len(length of the block)
-     * return @ error index(the index of the error in current block)
-     * func   @ use Chien's search to calculate the the roots of error locator poly
-     *          and to calculate the index of the error in current block
-     * */
+
 vector<int > findErrors(const Mat& sigma,const size_t &errors_len,const int & msg_len){
     vector <int> error_index;
     /*optimize to just check the interesting symbols*/
@@ -2705,15 +2801,7 @@ vector<int > findErrors(const Mat& sigma,const size_t &errors_len,const int & ms
     return error_index;
 
 }
-/*
-     * params @ msg_in(the orignial blcok) , synd(syndromes) ,
-     *          e_loc_poly(error locator poly) , error_index(the index of the error)
-     * return @ the corrected block
-     * func   @ use Forney algorithm to correct the errors
-     *  ps :
-     *  Error location polynomial (short for A(x)) = 1 + sigma{lambda(i) * x(i)}
-     *  A(x)'=sigma{i * lambda(i) * x(i-1)}
-     * */
+
 Mat errorCorrect(const Mat & msg_in ,const vector<uint8_t>&synd,const Mat & e_loc_poly,const vector<int> &error_index){
 
     size_t border = synd.size();
@@ -2726,18 +2814,18 @@ Mat errorCorrect(const Mat & msg_in ,const vector<uint8_t>&synd,const Mat & e_lo
         syndrome.ptr(0)[i]=synd[i];
     }
 
-    /*First calculate the error evaluator polynomial*/
+    /**First calculate the error evaluator polynomial*/
     Mat Omega= gfPolyMul(syndrome,e_loc_poly);
 
-    /*get rid of the first zero ! */
+    /**get rid of the first zero ! */
     Omega = Omega(Range(0,1),Range(1,(int)border));
 
-    /*Second use Forney algorithm to compute the magnitudes*/
+    /**Second use Forney algorithm to compute the magnitudes*/
 
-    /* 1. calculate formal derivative as the denominator */
+    /** 1. calculate formal derivative as the denominator */
     Mat err_location_poly_derivative(1,e_loc_poly.cols,CV_8UC1,Scalar(0));
 
-    /*The operator · represents ordinary multiplication (repeated addition in the finite field)!!!
+    /**The operator · represents ordinary multiplication (repeated addition in the finite field)!!!
          * that's why the even items are always zero!*/
     for(size_t i = 1;i <= err_len; i++){
         uint8_t tmp = e_loc_poly.ptr(0)[i];
@@ -2745,28 +2833,24 @@ Mat errorCorrect(const Mat & msg_in ,const vector<uint8_t>&synd,const Mat & e_lo
         for(size_t j = 1; j < i ; j++)
             err_location_poly_derivative.ptr(0)[i-1]^=tmp;
     }
-    /* 2. calculate Omega as the numerator*/
+    /** 2. calculate Omega as the numerator*/
     for (size_t i = 0; i < err_len; i++) {
         uint8_t xinv = gfInverse(gfPow(2, error_index[i]));
         uint8_t denominator = gfPolyEvaluate(err_location_poly_derivative,xinv);
         uint8_t numerator = gfPolyEvaluate(Omega, xinv);
-        /*divded them to get the magnitude*/
+        /**divded them to get the magnitude*/
         uint8_t error_magnitude = gfDiv(numerator,denominator);
         msg_out.ptr(0)[error_index[i]]^=error_magnitude;
     }
     return msg_out;
 }
 
-/* correctSingleBlock
- * params @ num(the number of the current block)  head(the beginning index of NUM^th block)
- * func   @ correct NUM^th block
- * */
-bool  QRDecode::correctSingleBlock(int num , int head,Mat & corrected){
+bool  QRDecode::correctSingleBlock(int block_num , int block_head_index ,Mat & corrected){
     int cur_length=0;
 
     int ecc_num=cur_ecc_params->ecc_codewords;
 
-    if(num<cur_ecc_params->num_blocks_in_G1){
+    if(block_num<cur_ecc_params->num_blocks_in_G1){
         cur_length=cur_ecc_params->data_codewords_in_G1+ecc_num;
     }
     else{
@@ -2774,24 +2858,24 @@ bool  QRDecode::correctSingleBlock(int num , int head,Mat & corrected){
     }
     vector<uint8_t>synd;
 
-    /*get the block for calBlockSyndromes*/
+    /**get the block for calBlockSyndromes*/
     Mat cur_block(1,cur_length,CV_8UC1,Scalar(0));
     for(int i = 0 ;i<cur_length ; i++) {
-        cur_block.ptr(0)[cur_length-1-i]=rearranged_data[head+i];
+        cur_block.ptr(0)[cur_length-1-i]=rearranged_data[block_head_index+i];
     }
-
     corrected=cur_block.clone();
-
+    /**no error occur*/
     if (!calBlockSyndromes(cur_block,ecc_num,synd))
         return true;
-
+    /**error occurs*/
     size_t errors_len=0;
+    /**determine error locator */
     Mat sigma=findErrorLocator(synd,errors_len);
-
+    /**find error index in poly */
     vector <int> error_index = findErrors(sigma,errors_len,cur_length);
+    /**correct the magnitude*/
     Mat corrected_block = errorCorrect(cur_block ,synd, sigma, error_index);
-
-    /*check once again*/
+    /**check once again*/
     if (calBlockSyndromes(corrected_block,ecc_num,synd)){
         return false;
     }
@@ -2801,10 +2885,7 @@ bool  QRDecode::correctSingleBlock(int num , int head,Mat & corrected){
     return true;
 }
 
-/*
- * params @
- * func   @ rearrange the interleaved blocks for later codewode correction
- * */
+
 void QRDecode::rearrangeBlocks(){
     int index=0;
     int offset=cur_ecc_params->num_blocks_in_G1+cur_ecc_params->num_blocks_in_G2;
@@ -2856,6 +2937,19 @@ void QRDecode::rearrangeBlocks(){
 void QRDecode::init(const Mat &src, const vector<Point2f> &points)
 {
     CV_TRACE_FUNCTION();
+    orignal_data.reserve(max_payload_len);
+    rearranged_data.reserve(max_payload_len);
+    cur_str.reserve(max_payload_len);
+    for(int i = 0 ; i < max_payload_len ;i++){
+        orignal_data.push_back(0);
+        rearranged_data.push_back(0);
+    }
+    fnc1_AI = "";
+    cur_str_len=0;
+    eci = 0;
+    fnc1_first = 0;
+    fnc1_second = 0;
+    
     vector<Point2f> bbox = points;
     original = src.clone();
     intermediate = Mat::zeros(original.size(), CV_8UC1);
@@ -3042,10 +3136,6 @@ bool QRDecode::samplingForVersion()
 }
 
 
-/* getBits
- * params @ bits(the number of bits you need) ptr(the starting position)
- * func   @ from the postion $PTR to get $BITS bits
- * */
 int getBits(const int& bits,const vector<uint8_t>& payload , int &pay_index){
     int result=0;
     for(int i =0 ;i<bits;i++){
@@ -3055,18 +3145,12 @@ int getBits(const int& bits,const vector<uint8_t>& payload , int &pay_index){
     return result;
 }
 
-/* remainingBitsCount
- * params @ ptr(current bit postion)
- * func   @ calculate the remaining number of bits
- * */
+
 int QRDecode::remainingBitsCount(const int &index)
 {
     return ((int)final_data.size()-1 - index);
 }
-/* numericDecoding
- * params @ ptr(current bit postion)
- * func   @ decode the numerical mode
- * */
+
 bool QRDecode::numericDecoding(int &index){
     int count = 0;
 
@@ -3077,7 +3161,7 @@ bool QRDecode::numericDecoding(int &index){
     else if(version_level>=10)
         bits=12;
 
-    std::string fnc_buffer = "";
+    std::string cur_buffer = "";
     count = getBits(bits,final_data,index);
 
     if (cur_str_len + count + 1 > max_payload_len){
@@ -3087,49 +3171,46 @@ bool QRDecode::numericDecoding(int &index){
 
     while (count >= 3) {
         int num = getBits(10, final_data,index);
-        fnc_buffer += char(num / 100 + '0');
-        fnc_buffer += char((num % 100) / 10 + '0');
-        fnc_buffer += char(num % 10 + '0');
+        cur_buffer += char(num / 100 + '0');
+        cur_buffer += char((num % 100) / 10 + '0');
+        cur_buffer += char(num % 10 + '0');
         count -= 3;
     }
     /*the final group*/
     if(count == 2){
         /*7 bit group*/
         int num = getBits(7,final_data,index);
-        fnc_buffer += char((num % 100) / 10 + '0');
-        fnc_buffer += char(num % 10 + '0');
+        cur_buffer += char((num % 100) / 10 + '0');
+        cur_buffer += char(num % 10 + '0');
     } else if (count == 1) {
         /*4 bit group*/
         int num = getBits(4, final_data,index);
-        fnc_buffer += char(num % 10 + '0');
+        cur_buffer += char(num % 10 + '0');
     }
 
     if(fnc1_first) {
-        FNC1FirstDecoding(fnc_buffer);
+        FNC1FirstDecoding(cur_buffer);
     }
 //    else if (fnc1_second){
-//        FNC1SecondDecoding(fnc_buffer);
+//        FNC1SecondDecoding(cur_buffer);
 //    }
     else{
-        for(size_t i = 0 ; i < fnc_buffer.length();i++){
-            cur_str.push_back(uint8_t(fnc_buffer[i]));
+        for(size_t i = 0 ; i < cur_buffer.length();i++){
+            cur_str.push_back(uint8_t(cur_buffer[i]));
             cur_str_len++;
         }
     }
     return true;
 
 }
-/* byteDecoding
- * params @ ptr(current bit postion)
- * func   @ decode the byte mode
- */
+
 bool QRDecode::byteDecoding(int &index){
     int bits = 8;
     int count = 0;
     /*check version_level to update the bit counter*/
     if(version_level>9)
         bits=16;
-    std::string fnc_buffer = "";
+    std::string cur_buffer = "";
     count = getBits(bits,final_data,index);
 
     if (cur_str_len + count + 1 > max_payload_len){
@@ -3144,34 +3225,24 @@ bool QRDecode::byteDecoding(int &index){
     for (int i = 0; i < count; i++){
         int tmp =getBits(8,final_data,index);
         if(!strcmp(fromcode , "UTF�|8")){
-            fnc_buffer+=char(tmp);
+            cur_buffer+=char(tmp);
         }
         else{
             /**to be continue*/
-            fnc_buffer+=char(tmp);
+            cur_buffer+=char(tmp);
             //char src_shift_jis[3]={char(tmp)};
             //convertToUTF8(src_shift_jis,fromcode);
         }
     }
-    for (size_t i = 0; i < fnc_buffer.length(); i++) {
-        cur_str.push_back(uint8_t(fnc_buffer[i]));
+    for (size_t i = 0; i < cur_buffer.length(); i++) {
+        cur_str.push_back(uint8_t(cur_buffer[i]));
     }
 
     return true;
 }
 
 
-/* kanjiDecoding
- * params @ ptr(current bit postion)
- * func   @ decode the KANJI mode
- *
- * Assume X = Shift JIS value , Y = 13bits value
- * P = X -8140 or X - C140
- * L = P % 16^2   H = P / 16^2
- * H*C0 + L = Y
- * H + L/C0 = Y/C0 ~ H ( L>=C0 )
- * L % C0 = Y % C0 ~ _ _ + + + + + +  (when L <0xCO ,L = Y%0xCO
- */
+
 bool QRDecode::kanjiDecoding(int &index){
 
     const int per_char_len = 13;
@@ -3233,16 +3304,13 @@ bool QRDecode::kanjiDecoding(int &index){
 }
 
 
-/* alphaDecoding
-* params @ ptr(current bit postion)
-* func   @ decode the alpha mode
-* */
+
 bool QRDecode::alphaDecoding(int &index){
     /*alpha table*/
     static const char *alpha_map =
             "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";
 
-    std::string fnc_buffer = "";
+    std::string cur_buffer = "";
 
     int count = 0;
     /*initialize the count indicator*/
@@ -3266,8 +3334,8 @@ bool QRDecode::alphaDecoding(int &index){
         /*divided into to parts*/
         int H = num/45;
         int L = num%45;
-        fnc_buffer+=alpha_map[H];
-        fnc_buffer+=alpha_map[L];
+        cur_buffer+=alpha_map[H];
+        cur_buffer+=alpha_map[L];
         count -= 2;
     }
     /*remaining 6 bits*/
@@ -3276,24 +3344,23 @@ bool QRDecode::alphaDecoding(int &index){
             return false;
         }
         int num = getBits(6,final_data,index);
-        fnc_buffer+=alpha_map[num];
+        cur_buffer+=alpha_map[num];
     }
-
     if(fnc1_first){
-        FNC1FirstDecoding(fnc_buffer);
+        FNC1FirstDecoding(cur_buffer);
     }
 //    else if (fnc1_second){
-//        FNC1SecondDecoding(fnc_buffer);
+//        FNC1SecondDecoding(cur_buffer);
 //    }
     else{
-        for (size_t i = 0; i < fnc_buffer.length(); i++) {
-            cur_str.push_back(uint8_t(fnc_buffer[i]));
+        for (size_t i = 0; i < cur_buffer.length(); i++) {
+            cur_str.push_back(uint8_t(cur_buffer[i]));
         }
     }
     return true;
 }
 bool QRDecode::structureDecoding(int &index){
-    /*two Structured Append codewords follows indicators
+    /**two Structured Append codewords follows indicators
      *  The first codeword is symbol sequence indicator
      *  the second one is parity data,
      *      which is identical in all append message to enable all readable symbols are part of the same Structured Append message*/
@@ -3305,10 +3372,7 @@ bool QRDecode::structureDecoding(int &index){
     //int parity_data = getBits(8,final_data,index);
     return true;
 }
-/* eciDecoding
-* params @ ptr(current bit postion)
-* func   @ decode the ECI mode
-* */
+
 bool QRDecode::eciDecoding(int &index){
     /*ECI Assignment Number is at least 8bits*/
     if (remainingBitsCount(index) < 8){
@@ -3336,16 +3400,9 @@ bool QRDecode::fncDecoding(){
     }
     return true;
 }
-/*
- * findAIofFNC1
- * params @ (const std::string & fnc1_AI(input string ),
- *           int & index(matched index in the table),
- *           bool & is_find(find or not))
- * func   @ look up the AI_name in the table
- *
- * */
+
 void findAIofFNC1(const std::string & fnc1_AI, int & index,bool & is_find){
-    for(index = 0 ; index < 999 ; index++){
+    for(index = 0 ; index < (int)(sizeof(GS1_AI_database)/sizeof(AIinGS1)) ; index++){
         if(fnc1_AI == GS1_AI_database[index].AI_name){
             is_find = true;
             break;
@@ -3353,51 +3410,48 @@ void findAIofFNC1(const std::string & fnc1_AI, int & index,bool & is_find){
     }
 }
 /* loadFromBuffer
- * params @ const std::string & fnc_buffer, (read form buffer)
+ * params @ const std::string & cur_buffer, (read form buffer)
  *          const struct DataOfAI &data,     (data len struct)
  *          int & cur_pos,bool &AI_over     (have meet the GS(%) or not )
  * func   @ read from the buffer to  cur_str
  * */
-void QRDecode::loadFromBuffer(const std::string & fnc_buffer, const struct DataOfAI &data,size_t & cur_pos,bool &AI_over){
+void QRDecode::loadFromBuffer(const std::string & cur_buffer, const struct DataOfAI &data,size_t & cur_pos,bool &AI_over){
     for(int i = 0 ; i <data.Data_len;i++){
         if(!data.fixed_len){
             /**The length is not fixed*/
-            if(fnc_buffer[cur_pos]=='%'){
+            if(cur_buffer[cur_pos]=='%'){
                 /**meet the GS */
                 AI_over = true;
                 break;
             }
-            else if(cur_pos>=fnc_buffer.length())
+            else if(cur_pos>=cur_buffer.length())
                 break;
         }
         /**read*/
         cur_str_len++;
-        cur_str.push_back(uint8_t(fnc_buffer[cur_pos++]));
+        cur_str.push_back(uint8_t(cur_buffer[cur_pos++]));
     }
     return;
 }
-/* FNC1FirstDecoding
- * params @ fnc_buffer
- * func   @ decode the mode of fnc1_first
- * */
-bool QRDecode::FNC1FirstDecoding(const std::string & fnc_buffer){
+
+bool QRDecode::FNC1FirstDecoding(const std::string & cur_buffer){
     size_t cur_pos = 0;
-    while(1){
+    while(cur_pos < cur_buffer.length()){
         bool is_find = false;
         bool AI_over = false;
         int index = 0;
         /*First get 2 bits*/
-        fnc1_AI=fnc_buffer[cur_pos++];
-        fnc1_AI+=fnc_buffer[cur_pos++];
+        fnc1_AI=cur_buffer[cur_pos++];
+        fnc1_AI+=cur_buffer[cur_pos++];
         /*Find 2 bits AI_name*/
         findAIofFNC1(fnc1_AI, index,is_find);
         if(!is_find){
             /*Find 3 bits AI_name*/
-            fnc1_AI+=fnc_buffer[cur_pos++];
+            fnc1_AI+=cur_buffer[cur_pos++];
             findAIofFNC1(fnc1_AI, index,is_find);
             if(!is_find){
                 /*Find 3 bits AI_name*/
-                fnc1_AI+=fnc_buffer[cur_pos++];
+                fnc1_AI+=cur_buffer[cur_pos++];
                 findAIofFNC1(fnc1_AI, index,is_find);
             }
         }
@@ -3415,25 +3469,25 @@ bool QRDecode::FNC1FirstDecoding(const std::string & fnc_buffer){
 //        cur_str_len++;
 //        cur_str.push_back(uint8_t(uint8_t(':')));
         /**load from the buffer*/
-        loadFromBuffer(fnc_buffer,cur_AI->data[0],cur_pos,AI_over);
+        loadFromBuffer(cur_buffer,cur_AI->data[0],cur_pos,AI_over);
         if(AI_over){
             loadString("%",cur_str);
             cur_pos++;
             continue;
         }
-        loadFromBuffer(fnc_buffer,cur_AI->data[1],cur_pos,AI_over);
-        if(cur_pos >= fnc_buffer.length()){
+        loadFromBuffer(cur_buffer,cur_AI->data[1],cur_pos,AI_over);
+        if(cur_pos >= cur_buffer.length()){
             break;
         }
     }
     return true;
 }
 
-bool QRDecode::FNC1SecondDecoding(const std::string & fnc_buffer){
+bool QRDecode::FNC1SecondDecoding(const std::string & cur_buffer){
     size_t cur_pos = 0;
-    while(cur_pos < fnc_buffer.length()){
+    while(cur_pos < cur_buffer.length()){
         /**First get 2 bits*/
-        fnc1_AI=fnc_buffer[cur_pos++];
+        fnc1_AI=cur_buffer[cur_pos++];
         loadString(fnc1_AI,cur_str);
     }
     return true;
@@ -3444,8 +3498,23 @@ bool QRDecode::decodeCurrentStream(){
     int index =0;
     /*test for output*/
     eci = UTF_8;
+    mode_type = 0;
     while(remainingBitsCount(index)>=4){
         int mode=getBits(4,final_data,index);
+        if(mode_type == 0){
+            /**get the first mode head*/
+            mode_type = mode;
+        }
+        else{
+            /**won't change in these mode */
+            if(mode_type == QR_MODE_STRUCTURE || mode_type == QR_MODE_ECI ||
+               mode_type == QR_MODE_FNC1FIRST || mode_type == QR_MODE_FNC1SECOND || mode == QR_MODE_NUL)
+                ;
+            else if(mode != mode_type){
+                /**appear more than once*/
+                mode_type = -1;
+            }
+        }
         /*select the corresponding decode mode */
         switch (mode){
             case QR_MODE_NUL:
@@ -3539,15 +3608,29 @@ bool QRDecode::fullDecodingProcess()
     if (!versionDefinition())  { return false; }
     if (!samplingForVersion()) { return false; }
     if (!decodingProcess())    { return false; }
+  
     return true;
 }
-
 bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode)
 {
     QRCodeDetector qrcode;
     decoded_info = qrcode.decode(in, points, straight_qrcode);
     return !decoded_info.empty();
 }
+bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode,int &mode,int&version,int&ecc_level,int&mask_type ,int&eci,int&eci_num)
+{
+    QRCodeDetector qrcode;
+    decoded_info = qrcode.decode(in, points, straight_qrcode);
+
+    eci_num = qrcode.eci_num;
+    mode = qrcode.mode_type;
+    version = qrcode.version_level;
+    ecc_level = qrcode.ecc_level;
+    mask_type = qrcode.mask_type;
+    eci = qrcode.eci_num;
+    return !decoded_info.empty();
+}
+
 
 cv::String QRCodeDetector::decode(InputArray in, InputArray points,
                                   OutputArray straight_qrcode)
@@ -3564,6 +3647,13 @@ cv::String QRCodeDetector::decode(InputArray in, InputArray points,
     QRDecode qrdec;
     qrdec.init(inarr, src_points);
     bool ok = qrdec.fullDecodingProcess();
+
+    mode_type = qrdec.mode_type;
+    version_level = qrdec.version_level;
+    ecc_level = qrdec.ecc_level;
+    mask_type = qrdec.mask_type;
+    eci_num = qrdec.eci;
+    struct_num = -1 ;
 
     std::string decoded_info = qrdec.getDecodeInformation();
 
@@ -4701,14 +4791,14 @@ bool QRCodeDetector::detectAndDecodeMulti(
     return ok;
 }
 
-struct methodBlock{
+struct autoEncodePerBlock{
     int block_load_len ;
     vector<uint8_t>	block_load;
     int encoding_mode;
-    methodBlock();
+    autoEncodePerBlock();
 };
 
-methodBlock::methodBlock() {
+autoEncodePerBlock::autoEncodePerBlock() {
     block_load_len = encoding_mode = 0;
     block_load.reserve(max_payload_len);
 }
@@ -4742,59 +4832,169 @@ class QREncoder{
     const VersionInfo *version_info ;
     /**principles  about group and blocks*/
     const  BlockParams *cur_ecc_params;
-    vector<Mat> my_qrcodes;
+
 public:
     QREncoder(const std::string& input ,int mode,int v  ,int ecc  ,int mask  ,int eci_mode ,int structure_num );
     Mat QRcodeGenerate();
+    vector<Mat> my_qrcodes;
 
-    void encodeByte(const std::string& input,vector<uint8_t>& output);
+protected:
+    /**
+     * @brief Convert the character string into a bit stream by the encoding of byte mode.
+     * @param input (Input data string)
+     * @param output (Output payload bit stream)
+
+     */
+    bool encodeByte(const std::string& input,vector<uint8_t>& output);
+    /**
+     * @brief Convert the character string into a bit stream by the encoding of byte mode.
+     */
     bool encodeAlpha(const std::string& input,vector<uint8_t>& output);
+
+    /**@brief decode the numerical mode
+     * @param ptr (Current bit postion)
+     * */
     bool encodeNumeric(const std::string& input,vector<uint8_t>& output);
+
+    /**
+     * @note The input info must be the kanji in SHIFT_JIS encoding set !
+     * */
     bool encodeKanji(const std::string& input,vector<uint8_t>& output);
+    /**
+     * @brief the priority is : numeric -> alphanumeric -> byte -> kanji
+     * */
     bool encodeAuto(const std::string& input,vector<uint8_t>& output);
-    bool encodeECI(vector<uint8_t>& output);
+
+    /**@brief encode the mode of ECI header
+     * @note The input info must be the kanji in SHIFT_JIS encoding set !
+     * */
+    bool encodeECI(const std::string& input,vector<uint8_t>& output);
+
+    /**
+     * @brief encode the mode of FNC1 in first position
+     * */
     bool encodeFNC1(const std::string& input,vector<uint8_t>& output);
+
+    /**
+     * @brief encode the mode of FNC1 in second position
+     * */
     bool encodeFNC2(const std::string& input,vector<uint8_t>& output);
-    bool encodeStructure(vector<uint8_t>& payload);
 
+    /**
+     * @brief encode the mode of structure
+     * */
+    bool encodeStructure(const std::string& input,vector<uint8_t>& payload);
+
+    /**
+     * @brief Pad the original string to fulfill all data codewords
+     *          Detailed explanation can be found at @https://www.thonky.com/qr-code-tutorial/data-encoding
+     */
     void padBitStream();
-    void stringToBits();
-    void eccGenerate(vector<Mat>& data_blocks,vector<Mat>& ecc_blocks);
-    void rearrangeBlocks(const vector<Mat>& data_blocks,const vector<Mat>& ecc_blocks);
-    void writeReservedArea();
-    void writeBit(int x, int y, int& count);
-    void writeData();
-    void structureFinalMessage();
 
-    void formatGenerate(const int& type , Mat & format_array);
+    /**@brief Convert the character string into a bit stream.
+    */
+    void stringToBits();
+
+    /**@brief Get the data blocks by the bit stream and calculate the ecc codeword blocks.
+     * @param vector<Mat>& data_blocks,
+     * @param vector<Mat>& ecc_blocks( data and ecc codeword blocks by sequence, every item is a poly of codeword block)
+     */
+    void eccGenerate(vector<Mat>& data_blocks,vector<Mat>& ecc_blocks);
+
+    /**@brief Rearrange the all the codewords in vertical sequence for the encoding.
+     * @param vector<Mat>& data_blocks,
+     * @param vector<Mat>& ecc_blocks( data and ecc codeword blocks by sequence, every item is a poly of codeword block)
+     */
+    void rearrangeBlocks(const vector<Mat>& data_blocks,const vector<Mat>& ecc_blocks);
+    /**
+     * @brief write loactor pattern , timing pattern and alignment position
+     */
+    void writeReservedArea();
+    /**
+     * @brief write bit into the QR code
+     * @param int x, int y ( current pixel postion), int& count(the number of current bit)
+     */
+    void writeBit(int x, int y, int& count);
+    /**
+     *@brief write data into the QRcode by zig-zag method
+     */
+    void writeData();
+
+    /**@brief Write the bits into QR image
+     */
+    void structureFinalMessage();
+    /**
+     * @brief generate the format bit-stream with EC level and mask type
+     * @param format_array
+     * @param type (Mask type)
+     */
+    void formatGenerate(const int& mask_type_num , Mat & format_array);
+
+    /**
+     * @brief write the format and verion information in the Reserved Area
+     * @param masked (Output matrix)
+     * @param format_array (Format poly)
+     */
     void fillReserved(const Mat & format_array , Mat & masked);
-    void maskData(const int& type , Mat & masked);
+
+    /**@brief Mask the QRcode by corresponding mask type
+     * @param type (Mask type)
+     * @param format_array (Format poly)
+
+    */
+    void maskData(const int& mask_type_num , Mat & masked);
+    /**
+     * @brief find the mask type which has the lowest evaluation according to the 4 rules*/
     void findAutoMaskType();
 
+    /**
+    * @brief select an encoding mode for the input string */
     QRencodeMode fncModeSelect(const std::string& input);
+    /**
+     * @brief auto determine the verison according to the string length and the version capacity database */
     bool versionEstimate(const int &input_length,vector<int>&possible_version);
-    bool generateBlock(const std::string& input, int mode ,methodBlock& block );
+
+    /**
+     * @brief */
+    bool generateBlock(const std::string& input, int mode ,autoEncodePerBlock& block );
+
+    /**
+     * @breif determine the version level automatically
+     *        according to the ecc level and the length of the string
+     * @param input_str(the input character string)
+     */
     int versionAuto(const std::string & input_str);
 
+    /**@brief  find the version automatically
+     * @param input_length
+     * @param ecc_level
+     * @param mode
+     * @return the version index
+     * */
+    int findVersionCapacity(const int &input_length ,const int &ecc ,const int & version_begin, const int & version_end );
+
 };
-/**findVersionCapacity
- * @param input_length
- * @param ecc_level
- * @param mode
- * @func  find the version automatically
- * @return the version index
- * */
-int findVersionCapacity(const int &input_length ,const int &ecc_level ,const int & version_begin, const int & version_end ){
+
+int QREncoder::findVersionCapacity(const int &input_length ,const int &ecc ,const int & version_begin, const int & version_end ){//, const int &mode
+//   /**QR_MODE_NUM   = 1:  ->0
+//      QR_MODE_ALPHA = 2:  ->1
+//      QR_MODE_BYTE  = 4:  ->2
+//      QR_MODE_KANJI = 8:  ->3*/
+//    int mode_index = (int)log2(mode);
     int i,version_index,data_codewords;
-    version_index = -1;
+    const int byte_len = 8;
+    const int not_found = -1 ;
+    version_index = not_found;
     /**find the version according to the number of data codewords*/
     for( i = version_begin ; i < version_end ; i++ ){
-        const BlockParams * tmp_ecc_params = &(version_info_database[i].ecc[ecc_level]);
+        const BlockParams* tmp_ecc_params =  ( &(version_info_database[i].ecc[ecc]));
+        //std::shared_ptr<BlockParams> tmp_ecc_params =  static_cast<std::shared_ptr<BlockParams>>( &(version_info_database[i].ecc[ecc_level]));
+        /**calcutlate the total data codewords of current version level*/
         data_codewords = version_info_database[i].total_codewords
                              -
                              tmp_ecc_params->ecc_codewords*(tmp_ecc_params->num_blocks_in_G1+tmp_ecc_params->num_blocks_in_G2);
-
-        if(data_codewords*8 > input_length ){
+        /**find the minimum version which can hold all the bit stream */
+        if(data_codewords*byte_len > input_length ){
             version_index = i;
             break;
         }
@@ -4831,9 +5031,11 @@ bool QREncoder::versionEstimate(const int &input_length,vector<int>&possible_ver
 
 int QREncoder::versionAuto(const std::string & input_str){
     vector<int> possible_version;
-    versionEstimate((int)input_str.length(),possible_version);
+    /**first try to estimate the version range (0-9 , 10-26, 27-41)*/
+    versionEstimate(input_str.length(),possible_version);
     int v = 0;
     vector<uint8_t> payload_tmp;
+    /**the beginning index of version */
     int version_range[5]={0,1,10,27,41};
     for(size_t i = 0 ; i < possible_version.size() ; i++ ){
         int version_range_index = possible_version[i];
@@ -4846,9 +5048,11 @@ int QREncoder::versionAuto(const std::string & input_str){
         else{
             v = 27;
         }
+        /**use the output bit stream to find the exact version level*/
         encodeAuto(input_str,payload_tmp);
         v = findVersionCapacity((int)payload_tmp.size(),ecc_level,
                                             version_range[version_range_index],version_range[version_range_index+1]);
+        /**find then break*/
         if(v!= -1)
             break;
     }
@@ -4877,7 +5081,7 @@ QREncoder::QREncoder(const std::string& input ,int mode,int v  = 0 ,int ecc = 0 
         total_num =(uint8_t)struct_num - 1 ;
 
     }
-
+    /**divided into several segments for structure if necessary*/
     int segment_len = (int)ceil((int)input.length()/struct_num);
     for(int i = 0; i < struct_num ; i ++){
         sequence_num = (uint8_t)i;
@@ -4887,11 +5091,11 @@ QREncoder::QREncoder(const std::string& input ,int mode,int v  = 0 ,int ecc = 0 
         input_info = input.substr(segment_begin,segemnt_end-segment_begin + 1 );
         /**determine the version automatically*/
         version_level = (v > 0 ? v : versionAuto(input_info));
-
+        /**initialize the output payload*/
         payload.clear();
         payload.reserve(max_payload_len);//memset(payload,0,sizeof(uint8_t)*max_payload_len);
         format = Mat(Size(1, 15), CV_8UC1, Scalar(255));
-
+        /**initialize version information*/
         version_size = (21 + (version_level - 1) * 4);
         version_info =&version_info_database[version_level];
         cur_ecc_params = &version_info->ecc[ecc_level];
@@ -4901,22 +5105,21 @@ QREncoder::QREncoder(const std::string& input ,int mode,int v  = 0 ,int ecc = 0 
 
         original = Mat(Size(version_size, version_size), CV_8UC1, Scalar(255));
         masked_data = original.clone();
+        Mat qrcode = QRcodeGenerate();
+        /**store all the qrcodes into to a vector*/
+        my_qrcodes.push_back(qrcode);
 
-        my_qrcodes.push_back(QRcodeGenerate());
     }
 
 
 }
 
-/**name  @
- * param @
- * func  @ generate the format bit-stream with EC level and mask type
- */
-void QREncoder::formatGenerate(const int& type , Mat & format_array){
+
+void QREncoder::formatGenerate(const int& mask_type_num , Mat & format_array){
     /**poly of format (small index stands for lower items)*/
     Mat Polynomial=Mat(Size(1,max_format_length),CV_8UC1,Scalar(0));
     /** EC level (1-2)+Mask(3-5) + EC for this string( 6-15) */
-    std::string Mask_type = decToBin(type,3);
+    std::string Mask_type = decToBin(mask_type_num,3);
     std::string EC_level = decToBin(eccLevelToCode(ecc_level),2);
     std::string version_bits =EC_level + Mask_type;
     /** get shift*/
@@ -4938,10 +5141,7 @@ void QREncoder::formatGenerate(const int& type , Mat & format_array){
     }
     return ;
 }
-/**name  @
- * param @
- * func  @ Convert the character string into a bit stream by the encoding of byte mode.
- */
+
 bool QREncoder::encodeAlpha(const std::string& input,vector<uint8_t>& output){
     /**alpha table*/
     std::string alpha_map =
@@ -4986,11 +5186,9 @@ bool QREncoder::encodeAlpha(const std::string& input,vector<uint8_t>& output){
 
     return true;
 }
-/**name  @
- * param @
- * func  @ Convert the character string into a bit stream by the encoding of byte mode.
- */
-void QREncoder::encodeByte(const std::string& input,vector<uint8_t>& output){
+
+bool QREncoder::encodeByte(const std::string& input,vector<uint8_t>& output){//,int &output_len){
+    //cout<<"version_level"<<version_level<<endl;
     int bits = 8;
     /**check version_level to update the bit counter*/
     if(version_level>9)
@@ -5007,13 +5205,10 @@ void QREncoder::encodeByte(const std::string& input,vector<uint8_t>& output){
         std::string per_byte = decToBin(int(input[i]),8);
         loadString(per_byte,output, true);
     }
-    return ;
+    return true;
 }
 
-/** encodeNumeric
- * params@ ptr(current bit postion)
- * func@ decode the numerical mode
- * */
+
 bool QREncoder::encodeNumeric(const std::string& input,vector<uint8_t>& output){
     /**check version_level to update the bit counter*/
     int bits = 10;
@@ -5070,11 +5265,7 @@ bool QREncoder::encodeNumeric(const std::string& input,vector<uint8_t>& output){
 
 }
 
-/** encodeKanji
- * params@
- * func@
- * attention@ The input info must be the kanji in SHIFT_JIS encoding set !
- * */
+
 bool QREncoder::encodeKanji(const std::string& input,vector<uint8_t>& output){
     /*initialize the count indicator*/
     int bits = 12;
@@ -5118,24 +5309,22 @@ bool QREncoder::encodeKanji(const std::string& input,vector<uint8_t>& output){
     return true;
 }
 
-/** encodeECI
- * params@
- * func@
- * attention@ The input info must be the kanji in SHIFT_JIS encoding set !
- * */
-bool QREncoder::encodeECI(vector<uint8_t>& output){
-    if(eci > 999999)
-        return false;
-    int codewords = 1;
-    if(eci > 16383)
-        codewords = 3;
-    else if(eci > 127)
-        codewords = 2;
+
+bool QREncoder::encodeECI(const std::string& input,vector<uint8_t>& output){
     /**mode indicator*/
     std::string mode_bits = decToBin(QR_MODE_ECI,4);
     loadString(mode_bits,output, true);
-
+    uint32_t eci_border[3] = {127,16383,999999};
+    /**get the encoding codewords*/
+    if(eci > eci_border[2])
+        return false;
+    int codewords = 1;
+    if(eci > eci_border[1])
+        codewords = 3;
+    else if(eci > eci_border[0])
+        codewords = 2;
     std::string counter = decToBin(eci,codewords*8);
+    /**adjust the head according to the num of codewords*/
     if(codewords == 1)
         counter[0] = '0';
     else if(codewords == 2){
@@ -5148,12 +5337,14 @@ bool QREncoder::encodeECI(vector<uint8_t>& output){
         counter[2] = '0';
     }
     loadString(counter,output, true);
+    encodeAuto(input,output );
     return true;
 }
 bool QREncoder::encodeFNC1(const std::string& input,vector<uint8_t>& output){
     /**mode indicator*/
     std::string mode_bits = decToBin(QR_MODE_FNC1FIRST,4);
     loadString(mode_bits,output, true);
+    /**encode the remaining characters*/
     if(fncModeSelect(input)==QR_MODE_ALPHA)
         encodeAlpha(input,output);
     else
@@ -5164,10 +5355,11 @@ bool QREncoder::encodeFNC2(const std::string& input,vector<uint8_t>& output){
     /**mode indicator*/
     std::string mode_bits = decToBin(QR_MODE_FNC1SECOND,4);
     loadString(mode_bits,output, true);
-
+    /**encode the first AI codeword of FNC1 in second position*/
     fnc1_second_AI = (input[0]-'0')*10 + (input[1]-'0');
     std::string AI_bits = decToBin(fnc1_second_AI,8);
     loadString(AI_bits,output, true);
+    /**encode the remaining characters*/
     std::string sub_string = input.substr(2,input.length()-2);
     if(fncModeSelect(sub_string)==QR_MODE_ALPHA)
         encodeAlpha(sub_string,output);
@@ -5175,7 +5367,8 @@ bool QREncoder::encodeFNC2(const std::string& input,vector<uint8_t>& output){
         encodeByte(sub_string,output);
     return true;
 }
-bool QREncoder::encodeStructure(vector<uint8_t>& output){
+
+bool QREncoder::encodeStructure(const std::string& input , vector<uint8_t>& output){
     /**mode indicator*/
     std::string mode_bits = decToBin(QR_MODE_STRUCTURE,4);
     loadString(mode_bits,output, true);
@@ -5188,10 +5381,11 @@ bool QREncoder::encodeStructure(vector<uint8_t>& output){
     /**parity data*/
     std::string parity_bits = decToBin(parity,8);
     loadString(parity_bits,output, true);
+    encodeAuto(input,output );
     return true;
 }
 
-bool QREncoder::generateBlock(const std::string& input , int mode ,struct methodBlock& block ){
+bool QREncoder::generateBlock(const std::string& input , int mode ,struct autoEncodePerBlock& block ){
     block.block_load_len = 0 ;
     block.encoding_mode = mode;
     /**clear the payload*/
@@ -5205,20 +5399,20 @@ bool QREncoder::generateBlock(const std::string& input , int mode ,struct method
             result = encodeAlpha(input,block.block_load );
             break;
         case QR_MODE_BYTE:
-            encodeByte(input,block.block_load );
+            result = encodeByte(input,block.block_load );
             break;
         case QR_MODE_KANJI:
             result = encodeKanji(input,block.block_load );
             break;
     }
-    block.block_load_len = (int)block.block_load.size();
+    block.block_load_len = block.block_load.size();
     return  result;
 }
 
 
 struct encodingMethods{
     int len;
-    vector<methodBlock> blocks;
+    vector<autoEncodePerBlock> blocks;
     encodingMethods(){
         len = 0 ;
         blocks.clear();
@@ -5226,15 +5420,12 @@ struct encodingMethods{
     int sum_len(){
         int bits_len = 0 ;
         for(size_t i = 0 ; i < blocks.size(); i++ ){
-            bits_len += (int)blocks[i].block_load.size();
+            bits_len += blocks[i].block_load.size();
         }
         return bits_len;
     }
 };
-/** encodeAuto
- * params@
- * func@ the priority is : numeric -> alphanumeric -> byte -> kanji
- * */
+
 bool QREncoder::encodeAuto(const std::string& input,vector<uint8_t>& output){
 
     std::string mode_char_set [2] ;
@@ -5243,7 +5434,7 @@ bool QREncoder::encodeAuto(const std::string& input,vector<uint8_t>& output){
 
     /**DP strategy*/
     vector<encodingMethods> strategy;
-    methodBlock last_method;
+    autoEncodePerBlock last_method;
 
     encodingMethods head;
     strategy.push_back(head);
@@ -5279,7 +5470,7 @@ bool QREncoder::encodeAuto(const std::string& input,vector<uint8_t>& output){
                 previous = strategy[j];
                 /**second is new */
                 std::string sub_string = cur_string.substr(j,str_len-j);
-                methodBlock blocks[3];//numeric,alpha,byte;
+                autoEncodePerBlock blocks[3];//numeric,alpha,byte;
                 if(!generateBlock(sub_string,QR_MODE_NUM,blocks[0])){
                     blocks[0].block_load_len=error_mode_occur;
                 }
@@ -5328,11 +5519,7 @@ QRencodeMode QREncoder::fncModeSelect(const std::string& input ){
     /**choose alpha mode*/
     return QR_MODE_ALPHA;
 }
-/**name  @
- * param @
- * func  @ Pad the original string to fulfill all data codewords
- *          Detailed explanation can be found at @https://www.thonky.com/qr-code-tutorial/data-encoding
- */
+
 void QREncoder::padBitStream(){
     /**total data codeword = total codeword - total ecc codeword*/
     int total_data = version_info->total_codewords - cur_ecc_params->ecc_codewords*(cur_ecc_params->num_blocks_in_G1+cur_ecc_params->num_blocks_in_G2);
@@ -5371,10 +5558,7 @@ void QREncoder::padBitStream(){
     return;
 }
 
-/**name  @
- * param @
- * func  @ Convert the character string into a bit stream.
- */
+
 void QREncoder::stringToBits(){
     switch (mode_type){
         case QR_MODE_NUM:
@@ -5384,8 +5568,7 @@ void QREncoder::stringToBits(){
             encodeAlpha(input_info,payload );
             break;
         case QR_MODE_STRUCTURE:
-            encodeStructure(payload );
-            encodeAuto(input_info,payload );
+            encodeStructure(input_info,payload );
             break;
         case QR_MODE_BYTE:
             encodeByte(input_info,payload );
@@ -5394,8 +5577,7 @@ void QREncoder::stringToBits(){
             encodeKanji(input_info,payload );
             break;
         case QR_MODE_ECI:
-            encodeECI(payload );
-            encodeAuto(input_info,payload );
+            encodeECI(input_info,payload );
             break;
         case QR_MODE_FNC1FIRST:
             fnc1_first = true;
@@ -5412,11 +5594,7 @@ void QREncoder::stringToBits(){
     return ;
 };
 
-/**name  @
- * param @ vector<Mat>& data_blocks,vector<Mat>& ecc_blocks
- *        ( data and ecc codeword blocks by sequence, every item is a poly of codeword block)
- * func  @ Get the data blocks by the bit stream and calculate the ecc codeword blocks.
- */
+
 void QREncoder::eccGenerate(vector<Mat>& data_blocks,vector<Mat>& ecc_blocks){
     int EC_codewords = cur_ecc_params->ecc_codewords;
     /**read position*/
@@ -5460,12 +5638,11 @@ void QREncoder::eccGenerate(vector<Mat>& data_blocks,vector<Mat>& ecc_blocks){
     return ;
 }
 
-/**name  @
- * param @ const vector<Mat>& data_blocks,const vector<Mat>& ecc_blocks
- *        ( data and ecc codeword blocks by sequence, every item is a poly of codeword block)
- * func  @ Rearrange the all the codewords in vertical sequence for the encoding.
- */
+
 void QREncoder::rearrangeBlocks(const vector<Mat>& data_blocks,const vector<Mat>& ecc_blocks){
+    rearranged_data.clear();
+    rearranged_data.reserve(max_payload_len);
+
     int blocks = cur_ecc_params->num_blocks_in_G2+cur_ecc_params->num_blocks_in_G1;
     int col_border = max(cur_ecc_params->data_codewords_in_G2,cur_ecc_params->data_codewords_in_G1);
 
@@ -5510,7 +5687,7 @@ void QREncoder::rearrangeBlocks(const vector<Mat>& data_blocks,const vector<Mat>
 void QREncoder::findAutoMaskType(){
     /**dark pixel is 0 , light is 255 */
     if(7 >= mask_type && mask_type >= 0)
-        return; ;
+        return;
 
     int cur_type ;
     int best_index = 0;
@@ -5622,25 +5799,22 @@ void QREncoder::findAutoMaskType(){
     /***/
     mask_type = best_index;
 }
-/**name  @
- * param @
- * func  @ Mask the QRcode by corresponding mask type
- */
-void QREncoder::maskData(const int& type , Mat & masked){
+
+void QREncoder::maskData(const int& mask_type_num , Mat & masked){
     for(int i= 0;i<version_size;i++){
         for(int j= 0;j<version_size;j++){
             /**ignore the Reserved Area*/
             if(original.ptr(i)[j]==invalid_region_value)
                 continue;
                 /**unmask*/
-            else if((type==0  && !((i + j) % 2)) ||
-                    (type==1  && !(i % 2)) ||
-                    (type==2  && !(j % 3)) ||
-                    (type==3  && !((i + j) % 3 )) ||
-                    (type==4  && !(((i / 2) + (j / 3)) % 2)) ||
-                    (type==5  && !((i * j) % 2 + (i * j) % 3))||
-                    (type==6  && !(((i * j) % 2 + (i * j) % 3) % 2))||
-                    ((type==7 && !(((i * j) % 3 + (i + j) % 2) % 2)))
+            else if((mask_type_num==0  && !((i + j) % 2)) ||
+                    (mask_type_num==1  && !(i % 2)) ||
+                    (mask_type_num==2  && !(j % 3)) ||
+                    (mask_type_num==3  && !((i + j) % 3 )) ||
+                    (mask_type_num==4  && !(((i / 2) + (j / 3)) % 2)) ||
+                    (mask_type_num==5  && !((i * j) % 2 + (i * j) % 3))||
+                    (mask_type_num==6  && !(((i * j) % 2 + (i * j) % 3) % 2))||
+                    ((mask_type_num==7 && !(((i * j) % 3 + (i + j) % 2) % 2)))
                     ){
                 masked.ptr(i)[j] = original.ptr(i)[j]^255;
             }
@@ -5652,12 +5826,9 @@ void QREncoder::maskData(const int& type , Mat & masked){
     return;
 }
 
-/**name  @
- * param @
- * func  @ write loactor pattern , timing pattern and alignment position
- */
+
 void QREncoder::writeReservedArea(){
-    /*get mask pattern according to the format*/
+    /**get mask pattern according to the format*/
     int locator_position[2] = { 3 , version_size -1 -3 };
     /**draw locator pattern*/
     for (int a = 0 ; a < 2 ; a++ ){
@@ -5747,10 +5918,7 @@ void QREncoder::writeReservedArea(){
     return ;
 }
 
-/**name  @
- * param @ int x, int y ( current pixel postion), int& count(the number of current bit)
- * func  @ write bit into the QR code
- */
+
 void QREncoder::writeBit(int x, int y, int& count){
     /**the bitpos^th bit of the  bytepos^th codeword*/
     int bytepos = count >> 3;/*equal to count/8 */
@@ -5771,10 +5939,7 @@ void QREncoder::writeBit(int x, int y, int& count){
     }
     count++;
 }
-/**name  @
- * param @
- * func  @ write data into the QRcode by zig-zag method
- */
+
 void QREncoder::writeData(){
     int y = version_size - 1;
     int x = version_size - 1;
@@ -5796,10 +5961,7 @@ void QREncoder::writeData(){
         }
     }
 }
-/**name  @
- * param @
- * func  @ write the format and verion information in the Reserved Area
- */
+
 void QREncoder::fillReserved(const Mat & format_array , Mat & masked){
     /**write to the left-bottom and upper-right */
     int i  ;
@@ -5827,10 +5989,7 @@ void QREncoder::fillReserved(const Mat & format_array , Mat & masked){
     }
     return;
 }
-/**name  @
- * param @
- * func  @ Write the bits into QR image
- */
+
 void QREncoder::structureFinalMessage(){
     writeReservedArea();
     writeData();
@@ -5850,10 +6009,32 @@ Mat QREncoder::QRcodeGenerate(){
     eccGenerate(data_blocks,ecc_blocks);
     rearrangeBlocks(data_blocks,ecc_blocks);
     structureFinalMessage();
-    resize(masked_data,tmp,Size(600,600),0,0,INTER_AREA);
-    int border = int(tmp.cols*0.05);
-    copyMakeBorder(tmp, tmp, border, border, border, border, BORDER_CONSTANT, Scalar(255));
+    //int border = int(tmp.cols*0.05);
+    //copyMakeBorder(tmp, tmp, border, border, border, border, BORDER_CONSTANT, Scalar(255));
     return tmp;
 }
 
-}  // namespace
+vector<Mat> QRCodeEncoder::generate(cv::String input_string, int mode, int version = 0, int correction_level = CORRECT_LEVEL_L ,
+        int m = -1 , int eci= -1 , int s = 2 ){
+    mode_type = mode;
+    version_level = version;
+    ecc_level = correction_level ;
+    mask_type = m ;
+    eci_num = eci;
+    struct_num = s;
+    QREncoder my_qrcode(input_string,mode,version,correction_level,mask_type,eci_num,struct_num);
+
+    return my_qrcode.my_qrcodes;
+}
+Mat QRCodeEncoder::generate(cv::String input_string, int mode, int version = 0, int correction_level = CORRECT_LEVEL_L ,
+                                             int m = -1 , int eci= -1){
+     QREncoder my_qrcode(input_string,mode,version,correction_level,mask_type,eci_num,1);
+     mode_type = mode;
+     version_level = version;
+     ecc_level = correction_level ;
+     mask_type = m ;
+     eci_num = eci;
+     return my_qrcode.my_qrcodes[0];
+}
+
+}// namespace

@@ -46,6 +46,7 @@
 
 #include "opencv2/core.hpp"
 
+
 /**
 @defgroup objdetect Object Detection
 
@@ -126,9 +127,9 @@ public:
     {
         double delta = eps * ((std::min)(r1.width, r2.width) + (std::min)(r1.height, r2.height)) * 0.5;
         return std::abs(r1.x - r2.x) <= delta &&
-            std::abs(r1.y - r2.y) <= delta &&
-            std::abs(r1.x + r1.width - r2.x - r2.width) <= delta &&
-            std::abs(r1.y + r1.height - r2.y - r2.height) <= delta;
+               std::abs(r1.y - r2.y) <= delta &&
+               std::abs(r1.x + r1.width - r2.x - r2.width) <= delta &&
+               std::abs(r1.y + r1.height - r2.y - r2.height) <= delta;
     }
     double eps;
 };
@@ -166,10 +167,10 @@ CV_EXPORTS   void groupRectangles_meanshift(std::vector<Rect>& rectList, std::ve
 template<> CV_EXPORTS void DefaultDeleter<CvHaarClassifierCascade>::operator ()(CvHaarClassifierCascade* obj) const;
 
 enum { CASCADE_DO_CANNY_PRUNING    = 1,
-       CASCADE_SCALE_IMAGE         = 2,
-       CASCADE_FIND_BIGGEST_OBJECT = 4,
-       CASCADE_DO_ROUGH_SEARCH     = 8
-     };
+    CASCADE_SCALE_IMAGE         = 2,
+    CASCADE_FIND_BIGGEST_OBJECT = 4,
+    CASCADE_DO_ROUGH_SEARCH     = 8
+};
 
 class CV_EXPORTS_W BaseCascadeClassifier : public Algorithm
 {
@@ -178,17 +179,17 @@ public:
     virtual bool empty() const CV_OVERRIDE = 0;
     virtual bool load( const String& filename ) = 0;
     virtual void detectMultiScale( InputArray image,
-                           CV_OUT std::vector<Rect>& objects,
-                           double scaleFactor,
-                           int minNeighbors, int flags,
-                           Size minSize, Size maxSize ) = 0;
+                                   CV_OUT std::vector<Rect>& objects,
+                                   double scaleFactor,
+                                   int minNeighbors, int flags,
+                                   Size minSize, Size maxSize ) = 0;
 
     virtual void detectMultiScale( InputArray image,
-                           CV_OUT std::vector<Rect>& objects,
-                           CV_OUT std::vector<int>& numDetections,
-                           double scaleFactor,
-                           int minNeighbors, int flags,
-                           Size minSize, Size maxSize ) = 0;
+                                   CV_OUT std::vector<Rect>& objects,
+                                   CV_OUT std::vector<int>& numDetections,
+                                   double scaleFactor,
+                                   int minNeighbors, int flags,
+                                   Size minSize, Size maxSize ) = 0;
 
     virtual void detectMultiScale( InputArray image,
                                    CV_OUT std::vector<Rect>& objects,
@@ -268,11 +269,11 @@ public:
             opencv_source_code/samples/python/facedetect.py
     */
     CV_WRAP void detectMultiScale( InputArray image,
-                          CV_OUT std::vector<Rect>& objects,
-                          double scaleFactor = 1.1,
-                          int minNeighbors = 3, int flags = 0,
-                          Size minSize = Size(),
-                          Size maxSize = Size() );
+                                   CV_OUT std::vector<Rect>& objects,
+                                   double scaleFactor = 1.1,
+                                   int minNeighbors = 3, int flags = 0,
+                                   Size minSize = Size(),
+                                   Size maxSize = Size() );
 
     /** @overload
     @param image Matrix of the type CV_8U containing an image where objects are detected.
@@ -290,12 +291,12 @@ public:
     @param maxSize Maximum possible object size. Objects larger than that are ignored. If `maxSize == minSize` model is evaluated on single scale.
     */
     CV_WRAP_AS(detectMultiScale2) void detectMultiScale( InputArray image,
-                          CV_OUT std::vector<Rect>& objects,
-                          CV_OUT std::vector<int>& numDetections,
-                          double scaleFactor=1.1,
-                          int minNeighbors=3, int flags=0,
-                          Size minSize=Size(),
-                          Size maxSize=Size() );
+                                                         CV_OUT std::vector<Rect>& objects,
+                                                         CV_OUT std::vector<int>& numDetections,
+                                                         double scaleFactor=1.1,
+                                                         int minNeighbors=3, int flags=0,
+                                                         Size minSize=Size(),
+                                                         Size maxSize=Size() );
 
     /** @overload
     This function allows you to retrieve the final stage decision certainty of classification.
@@ -315,14 +316,14 @@ public:
     @endcode
     */
     CV_WRAP_AS(detectMultiScale3) void detectMultiScale( InputArray image,
-                                  CV_OUT std::vector<Rect>& objects,
-                                  CV_OUT std::vector<int>& rejectLevels,
-                                  CV_OUT std::vector<double>& levelWeights,
-                                  double scaleFactor = 1.1,
-                                  int minNeighbors = 3, int flags = 0,
-                                  Size minSize = Size(),
-                                  Size maxSize = Size(),
-                                  bool outputRejectLevels = false );
+                                                         CV_OUT std::vector<Rect>& objects,
+                                                         CV_OUT std::vector<int>& rejectLevels,
+                                                         CV_OUT std::vector<double>& levelWeights,
+                                                         double scaleFactor = 1.1,
+                                                         int minNeighbors = 3, int flags = 0,
+                                                         Size minSize = Size(),
+                                                         Size maxSize = Size(),
+                                                         bool outputRejectLevels = false );
 
     CV_WRAP bool isOldFormatCascade() const;
     CV_WRAP Size getOriginalWindowSize() const;
@@ -344,12 +345,12 @@ CV_EXPORTS Ptr<BaseCascadeClassifier::MaskGenerator> createFaceDetectionMaskGene
 //! struct for detection region of interest (ROI)
 struct DetectionROI
 {
-   //! scale(size) of the bounding box
-   double scale;
-   //! set of requested locations to be evaluated
-   std::vector<cv::Point> locations;
-   //! vector that will contain confidence values for each location
-   std::vector<double> confidences;
+    //! scale(size) of the bounding box
+    double scale;
+    //! set of requested locations to be evaluated
+    std::vector<cv::Point> locations;
+    //! vector that will contain confidence values for each location
+    std::vector<double> confidences;
 };
 
 /**@brief Implementation of HOG (Histogram of Oriented Gradients) descriptor and object detector.
@@ -373,17 +374,17 @@ struct CV_EXPORTS_W HOGDescriptor
 {
 public:
     enum { L2Hys = 0 //!< Default histogramNormType
-         };
+    };
     enum { DEFAULT_NLEVELS = 64 //!< Default nlevels value.
-         };
+    };
     /**@brief Creates the HOG descriptor and detector with default params.
 
     aqual to HOGDescriptor(Size(64,128), Size(16,16), Size(8,8), Size(8,8), 9, 1 )
     */
     CV_WRAP HOGDescriptor() : winSize(64,128), blockSize(16,16), blockStride(8,8),
-        cellSize(8,8), nbins(9), derivAperture(1), winSigma(-1),
-        histogramNormType(HOGDescriptor::L2Hys), L2HysThreshold(0.2), gammaCorrection(true),
-        free_coef(-1.f), nlevels(HOGDescriptor::DEFAULT_NLEVELS), signedGradient(false)
+                              cellSize(8,8), nbins(9), derivAperture(1), winSigma(-1),
+                              histogramNormType(HOGDescriptor::L2Hys), L2HysThreshold(0.2), gammaCorrection(true),
+                              free_coef(-1.f), nlevels(HOGDescriptor::DEFAULT_NLEVELS), signedGradient(false)
     {}
 
     /** @overload
@@ -401,14 +402,14 @@ public:
     @param _signedGradient sets signedGradient with given value.
     */
     CV_WRAP HOGDescriptor(Size _winSize, Size _blockSize, Size _blockStride,
-                  Size _cellSize, int _nbins, int _derivAperture=1, double _winSigma=-1,
-                  int _histogramNormType=HOGDescriptor::L2Hys,
-                  double _L2HysThreshold=0.2, bool _gammaCorrection=false,
-                  int _nlevels=HOGDescriptor::DEFAULT_NLEVELS, bool _signedGradient=false)
-    : winSize(_winSize), blockSize(_blockSize), blockStride(_blockStride), cellSize(_cellSize),
-    nbins(_nbins), derivAperture(_derivAperture), winSigma(_winSigma),
-    histogramNormType(_histogramNormType), L2HysThreshold(_L2HysThreshold),
-    gammaCorrection(_gammaCorrection), free_coef(-1.f), nlevels(_nlevels), signedGradient(_signedGradient)
+                          Size _cellSize, int _nbins, int _derivAperture=1, double _winSigma=-1,
+                          int _histogramNormType=HOGDescriptor::L2Hys,
+                          double _L2HysThreshold=0.2, bool _gammaCorrection=false,
+                          int _nlevels=HOGDescriptor::DEFAULT_NLEVELS, bool _signedGradient=false)
+            : winSize(_winSize), blockSize(_blockSize), blockStride(_blockStride), cellSize(_cellSize),
+              nbins(_nbins), derivAperture(_derivAperture), winSigma(_winSigma),
+              histogramNormType(_histogramNormType), L2HysThreshold(_L2HysThreshold),
+              gammaCorrection(_gammaCorrection), free_coef(-1.f), nlevels(_nlevels), signedGradient(_signedGradient)
     {}
 
     /** @overload
@@ -488,9 +489,9 @@ public:
     @param locations Vector of Point
     */
     CV_WRAP virtual void compute(InputArray img,
-                         CV_OUT std::vector<float>& descriptors,
-                         Size winStride = Size(), Size padding = Size(),
-                         const std::vector<Point>& locations = std::vector<Point>()) const;
+                                 CV_OUT std::vector<float>& descriptors,
+                                 Size winStride = Size(), Size padding = Size(),
+                                 const std::vector<Point>& locations = std::vector<Point>()) const;
 
     /** @brief Performs object detection without a multi-scale window.
     @param img Matrix of the type CV_8U or CV_8UC3 containing an image where objects are detected.
@@ -504,10 +505,10 @@ public:
     @param searchLocations Vector of Point includes set of requested locations to be evaluated.
     */
     CV_WRAP virtual void detect(const Mat& img, CV_OUT std::vector<Point>& foundLocations,
-                        CV_OUT std::vector<double>& weights,
-                        double hitThreshold = 0, Size winStride = Size(),
-                        Size padding = Size(),
-                        const std::vector<Point>& searchLocations = std::vector<Point>()) const;
+                                CV_OUT std::vector<double>& weights,
+                                double hitThreshold = 0, Size winStride = Size(),
+                                Size padding = Size(),
+                                const std::vector<Point>& searchLocations = std::vector<Point>()) const;
 
     /** @brief Performs object detection without a multi-scale window.
     @param img Matrix of the type CV_8U or CV_8UC3 containing an image where objects are detected.
@@ -539,9 +540,9 @@ public:
     @param useMeanshiftGrouping indicates grouping algorithm
     */
     CV_WRAP virtual void detectMultiScale(InputArray img, CV_OUT std::vector<Rect>& foundLocations,
-                                  CV_OUT std::vector<double>& foundWeights, double hitThreshold = 0,
-                                  Size winStride = Size(), Size padding = Size(), double scale = 1.05,
-                                  double finalThreshold = 2.0,bool useMeanshiftGrouping = false) const;
+                                          CV_OUT std::vector<double>& foundWeights, double hitThreshold = 0,
+                                          Size winStride = Size(), Size padding = Size(), double scale = 1.05,
+                                          double finalThreshold = 2.0,bool useMeanshiftGrouping = false) const;
 
     /** @brief Detects objects of different sizes in the input image. The detected objects are returned as a list
     of rectangles.
@@ -569,7 +570,7 @@ public:
     @param paddingBR Padding from bottom-right
     */
     CV_WRAP virtual void computeGradient(const Mat& img, CV_OUT Mat& grad, CV_OUT Mat& angleOfs,
-                                 Size paddingTL = Size(), Size paddingBR = Size()) const;
+                                         Size paddingTL = Size(), Size paddingBR = Size()) const;
 
     /** @brief Returns coefficients of the classifier trained for people detection (for 64x128 windows).
     */
@@ -638,9 +639,9 @@ public:
     @param padding padding
     */
     virtual void detectROI(const cv::Mat& img, const std::vector<cv::Point> &locations,
-                                   CV_OUT std::vector<cv::Point>& foundLocations, CV_OUT std::vector<double>& confidences,
-                                   double hitThreshold = 0, cv::Size winStride = Size(),
-                                   cv::Size padding = Size()) const;
+                           CV_OUT std::vector<cv::Point>& foundLocations, CV_OUT std::vector<double>& confidences,
+                           double hitThreshold = 0, cv::Size winStride = Size(),
+                           cv::Size padding = Size()) const;
 
     /** @brief evaluate specified ROI and return confidence value for each location in multiple scales
     @param img Matrix of the type CV_8U or CV_8UC3 containing an image where objects are detected.
@@ -669,6 +670,26 @@ public:
     */
     void groupRectangles(std::vector<cv::Rect>& rectList, std::vector<double>& weights, int groupThreshold, double eps) const;
 };
+
+
+class CV_EXPORTS_W QRCodeEncoder {
+public:
+    enum {
+        CORRECT_LEVEL_L = 0,
+        CORRECT_LEVEL_M = 1,
+        CORRECT_LEVEL_Q = 2,
+        CORRECT_LEVEL_H = 3} QRCodeCorrectionLevel;
+    std::vector<Mat> generate(cv::String input_string, int mode, int version, int correction_level,int m, int eci,int s);
+    Mat generate(cv::String input_string, int mode, int version , int correction_level ,int m  , int eci);
+
+    int mode_type;
+    int version_level;
+    int ecc_level;
+    int mask_type;
+    int eci_num;
+    int struct_num;
+};
+
 
 class CV_EXPORTS_W QRCodeDetector
 {
@@ -709,7 +730,7 @@ public:
      @param straight_qrcode The optional output image containing rectified and binarized QR code
      */
     CV_WRAP cv::String detectAndDecode(InputArray img, OutputArray points=noArray(),
-                                        OutputArray straight_qrcode = noArray());
+                                       OutputArray straight_qrcode = noArray());
     /** @brief Detects QR codes in image and returns the vector of the quadrangles containing the codes.
      @param img grayscale or color (BGR) image containing (or not) QR codes.
      @param points Output vector of vector of vertices of the minimum-area quadrangle containing the codes.
@@ -742,14 +763,19 @@ public:
             OutputArray points = noArray(),
             OutputArrayOfArrays straight_qrcode = noArray()
     ) const;
-
+    int mode_type;
+    int version_level;
+    int ecc_level;
+    int mask_type;
+    int eci_num;
+    int struct_num;
 
 #ifndef CV_DOXYGEN  // COMPATIBILITY
     inline bool decodeMulti(
             InputArray img, InputArray points,
             CV_OUT std::vector<std::string>& decoded_info,
             OutputArrayOfArrays straight_qrcode = noArray()
-        ) const
+    ) const
     {
         std::vector<cv::String> decoded_info_;
         bool res = decodeMulti(img, points, decoded_info_, straight_qrcode);
@@ -766,7 +792,7 @@ public:
             InputArray img, CV_OUT std::vector<std::string>& decoded_info,
             OutputArray points = noArray(),
             OutputArrayOfArrays straight_qrcode = noArray()
-        ) const
+    ) const
     {
         std::vector<cv::String> decoded_info_;
         bool res = detectAndDecodeMulti(img, decoded_info_, points, straight_qrcode);
@@ -799,7 +825,8 @@ CV_EXPORTS bool detectQRCode(InputArray in, std::vector<Point> &points, double e
     @param decoded_info String information that is encrypted in QR code.
     @param straight_qrcode Matrix of the type CV_8UC1 containing an binary straight QR code.
     */
-CV_EXPORTS bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode = noArray());
+CV_EXPORTS bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode);
+CV_EXPORTS bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode, int &mode,int&version,int&ecc_level,int&mask_type,int&eci_num);
 
 //! @} objdetect
 }
