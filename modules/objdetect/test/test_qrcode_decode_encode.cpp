@@ -192,7 +192,7 @@ TEST_P(Objdetect_QRCode_Decode, regression)
                     if (name_test_image == name_current_image)
                     {
                         int mode = config["mode"];
-                        int version = config["version"];;
+                        int version = config["version"];; 
                         int ecc_level = config["ecc_level"];;
                         int mask_type = config["mask_type"];;
                         int eci_num = config["eci_num"];;
