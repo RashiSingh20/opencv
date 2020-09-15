@@ -31,24 +31,6 @@ const int  error_mode_occur = 99999;
 const int invalid_region_value = 110;
 const int  codeword_len = 8;
 
-
-/**
- * Encoding mode.
- */
-typedef enum {
-    QR_MODE_AUTO       = -1    , ///< Terminator (NUL character). Internal use only
-    QR_MODE_NUL        = 0b0000,   ///< Terminator (NUL character). Internal use only
-    QR_MODE_ECI        = 0b0111,        ///< ECI mode
-    QR_MODE_NUM        = 0b0001,    ///< Numeric mode
-    QR_MODE_ALPHA      = 0b0010,         ///< Alphabet-numeric mode
-    QR_MODE_BYTE       = 0b0100,          ///< 8-bit data mode
-    QR_MODE_KANJI      = 0b1000,      ///< Kanji (shift-jis) mode
-    QR_MODE_STRUCTURE  = 0b0011,  ///< Internal use only
-    QR_MODE_FNC1FIRST  = 0b0101, ///< FNC1, first position
-    QR_MODE_FNC1SECOND = 0b1001, ///< FNC1, second position
-} QRencodeMode;
-
-
 enum EncodingSet {
     CP437 = 0,  //! (Cp437 0)
     ISO_8859_1, //! (ECI codes 1)
@@ -274,7 +256,7 @@ void loadString(const std::string &str ,vector<uint8_t>& cur_str , bool is_bit_s
 
 bool detectQRCode(InputArray in, vector<Point> &points, double eps_x, double eps_y);
 bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode);
-bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode,int &mode,int&version,int&ecc_level,int&mask_type ,int&eci,int&eci_num);
+//bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode,int &mode,int&version,int&ecc_level,int&mask_type ,int&eci,int&eci_num);
 
 
 std::string decToBin(const int &format, const int &total){
@@ -3617,19 +3599,20 @@ bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, O
     decoded_info = qrcode.decode(in, points, straight_qrcode);
     return !decoded_info.empty();
 }
-bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode,int &mode,int&version,int&ecc_level,int&mask_type ,int&eci,int&eci_num)
-{
-    QRCodeDetector qrcode;
-    decoded_info = qrcode.decode(in, points, straight_qrcode);
 
-    eci_num = qrcode.eci_num;
-    mode = qrcode.mode_type;
-    version = qrcode.version_level;
-    ecc_level = qrcode.ecc_level;
-    mask_type = qrcode.mask_type;
-    eci = qrcode.eci_num;
-    return !decoded_info.empty();
-}
+//bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode,int &mode,int&version,int&ecc_level,int&mask_type ,int&eci,int&eci_num)
+//{
+//    QRCodeDetector qrcode;
+//    decoded_info = qrcode.decode(in, points, straight_qrcode);
+//
+//    eci_num = qrcode.eci_num;
+//    mode = qrcode.mode_type;
+//    version = qrcode.version_level;
+//    ecc_level = qrcode.ecc_level;
+//    mask_type = qrcode.mask_type;
+//    eci = qrcode.eci_num;
+//    return !decoded_info.empty();
+//}
 
 
 cv::String QRCodeDetector::decode(InputArray in, InputArray points,
@@ -3641,6 +3624,7 @@ cv::String QRCodeDetector::decode(InputArray in, InputArray points,
 
     vector<Point2f> src_points;
     points.copyTo(src_points);
+
     CV_Assert(src_points.size() == 4);
     CV_CheckGT(contourArea(src_points), 0.0, "Invalid QR code source points");
 
@@ -4803,12 +4787,9 @@ autoEncodePerBlock::autoEncodePerBlock() {
     block_load.reserve(max_payload_len);
 }
 class QREncoder{
-    int			version_level;
     /**pixel width of QR*/
     int version_size ;
-    int			ecc_level;
-    int			mask_type;
-    int         mode_type;
+
     Mat  format;
     /**the input string */
     std::string input_info;
@@ -4820,7 +4801,6 @@ class QREncoder{
     Mat original;
     Mat masked_data;
 
-    uint32_t eci;
     uint32_t fnc1_second_AI;
     uint8_t parity;
     uint8_t sequence_num;
@@ -4834,6 +4814,12 @@ class QREncoder{
     const  BlockParams *cur_ecc_params;
 
 public:
+    int			version_level;
+    int			ecc_level;
+    int			mask_type;
+    int         mode_type;
+    uint32_t eci;
+
     QREncoder(const std::string& input ,int mode,int v  ,int ecc  ,int mask  ,int eci_mode ,int structure_num );
     Mat QRcodeGenerate();
     vector<Mat> my_qrcodes;
@@ -5106,6 +5092,7 @@ QREncoder::QREncoder(const std::string& input ,int mode,int v  = 0 ,int ecc = 0 
         original = Mat(Size(version_size, version_size), CV_8UC1, Scalar(255));
         masked_data = original.clone();
         Mat qrcode = QRcodeGenerate();
+
         /**store all the qrcodes into to a vector*/
         my_qrcodes.push_back(qrcode);
 
@@ -5188,7 +5175,6 @@ bool QREncoder::encodeAlpha(const std::string& input,vector<uint8_t>& output){
 }
 
 bool QREncoder::encodeByte(const std::string& input,vector<uint8_t>& output){//,int &output_len){
-    //cout<<"version_level"<<version_level<<endl;
     int bits = 8;
     /**check version_level to update the bit counter*/
     if(version_level>9)
@@ -6002,7 +5988,6 @@ void QREncoder::structureFinalMessage(){
 
 Mat QREncoder::QRcodeGenerate(){
     vector<Mat> data_blocks,ecc_blocks;
-    Mat tmp ;
     stringToBits();
     /**ecc coding is a little different*/
     padBitStream();
@@ -6011,29 +5996,28 @@ Mat QREncoder::QRcodeGenerate(){
     structureFinalMessage();
     //int border = int(tmp.cols*0.05);
     //copyMakeBorder(tmp, tmp, border, border, border, border, BORDER_CONSTANT, Scalar(255));
-    return tmp;
+    return masked_data;
 }
 
-vector<Mat> QRCodeEncoder::generate(cv::String input_string, int mode, int version = 0, int correction_level = CORRECT_LEVEL_L ,
-        int m = -1 , int eci= -1 , int s = 2 ){
-    mode_type = mode;
-    version_level = version;
-    ecc_level = correction_level ;
-    mask_type = m ;
-    eci_num = eci;
+vector<Mat> QRCodeEncoder::generate(cv::String input_string, int mode, int version, int correction_level,
+        int m , int eci, int s ){
+    QREncoder my_qrcode(input_string,mode,version,correction_level,m,eci,s);
+    mode_type = my_qrcode.mode_type;
+    version_level = my_qrcode.version_level;
+    ecc_level = my_qrcode.ecc_level ;
+    mask_type = my_qrcode.mask_type;
+    eci_num = my_qrcode.eci;
     struct_num = s;
-    QREncoder my_qrcode(input_string,mode,version,correction_level,mask_type,eci_num,struct_num);
-
     return my_qrcode.my_qrcodes;
 }
-Mat QRCodeEncoder::generate(cv::String input_string, int mode, int version = 0, int correction_level = CORRECT_LEVEL_L ,
-                                             int m = -1 , int eci= -1){
-     QREncoder my_qrcode(input_string,mode,version,correction_level,mask_type,eci_num,1);
-     mode_type = mode;
-     version_level = version;
-     ecc_level = correction_level ;
-     mask_type = m ;
-     eci_num = eci;
+Mat QRCodeEncoder::generateSingle(cv::String input_string, int mode, int version, int correction_level ,
+                                             int m , int eci){
+     QREncoder my_qrcode(input_string,mode,version,correction_level,m,eci,1);
+     mode_type = my_qrcode.mode_type;
+     version_level = my_qrcode.version_level;
+     ecc_level = my_qrcode.ecc_level ;
+     mask_type = my_qrcode.mask_type;
+     eci_num = my_qrcode.eci;
      return my_qrcode.my_qrcodes[0];
 }
 

@@ -25,7 +25,7 @@ std::string qrcode_images_multiple[] = {
   "2_qrcodes.png", "3_close_qrcodes.png", "3_qrcodes.png", "4_qrcodes.png",
   "5_qrcodes.png", "6_qrcodes.png", "7_qrcodes.png", "8_close_qrcodes.png"
 };
-//#define UPDATE_QRCODE_TEST_DATA
+#define UPDATE_QRCODE_TEST_DATA
 #ifdef  UPDATE_QRCODE_TEST_DATA
 
 TEST(Objdetect_QRCode, generate_test_data)

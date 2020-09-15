@@ -672,15 +672,33 @@ public:
 };
 
 
-class CV_EXPORTS_W QRCodeEncoder {
-public:
-    enum {
+///////////////////////////// QR code  ////////////////////////////
+    /**Encoding mode*/
+    typedef enum {
+        QR_MODE_AUTO       = -1    , ///< Terminator (NUL character). Internal use only
+        QR_MODE_NUL        = 0b0000,   ///< Terminator (NUL character). Internal use only
+        QR_MODE_ECI        = 0b0111,        ///< ECI mode
+        QR_MODE_NUM        = 0b0001,    ///< Numeric mode
+        QR_MODE_ALPHA      = 0b0010,         ///< Alphabet-numeric mode
+        QR_MODE_BYTE       = 0b0100,          ///< 8-bit data mode
+        QR_MODE_KANJI      = 0b1000,      ///< Kanji (shift-jis) mode
+        QR_MODE_STRUCTURE  = 0b0011,  ///< Internal use only
+        QR_MODE_FNC1FIRST  = 0b0101, ///< FNC1, first position
+        QR_MODE_FNC1SECOND = 0b1001, ///< FNC1, second position
+    } QRencodeMode;
+
+    typedef enum {
         CORRECT_LEVEL_L = 0,
         CORRECT_LEVEL_M = 1,
         CORRECT_LEVEL_Q = 2,
-        CORRECT_LEVEL_H = 3} QRCodeCorrectionLevel;
-    std::vector<Mat> generate(cv::String input_string, int mode, int version, int correction_level,int m, int eci,int s);
-    Mat generate(cv::String input_string, int mode, int version , int correction_level ,int m  , int eci);
+        CORRECT_LEVEL_H = 3
+    } QRCodeCorrectionLevel;
+
+class CV_EXPORTS_W QRCodeEncoder {
+public:
+    std::vector<Mat> generate(cv::String input_string, int mode, int version = 0, int correction_level = CORRECT_LEVEL_L ,
+                              int m = -1 , int eci= -1 , int s = 2 );
+    Mat generateSingle(cv::String input_string, int mode = QR_MODE_AUTO, int version = 0, int correction_level =CORRECT_LEVEL_L ,int m=0  , int eci=0);
 
     int mode_type;
     int version_level;
@@ -826,7 +844,7 @@ CV_EXPORTS bool detectQRCode(InputArray in, std::vector<Point> &points, double e
     @param straight_qrcode Matrix of the type CV_8UC1 containing an binary straight QR code.
     */
 CV_EXPORTS bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode);
-CV_EXPORTS bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode, int &mode,int&version,int&ecc_level,int&mask_type,int&eci_num);
+//CV_EXPORTS bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode, int &mode,int&version,int&ecc_level,int&mask_type,int&eci_num);
 
 //! @} objdetect
 }
