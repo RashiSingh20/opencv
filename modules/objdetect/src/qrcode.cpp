@@ -23,6 +23,7 @@ namespace cv
 /* Limits on the maximum size of QR-codes and their content. */
 const int   max_payload_len = 8896;
 const int max_format_length = 15;
+const int max_version_length = 18;
 const int  max_version = 40;
 const int  max_alignment = 7;
 //const int  max_poly = 64;
@@ -69,6 +70,7 @@ using std::vector;
  * @return a binary string for print
  * */
 std::string decToBin(uint16_t my_format);
+std::string decToBin(uint32_t my_format);
 
 /**
  * @params my_format A decimal number
@@ -216,14 +218,14 @@ Mat errorCorrect(const Mat & msg_in ,const vector<uint8_t>&synd,const Mat & e_lo
  * @param uint16_t x(Input the XOR of two binary string)
  * @return the distance
  */
-int hammingWeight(uint16_t x);
+int hammingWeight(uint32_t x);
 
 /**
  * @brief find the best matched string
  * @param uint16_t fmt(input format)
  * @return the index of matched component in the look-up table
 */
-int hammingDetect(uint16_t fmt);
+int hammingDetect(uint32_t fmt,int is_format);
 
 /**
  * @brief calculate the syndromes for each block
@@ -256,8 +258,6 @@ void loadString(const std::string &str ,vector<uint8_t>& cur_str , bool is_bit_s
 
 bool detectQRCode(InputArray in, vector<Point> &points, double eps_x, double eps_y);
 bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode);
-//bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode,int &mode,int&version,int&ecc_level,int&mask_type ,int&eci,int&eci_num);
-
 
 std::string decToBin(const int &format, const int &total){
     std::string f;
@@ -1193,11 +1193,30 @@ const VersionInfo version_info_database[max_version + 1] = {
                 }
         }
 };
+/**error correction for format*/
 static const uint16_t after_mask_format [32]={
         0x5412,0x5125,0x5e7c,0x5b4b,0x45f9,  0x40ce,0x4f97,0x4aa0,0x77c4,0x72f3,
         0x7daa,0x789d,0x662f,0x6318,0x6c41,  0x6976,0x1689,0x13be,0x1ce7,0x19d0,
         0x0762,0x0255,0x0d0c,0x083b,0x355f,  0x3068,0x3f31,0x3a06,0x24b4,0x2183,
         0x2eda,0x2bed
+};
+/**error correction for version*/
+static const uint32_t after_mask_version [41]={
+        0,0,0,0,0,0,0,
+        //!version7-11
+        0x07c94, 0x085BC, 0x09A99, 0x0A4D3, 0x0BBF6,
+        //!version12-16
+        0x0C762, 0x0D847, 0x0E60D, 0x0F928, 0x10B78,
+        //!version17-21
+        0x1145D, 0x12A17, 0x13532, 0x149A6, 0x15683,
+        //!version22-26
+        0x168C9, 0x177EC, 0x18EC4, 0x191E1, 0x1AFAB,
+        //!version27-31
+        0x1B08E, 0x1CC1A, 0x1D33F, 0x1ED75, 0x1F250,
+        //!version32-36
+        0x209D5, 0x216F0, 0x228BA, 0x2379F, 0x24B0B,
+        //!version37-40
+        0x2542E, 0X26A64, 0x27541, 0x28C69
 };
 
 static const uint8_t gf_exp[256] = {
@@ -1309,9 +1328,18 @@ std::string decToBin(uint16_t my_format){
     }
     return f;
 }
+std::string decToBin(uint32_t my_format){
+    std::string f;
+    for(int i=my_format;i>0;i=i>>1){
+        if(i%2==1)
+            f='1'+f;
+        else
+            f='0'+f;
+    }
+    return f;
+}
 
-
-int hammingWeight(uint16_t x){
+int hammingWeight(uint32_t x){
     int weight=0;
     while(x>0){
         weight += x & 1;
@@ -1322,13 +1350,27 @@ int hammingWeight(uint16_t x){
 
 
 
-int hammingDetect(uint16_t fmt){
+int hammingDetect(uint32_t fmt,int is_format){
     int best_fmt = -1;
-    int best_dist = 15;
+    int best_dist = 0;
+    int up_limit = 0;
+    if(is_format){
+        best_dist = 15;
+        up_limit = 32;
+    }
+    else{
+        best_dist = 18;
+        up_limit = 41;
+    }
     int test_dist;
-    for(int index=0;index<32;index++){
+    for(int index = 0 ; index < up_limit ; index ++ ){
         /**fetch out from the table*/
-        uint16_t test_code=after_mask_format[index];
+        uint32_t test_code;
+        if(is_format)
+            test_code = after_mask_format[index];
+        else
+            test_code = after_mask_version[index];
+
         test_dist=hammingWeight(fmt ^ test_code);
         /**find the smallest distance*/
         if (test_dist < best_dist){
@@ -2303,11 +2345,15 @@ protected:
     bool decodingProcess();
 
     bool readAndCorrectFormat(uint16_t& format);
+    bool readAndCorrectVersion(uint32_t& version);
+
     /**
      *  @brief error correct
      *  @params uint16_t& format
      */
     bool correctFormat(uint16_t& format);
+    bool correctVersion(uint32_t& format);
+
     /**
     * @brief  unmask the data and make the pixels in the reserved area Scalar(invalid_region_value)
     */
@@ -2419,16 +2465,18 @@ QRDecode::QRDecode(){
  */
 
 bool QRDecode::readAndCorrectFormat(uint16_t& format){
-    /*version_level<=6*/
+    /**version_level<=6*/
     uint16_t my_format = 0;
     int my_size = (int)version_size;
     Mat mat_format(1,max_format_length,CV_8UC1,Scalar(0));
 
-    /*read from the left-bottom and upper-right */
-    const int xs[2][max_format_length] = {{8, 8, 8, 8, 8, 8, 8, 8,my_size-7,my_size-6,my_size-5,my_size-4,my_size-3,my_size-2,my_size-1},
-                                      {0, 1, 2, 3, 4, 5, 7,8,8     ,8     ,8     ,8     ,8     ,8     ,8}};
-    const int ys[2][max_format_length] = {{my_size-1,my_size-2,my_size-3,my_size-4,my_size-5,my_size-6,my_size-7,my_size-8,8, 8, 8, 8, 8, 8, 8 },
-                                      {8,   8, 8, 8, 8, 8, 8,     8,     7,     5,     4,     3,     2,     1,     0}} ;
+    /**read from the left-bottom and upper-right */
+    const int xs[2][max_format_length] = {{8, 8, 8, 8, 8, 8, 8,
+                                           my_size-8,my_size-7,my_size-6,my_size-5,my_size-4,my_size-3,my_size-2,my_size-1},
+                                          {0, 1, 2, 3, 4, 5, 7,8,8     ,8     ,8     ,8     ,8     ,8     ,8}};
+    const int ys[2][max_format_length] = {{my_size-1,my_size-2,my_size-3,my_size-4,my_size-5,my_size-6,my_size-7,
+                                           8,8, 8, 8, 8, 8, 8, 8 },
+                                          {8,   8, 8, 8, 8, 8, 8,     8,     7,     5,     4,     3,     2,     1,     0}} ;
     int read_round = 0;
     bool err;
 
@@ -2453,24 +2501,93 @@ bool QRDecode::readAndCorrectFormat(uint16_t& format){
     }
 }
 
+bool QRDecode::readAndCorrectVersion(uint32_t& verison){
+    /*version_level>=6*/
+    uint32_t my_version = 0;
+    int my_size = (int)version_size;
+    Mat mat_version(1,max_version_length,CV_8UC1,Scalar(0));
+
+    /**read from the left-bottom and upper-right */
+    const int xs[2][max_version_length] = {{5,5,5,
+                                            4,4,4,
+                                            3,3,3,
+                                            2,2,2,
+                                            1,1,1,
+                                            0,0,0
+                                            },
+                                          { my_size-9,my_size-10,my_size-11,
+                                            my_size-9,my_size-10,my_size-11,
+                                            my_size-9,my_size-10,my_size-11,
+                                            my_size-9,my_size-10,my_size-11,
+                                            my_size-9,my_size-10,my_size-11,
+                                            my_size-9,my_size-10,my_size-11}};
+
+    const int ys[2][max_version_length] = {{       my_size-9,my_size-10,my_size-11,
+                                                   my_size-9,my_size-10,my_size-11,
+                                                   my_size-9,my_size-10,my_size-11,
+                                                   my_size-9,my_size-10,my_size-11,
+                                                   my_size-9,my_size-10,my_size-11,
+                                                   my_size-9,my_size-10,my_size-11},
+                                           {5, 5, 5,
+                                            4, 4, 4,
+                                            3, 3, 3,
+                                            2, 2, 2,
+                                            1, 1, 1,
+                                            0, 0, 0,
+                                            }} ;
+    int read_round = 0;
+    bool err;
+    for(read_round = 0 ; read_round < 2 ; read_round ++ ){
+        for (int i = 0; i <max_version_length; i++) {
+            uint8_t value=(straight.ptr<uint8_t>(ys[read_round][i])[xs[read_round][i]]==0);
+            my_version = my_version*2 + value ;
+        }
+        err = correctVersion(my_version);
+
+        if(!err){
+            my_version = 0 ;
+            continue;
+        }
+        else
+            break;
+    }
+    if(read_round == 2 && !err)
+        return err;
+    else{
+        verison=my_version >> 12;
+        return true;
+    }
+}
+
 
 bool QRDecode:: correctFormat(uint16_t& format)
 {
     /*ori: 110101100100011*/
     /*adjust several bits to check the correcting ability*/
-    format^=4;format^=8;
-    /*my method: using BCD ways*/
-    int format_index=hammingDetect(format);
+    /**my method: using BCD ways*/
+    int format_index=hammingDetect((uint32_t)format, true);
+    if (format_index==-1){
+        return false;
+    }
+    format=after_mask_format[format_index]^0x5412;
+    return true;
+}
+
+bool QRDecode:: correctVersion(uint32_t& format)
+{
+    /**adjust several bits to check the correcting ability*/
+
+    /**my method: using BCD ways*/
+    int format_index=hammingDetect((uint32_t)format, false);
 
     if (format_index==-1){
         return false;
     }
 
-    format=after_mask_format[format_index]^0x5412;
+    format=after_mask_version[format_index];
 
     return true;
 }
-
 
 
 void QRDecode::readBit(int x, int y, int& count){
@@ -2607,29 +2724,38 @@ Mat polyGenerator(const int & n ){
 
 void QRDecode:: unmaskData(){
     unmasked_data=straight.clone();
-    /*get mask pattern according to the format*/
+    /**get mask pattern according to the format*/
+    vector<Rect> finder_pattern(3);
+    /** Finder + format: top left */
+    finder_pattern[0] = Rect(Point(0,0),Point(9,9));
+    /** Finder + format: bottom left */
+    finder_pattern[1] = Rect(Point(0,version_size-8),Point(9,version_size));
+    /** Finder + format: top right*/
+    finder_pattern[2] = Rect(Point(version_size-8,0),Point(version_size,9));
 
+    for(size_t i = 0 ; i < finder_pattern.size() ; i ++ ){
+        rectangle(unmasked_data,finder_pattern[i],invalid_region_value,-1);
+    }
+    /**timing pattern*/
+    line(unmasked_data,Point(0,6),Point(version_size,6),invalid_region_value,1);
+    line(unmasked_data,Point(6,0),Point(6,version_size),invalid_region_value,1);
+
+    /**version_level information*/
+    if (version_level >= 7) {
+        rectangle(unmasked_data,Rect(Point(version_size-11,0),Point(version_size-8,6)),
+                invalid_region_value,-1);
+        rectangle(unmasked_data,Rect(Point(0,version_size-11),Point(6,version_size-8)),
+                invalid_region_value,-1);
+    }
     for(int i= 0;i<version_size;i++){
+        /**j for x-direction , i for y-direction*/
         for(int j= 0;j<version_size;j++){
 
             if(unmasked_data.ptr(i)[j]==invalid_region_value)
                 continue;
 
-            /*Finder*/
-            if ((i < 9 && j < 9)||/* Finder + format: top left */
-                (i + 8 >= version_size && j < 9)||/* Finder + format: bottom left */
-                (i < 9 && j + 8 >= version_size)||/* Finder + format: top right */
-                (i == 6 || j == 6))/* Exclude timing patterns */
-            {
-                unmasked_data.ptr(i)[j]=invalid_region_value;
-            }
-                /*version_level information*/
-            else if (version_level >= 7) {
-                if ((i < 6 && j + 11 >= version_size)||(i + 11 >= version_size && j < 6))
-                    unmasked_data.ptr(i)[j]=invalid_region_value;
-            }
-                /*unmask*/
-            else if((mask_type==0&&!((i + j) % 2)) ||
+                /**unmask*/
+            if((mask_type==0&&!((i + j) % 2)) ||
                     (mask_type==1&&!(i % 2)) ||
                     (mask_type==2&&!(j % 3)) ||
                     (mask_type==3 && !((i + j) % 3 )) ||
@@ -2642,21 +2768,30 @@ void QRDecode:: unmaskData(){
             }
         }
     }
-
-    /* Exclude alignment patterns */
+    /**Exclude alignment patterns */
     for (int a = 0; a < max_alignment && version_info->alignment_pattern[a]; a++) {
-        for (int p = a; p < max_alignment && version_info->alignment_pattern[p]; p++) {
+        for (int p = 0; p < max_alignment && version_info->alignment_pattern[p]; p++) {
             int x=version_info->alignment_pattern[a];
             int y=version_info->alignment_pattern[p];
-            /*the alignment patterns MUST NOT overlap the finder patterns or separators*/
-            if(unmasked_data.ptr(x)[y]==invalid_region_value)
-                continue;
-            for(int i=-2;i<=2;i++)
-                for(int j=-2;j<=2;j++)
-                    unmasked_data.ptr(x+i)[y+j]=invalid_region_value;
+            /**the alignment patterns MUST NOT overlap the finder patterns or separators*/
+            bool is_in_finder = false;
+            for(size_t i = 0 ; i < finder_pattern.size() ; i++ ){
+                Rect rect = finder_pattern[i];
+                if( x >= rect.tl().x && x <= rect.br().x
+                    &&
+                    y >= rect.tl().y && y <= rect.br().y)
+                {
+                    /**overlapped with finder*/
+                    is_in_finder = true;
+                    break;
+                }
+            }
+            if(!is_in_finder){
+                rectangle(unmasked_data,Rect(Point(x-2,y-2),Point(x+3,y+3)),
+                          invalid_region_value,-1);
+            }
         }
     }
-
 }
 
 
@@ -3073,9 +3208,7 @@ bool QRDecode::samplingForVersion()
     const int delta_rows = cvRound((postIntermediate.rows * 1.0) / version_size);
     const int delta_cols = cvRound((postIntermediate.cols * 1.0) / version_size);
 
-    /*采样存入straight*/
     straight = Mat(Size(version_size, version_size), CV_8UC1, Scalar(0));
-
 
     vector<double> listFrequencyElem;
     for (int r = 0; r < postIntermediate.rows; r += delta_rows)
@@ -3542,6 +3675,7 @@ bool QRDecode::decodingProcess()
 {
     bool err;
     uint16_t my_format=0;
+    uint32_t my_version=0;
     if (straight.empty()) { return false; }
     version_size=uint8_t(straight.size().width);
 
@@ -3560,6 +3694,14 @@ bool QRDecode::decodingProcess()
     err = readAndCorrectFormat(my_format);
     if(!err)
         return err;
+
+    if(version_level>=6){
+        err = readAndCorrectVersion(my_version);
+        if(!err)
+            return err;
+        version_level = my_version;
+    }
+
 
     /**EC level �i1-2�j+Mask(3-5) + EC for this string( 6-15)
      * get rid of the ecc_code*/
@@ -3590,7 +3732,6 @@ bool QRDecode::fullDecodingProcess()
     if (!versionDefinition())  { return false; }
     if (!samplingForVersion()) { return false; }
     if (!decodingProcess())    { return false; }
-  
     return true;
 }
 bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode)
@@ -3599,21 +3740,6 @@ bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, O
     decoded_info = qrcode.decode(in, points, straight_qrcode);
     return !decoded_info.empty();
 }
-
-//bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode,int &mode,int&version,int&ecc_level,int&mask_type ,int&eci,int&eci_num)
-//{
-//    QRCodeDetector qrcode;
-//    decoded_info = qrcode.decode(in, points, straight_qrcode);
-//
-//    eci_num = qrcode.eci_num;
-//    mode = qrcode.mode_type;
-//    version = qrcode.version_level;
-//    ecc_level = qrcode.ecc_level;
-//    mask_type = qrcode.mask_type;
-//    eci = qrcode.eci_num;
-//    return !decoded_info.empty();
-//}
-
 
 cv::String QRCodeDetector::decode(InputArray in, InputArray points,
                                   OutputArray straight_qrcode)
@@ -4791,6 +4917,7 @@ class QREncoder{
     int version_size ;
 
     Mat  format;
+    Mat  version_reserved;
     /**the input string */
     std::string input_info;
     /**the original data bits and ecc bits*/
@@ -4915,6 +5042,7 @@ protected:
      * @param type (Mask type)
      */
     void formatGenerate(const int& mask_type_num , Mat & format_array);
+    void versionInfoGenerate(const int& version_level_num , Mat & version_array);
 
     /**
      * @brief write the format and verion information in the Reserved Area
@@ -5065,7 +5193,6 @@ QREncoder::QREncoder(const std::string& input ,int mode,int v  = 0 ,int ecc = 0 
         if(struct_num>16)
             struct_num = 16;
         total_num =(uint8_t)struct_num - 1 ;
-
     }
     /**divided into several segments for structure if necessary*/
     int segment_len = (int)ceil((int)input.length()/struct_num);
@@ -5081,6 +5208,7 @@ QREncoder::QREncoder(const std::string& input ,int mode,int v  = 0 ,int ecc = 0 
         payload.clear();
         payload.reserve(max_payload_len);//memset(payload,0,sizeof(uint8_t)*max_payload_len);
         format = Mat(Size(1, 15), CV_8UC1, Scalar(255));
+        version_reserved = Mat(Size(1, 18), CV_8UC1, Scalar(255));
         /**initialize version information*/
         version_size = (21 + (version_level - 1) * 4);
         version_info =&version_info_database[version_level];
@@ -5092,7 +5220,6 @@ QREncoder::QREncoder(const std::string& input ,int mode,int v  = 0 ,int ecc = 0 
         original = Mat(Size(version_size, version_size), CV_8UC1, Scalar(255));
         masked_data = original.clone();
         Mat qrcode = QRcodeGenerate();
-
         /**store all the qrcodes into to a vector*/
         my_qrcodes.push_back(qrcode);
 
@@ -5126,6 +5253,28 @@ void QREncoder::formatGenerate(const int& mask_type_num , Mat & format_array){
     for(int i=0;i<max_format_length;i++){
         format_array.ptr(0)[i]^=mask.ptr(0)[i];
     }
+    return ;
+}
+
+void QREncoder::versionInfoGenerate(const int& version_level_num , Mat & version_array){
+    /**poly of format (small index stands for lower items)*/
+    Mat Polynomial=Mat(Size(1,max_version_length),CV_8UC1,Scalar(0));
+    /** Version for this level(0-5) + EC for this string( 6-17) */
+    std::string version_bits = decToBin(version_level_num,6);
+
+    /** get shift*/
+    Mat binary_bit = (Mat_<uint8_t >(1,6)<<
+                                         version_bits[5]-'0',version_bits[4]-'0',version_bits[3]-'0',
+                                         version_bits[2]-'0',version_bits[1]-'0',version_bits[0]-'0');//!low-->high
+    Mat shift = Mat(Size(12,1),CV_8UC1,Scalar(0));
+    hconcat(shift,binary_bit,Polynomial);
+
+    /**length of format_generator is 13 not max_version_length*/
+    Mat format_generator  = (Mat_<uint8_t >(1,13)<<1,0,1,0,0, 1,0,0,1,1, 1,1,1);//!low-->high
+
+    /**get ecc by division*/
+    Mat ecc_code = gfPolyDiv(Polynomial,format_generator,12);
+    hconcat(ecc_code,binary_bit,version_array);
     return ;
 }
 
@@ -5780,7 +5929,6 @@ void QREncoder::findAutoMaskType(){
             best_index = cur_type;
             lowest_penalty = penalty_total;
         }
-
     }
     /***/
     mask_type = best_index;
@@ -5814,6 +5962,14 @@ void QREncoder::maskData(const int& mask_type_num , Mat & masked){
 
 
 void QREncoder::writeReservedArea(){
+    vector<Rect> finder_pattern(3);
+    /** Finder + format: top left */
+    finder_pattern[0] = Rect(Point(0,0),Point(9,9));
+    /** Finder + format: bottom left */
+    finder_pattern[1] = Rect(Point(0,version_size-8),Point(9,version_size));
+    /** Finder + format: top right*/
+    finder_pattern[2] = Rect(Point(version_size-8,0),Point(version_size,9));
+
     /**get mask pattern according to the format*/
     int locator_position[2] = { 3 , version_size -1 -3 };
     /**draw locator pattern*/
@@ -5836,15 +5992,10 @@ void QREncoder::writeReservedArea(){
                     else
                         masked_data.ptr(x+i)[y+j]=0;
 
-                    if(version_level<7){
-                        /**format area*/
-                        if ((y == locator_position[1] && j==-5) || (x == locator_position[1] && i==-5)){
-                            continue;
-                        }else{
-                            original.ptr(x+i)[y+j]=invalid_region_value;
-                        }
-                    }
-                    else{
+                    /**format area*/
+                    if ((y == locator_position[1] && j==-5) || (x == locator_position[1] && i==-5)){
+                        continue;
+                    }else{
                         original.ptr(x+i)[y+j]=invalid_region_value;
                     }
                 }
@@ -5855,6 +6006,14 @@ void QREncoder::writeReservedArea(){
     int y=locator_position[0]+5;
     masked_data.ptr(x)[y]=0;
     original.ptr(x)[y]=invalid_region_value;
+
+    /**version_level information*/
+    if (version_level >= 7) {
+        rectangle(original,Rect(Point(version_size-11,0),Point(version_size-8,6)),
+                  invalid_region_value,-1);
+        rectangle(original,Rect(Point(0,version_size-11),Point(6,version_size-8)),
+                  invalid_region_value,-1);
+    }
 
     for(int i= 0;i<version_size;i++){
         for(int j= 0;j<version_size;j++){
@@ -5870,35 +6029,40 @@ void QREncoder::writeReservedArea(){
                 else
                     masked_data.ptr(i)[j] = 0;
             }
-            /**version_level information*/
-            if (version_level >= 7) {
-                if ((i < 6 && j + 11 >= version_size)||(i + 11 >= version_size && j < 6)){
-                    original.ptr(i)[j]=invalid_region_value;
-                    /**/
-                }
-            }
-
         }
     }
     /** Exclude alignment patterns */
     for (int a = 0; a < max_alignment && version_info->alignment_pattern[a]; a++) {
-        for (int p = a; p < max_alignment && version_info->alignment_pattern[p]; p++) {
+        for (int p = 0; p < max_alignment && version_info->alignment_pattern[p]; p++) {
             x=version_info->alignment_pattern[a];
             y=version_info->alignment_pattern[p];
-            /*the alignment patterns MUST NOT overlap the finder patterns or separators*/
-            if(original.ptr(x)[y]==invalid_region_value)
-                continue;
-            for(int i=-2;i<=2;i++)
-                for(int j=-2;j<=2;j++){
-                    original.ptr(x+i)[y+j]=invalid_region_value;
-                    if(j==0 && i==0)
-                        masked_data.ptr(x+i)[y+j]=0;
-                    else if( j==-2 || j==2 || i ==-2 || i ==2 ){
-                        masked_data.ptr(x+i)[y+j]= 0;
-                    }
-                    else
-                        masked_data.ptr(x+i)[y+j]=255;
+            /**the alignment patterns MUST NOT overlap the finder patterns or separators*/
+            bool is_in_finder = false;
+            for(size_t i = 0 ; i < finder_pattern.size() ; i++ ){
+                Rect rect = finder_pattern[i];
+                if( x >= rect.tl().x && x <= rect.br().x
+                    &&
+                    y >= rect.tl().y && y <= rect.br().y)
+                {
+                    /**overlapped with finder*/
+                    is_in_finder = true;
+                    break;
                 }
+            }
+            if(!is_in_finder){
+                /**not overlapped and draw the alignment pattern*/
+                for(int i=-2;i<=2;i++)
+                    for(int j=-2;j<=2;j++){
+                        original.ptr(x+i)[y+j]=invalid_region_value;
+                        if(j==0 && i==0)
+                            masked_data.ptr(x+i)[y+j]=0;
+                        else if( j==-2 || j==2 || i ==-2 || i ==2 ){
+                            masked_data.ptr(x+i)[y+j]= 0;
+                        }
+                        else
+                            masked_data.ptr(x+i)[y+j]=255;
+                    }
+            }
         }
     }
     return ;
@@ -5952,25 +6116,61 @@ void QREncoder::fillReserved(const Mat & format_array , Mat & masked){
     /**write to the left-bottom and upper-right */
     int i  ;
     /**format area*/
-    if(version_level<7){
-        /*left-bottom 0-7*/
-        for (i = 0; i < 7; i++){
-            /**read from pst (code->size - 1 - i,8)*/
-            masked.ptr(version_size - 1 - i)[8]= 255*(int)(format_array.ptr(0)[max_format_length-1 -i] == 0) ;
-        }
-        /**upper-right 7-14*/
-        for (i = 0; i < 8; i++){
-            masked.ptr(8)[version_size - 8 + i]=255*(int)(format_array.ptr(0)[max_format_length-1 -(7+i)] == 0);
-        }
-        /**write the second format at the upper-left*/
-        static const int xs[max_format_length] = {
-                8, 8, 8, 8, 8, 8, 8, 8, 7, 5, 4, 3, 2, 1, 0
-        };
-        static const int ys[max_format_length] = {
-                0, 1, 2, 3, 4, 5, 7, 8, 8, 8, 8, 8, 8, 8, 8
-        };
-        for (i = max_format_length-1; i >= 0; i--) {
-            masked.ptr<uint8_t>(ys[i])[xs[i]] = 255*(int)( format_array.ptr(0)[i] == 0 );
+    /**left-bottom 0-7*/
+    for (i = 0; i < 7; i++){
+        /**read from pst (code->size - 1 - i,8)*/
+        masked.ptr(version_size - 1 - i)[8]= 255*(int)(format_array.ptr(0)[max_format_length-1 -i] == 0) ;
+    }
+    /**upper-right 7-14*/
+    for (i = 0; i < 8; i++){
+        masked.ptr(8)[version_size - 8 + i]=255*(int)(format_array.ptr(0)[max_format_length-1 -(7+i)] == 0);
+    }
+    /**write the second format at the upper-left*/
+    static const int xs_f[max_format_length] = {
+            8, 8, 8, 8, 8, 8, 8, 8, 7, 5, 4, 3, 2, 1, 0
+    };
+    static const int ys_f[max_format_length] = {
+            0, 1, 2, 3, 4, 5, 7, 8, 8, 8, 8, 8, 8, 8, 8
+    };
+    for (i = max_format_length-1; i >= 0; i--) {
+        masked.ptr<uint8_t>(ys_f[i])[xs_f[i]] = 255*(int)( format_array.ptr(0)[i] == 0 );
+    }
+
+    if(version_level > 7){
+        /**version information*/
+        int my_size = version_size;
+        /**read from the left-bottom and upper-right */
+        const int xs_v[2][max_version_length] = {{     5,5,5,
+                                                       4,4,4,
+                                                       3,3,3,
+                                                       2,2,2,
+                                                       1,1,1,
+                                                       0,0,0
+                                               },
+                                               {       my_size-9,my_size-10,my_size-11,
+                                                       my_size-9,my_size-10,my_size-11,
+                                                       my_size-9,my_size-10,my_size-11,
+                                                       my_size-9,my_size-10,my_size-11,
+                                                       my_size-9,my_size-10,my_size-11,
+                                                       my_size-9,my_size-10,my_size-11}};
+
+        const int ys_v[2][max_version_length] = {{     my_size-9,my_size-10,my_size-11,
+                                                       my_size-9,my_size-10,my_size-11,
+                                                       my_size-9,my_size-10,my_size-11,
+                                                       my_size-9,my_size-10,my_size-11,
+                                                       my_size-9,my_size-10,my_size-11,
+                                                       my_size-9,my_size-10,my_size-11},
+                                               {       5, 5, 5,
+                                                       4, 4, 4,
+                                                       3, 3, 3,
+                                                       2, 2, 2,
+                                                       1, 1, 1,
+                                                       0, 0, 0,
+                                               }} ;
+        for(int m = 0 ; m < 2 ; m ++ ){
+            for (int j = 0; j < max_version_length; j++ ){
+                masked.ptr<uint8_t>(ys_v[m][j])[xs_v[m][j]] = 255*(int)( version_reserved.ptr(0)[max_version_length - j -1 ] == 0 );
+            }
         }
     }
     return;
@@ -5982,6 +6182,7 @@ void QREncoder::structureFinalMessage(){
     findAutoMaskType();
     maskData(mask_type,masked_data);
     formatGenerate(mask_type,format);
+    versionInfoGenerate(version_level,version_reserved);
     fillReserved(format,masked_data);
     return ;
 }
@@ -6000,7 +6201,7 @@ Mat QREncoder::QRcodeGenerate(){
 }
 
 vector<Mat> QRCodeEncoder::generate(cv::String input_string, int mode, int version, int correction_level,
-        int m , int eci, int s ){
+        int m, int eci, int s){
     QREncoder my_qrcode(input_string,mode,version,correction_level,m,eci,s);
     mode_type = my_qrcode.mode_type;
     version_level = my_qrcode.version_level;
@@ -6010,15 +6211,15 @@ vector<Mat> QRCodeEncoder::generate(cv::String input_string, int mode, int versi
     struct_num = s;
     return my_qrcode.my_qrcodes;
 }
-Mat QRCodeEncoder::generateSingle(cv::String input_string, int mode, int version, int correction_level ,
-                                             int m , int eci){
-     QREncoder my_qrcode(input_string,mode,version,correction_level,m,eci,1);
-     mode_type = my_qrcode.mode_type;
-     version_level = my_qrcode.version_level;
-     ecc_level = my_qrcode.ecc_level ;
-     mask_type = my_qrcode.mask_type;
-     eci_num = my_qrcode.eci;
-     return my_qrcode.my_qrcodes[0];
+Mat QRCodeEncoder::generateSingle(cv::String input_string, int mode, int version , int correction_level  ,
+                            int m , int eci){
+    QREncoder my_qrcode(input_string,mode,version,correction_level,m,eci,1);
+    mode_type = my_qrcode.mode_type;
+    version_level = my_qrcode.version_level;
+    ecc_level = my_qrcode.ecc_level ;
+    mask_type = my_qrcode.mask_type;
+    eci_num = my_qrcode.eci;
+    return my_qrcode.my_qrcodes[0];
 }
 
 }// namespace
