@@ -1,0 +1,1315 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="openexr"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake\;CMake Files\cmake\platforms\;CMake Files\cmake\checks\;CMake Files\cmake\templates\;CMake Files\modules\;CMake Files\modules\core\;CMake Files\modules\core\include\;CMake Files\modules\core\include\opencv2\;CMake Files\modules\core\include\opencv2\core\;CMake Files\modules\core\misc\;CMake Files\modules\core\misc\java\;CMake Files\modules\core\misc\java\src\;CMake Files\modules\core\misc\java\src\java\;CMake Files\modules\calib3d\;CMake Files\modules\cudaarithm\;CMake Files\modules\cudabgsegm\;CMake Files\modules\cudacodec\;CMake Files\modules\cudafeatures2d\;CMake Files\modules\cudafilters\;CMake Files\modules\cudaimgproc\;CMake Files\modules\cudalegacy\;CMake Files\modules\cudaobjdetect\;CMake Files\modules\cudaoptflow\;CMake Files\modules\cudastereo\;CMake Files\modules\cudawarping\;CMake Files\modules\cudev\;CMake Files\modules\dnn\;CMake Files\modules\features2d\;CMake Files\modules\flann\;CMake Files\modules\highgui\;CMake Files\modules\imgcodecs\;CMake Files\modules\imgproc\;CMake Files\modules\java\;CMake Files\modules\java\generator\;CMake Files\modules\java\generator\android\;CMake Files\modules\java\generator\android\java\;CMake Files\modules\java\generator\android\java\org\;CMake Files\modules\java\generator\android\java\org\opencv\;CMake Files\modules\java\generator\android\java\org\opencv\android\;CMake Files\modules\java\generator\src\;CMake Files\modules\java\generator\src\java\;CMake Files\modules\java\generator\src\java\org\;CMake Files\modules\java\generator\src\java\org\opencv\;CMake Files\modules\java\generator\src\java\org\opencv\osgi\;CMake Files\modules\js\;CMake Files\modules\ml\;CMake Files\modules\objdetect\;CMake Files\modules\photo\;CMake Files\modules\python\;CMake Files\modules\python\package\;CMake Files\modules\python\package\template\;CMake Files\modules\python\bindings\;CMake Files\modules\python\test\;CMake Files\modules\python\python2\;CMake Files\modules\python\python3\;CMake Files\modules\shape\;CMake Files\modules\stitching\;CMake Files\modules\superres\;CMake Files\modules\ts\;CMake Files\modules\video\;CMake Files\modules\videoio\;CMake Files\modules\videostab\;CMake Files\modules\viz\;CMake Files\modules\world\;CMake Files\3rdparty\;CMake Files\3rdparty\ippicv\;CMake Files\3rdparty\libwebp\;CMake Files\3rdparty\openexr\;CMake Files\3rdparty\protobuf\;CMake Files\3rdparty\quirc\;CMake Files\3rdparty\ittnotify\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\usr\local\share\eigen3\;CMake Files\..\..\..\..\usr\local\share\eigen3\cmake\;CMake Files\cmake-build-debug\;CMake Files\cmake-build-debug\3rdparty\;CMake Files\cmake-build-debug\3rdparty\ippicv\;CMake Files\cmake-build-debug\3rdparty\ippicv\ippicv_lnx\;CMake Files\cmake-build-debug\3rdparty\ippicv\ippicv_lnx\iw\;CMake Files\include\;CMake Files\doc\;CMake Files\data\;CMake Files\apps\;CMake Files\apps\traincascade\;CMake Files\apps\createsamples\;CMake Files\apps\annotation\;CMake Files\apps\visualisation\;CMake Files\apps\interactive-calibration\;CMake Files\apps\version\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="IlmImf">
+				<Option output="/home/truth/github/opencv/cmake-build-debug/3rdparty/lib/libIlmImf.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/openexr/IlmImf"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/openexr/Imath"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/openexr/IlmThread"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/openexr/Iex"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/openexr/Half"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/Makefile&quot;  VERBOSE=1 IlmImf"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="IlmImf/fast">
+				<Option output="/home/truth/github/opencv/cmake-build-debug/3rdparty/lib/libIlmImf.a" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr"/>
+				<Option object_output="./"/>
+				<Option type="2"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/openexr/IlmImf"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/openexr/Imath"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/openexr/IlmThread"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/openexr/Iex"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/openexr/Half"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/Makefile&quot;  VERBOSE=1 IlmImf/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Half/eLut.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Half/half.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Half/half.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Half/halfExport.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Half/halfFunction.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Half/halfLimits.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Half/toFloat.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Iex/Iex.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Iex/IexBaseExc.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Iex/IexBaseExc.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Iex/IexErrnoExc.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Iex/IexExport.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Iex/IexForward.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Iex/IexMacros.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Iex/IexMathExc.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Iex/IexNamespace.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Iex/IexThrowErrnoExc.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Iex/IexThrowErrnoExc.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfAcesFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfAcesFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfArray.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfAutoArray.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfB44Compressor.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfB44Compressor.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfBoxAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfBoxAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfCRgbaFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfCRgbaFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfChannelList.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfChannelList.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfChannelListAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfChannelListAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfCheckedArithmetic.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfChromaticities.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfChromaticities.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfChromaticitiesAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfChromaticitiesAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfCompositeDeepScanLine.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfCompositeDeepScanLine.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfCompression.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfCompressionAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfCompressionAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfCompressor.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfCompressor.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfConvert.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfConvert.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepCompositing.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepCompositing.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepFrameBuffer.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepFrameBuffer.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepImageState.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepImageStateAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepImageStateAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepScanLineInputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepScanLineInputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepScanLineInputPart.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepScanLineInputPart.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepScanLineOutputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepScanLineOutputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepScanLineOutputPart.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepScanLineOutputPart.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepTiledInputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepTiledInputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepTiledInputPart.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepTiledInputPart.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepTiledOutputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepTiledOutputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepTiledOutputPart.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDeepTiledOutputPart.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDoubleAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDoubleAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDwaCompressor.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDwaCompressor.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfDwaCompressorSimd.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfEnvmap.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfEnvmap.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfEnvmapAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfEnvmapAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfExport.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfFastHuf.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfFastHuf.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfFloatAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfFloatAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfFloatVectorAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfFloatVectorAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfForward.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfFrameBuffer.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfFrameBuffer.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfFramesPerSecond.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfFramesPerSecond.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfGenericInputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfGenericInputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfGenericOutputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfGenericOutputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfHeader.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfHeader.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfHuf.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfHuf.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfIO.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfIO.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfInputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfInputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfInputPart.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfInputPart.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfInputPartData.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfInputPartData.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfInputStreamMutex.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfInt64.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfIntAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfIntAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfKeyCode.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfKeyCode.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfKeyCodeAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfKeyCodeAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfLineOrder.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfLineOrderAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfLineOrderAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfLut.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfLut.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfMatrixAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfMatrixAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfMisc.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfMisc.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfMultiPartInputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfMultiPartInputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfMultiPartOutputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfMultiPartOutputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfMultiView.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfMultiView.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfName.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfNamespace.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfOpaqueAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfOpaqueAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfOptimizedPixelReading.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfOutputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfOutputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfOutputPart.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfOutputPart.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfOutputPartData.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfOutputPartData.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfOutputStreamMutex.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfPartHelper.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfPartType.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfPartType.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfPixelType.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfPizCompressor.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfPizCompressor.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfPreviewImage.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfPreviewImage.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfPreviewImageAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfPreviewImageAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfPxr24Compressor.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfPxr24Compressor.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRational.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRational.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRationalAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRationalAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRgba.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRgbaFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRgbaFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRgbaYca.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRgbaYca.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRle.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRle.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRleCompressor.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfRleCompressor.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfScanLineInputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfScanLineInputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfSimd.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfStandardAttributes.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfStandardAttributes.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfStdIO.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfStdIO.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfStringAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfStringAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfStringVectorAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfStringVectorAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfSystemSpecific.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfSystemSpecific.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTestFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTestFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfThreading.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfThreading.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTileDescription.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTileDescriptionAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTileDescriptionAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTileOffsets.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTileOffsets.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTiledInputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTiledInputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTiledInputPart.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTiledInputPart.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTiledMisc.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTiledMisc.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTiledOutputFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTiledOutputFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTiledOutputPart.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTiledOutputPart.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTiledRgbaFile.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTiledRgbaFile.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTimeCode.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTimeCode.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTimeCodeAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfTimeCodeAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfVecAttribute.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfVecAttribute.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfVersion.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfVersion.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfWav.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfWav.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfXdr.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfZip.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfZip.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfZipCompressor.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/ImfZipCompressor.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/b44ExpLogTable.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/dwaLookups.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmImf/dwaLookups.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThread.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThread.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadExport.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadForward.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadMutex.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadMutex.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadMutexPosix.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadNamespace.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadPool.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadPool.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadPosix.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadSemaphore.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadSemaphore.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadSemaphorePosix.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmThread/IlmThreadSemaphorePosixCompat.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathBox.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathBox.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathBoxAlgo.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathColor.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathColorAlgo.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathColorAlgo.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathEuler.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathExc.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathExport.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathForward.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathFrame.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathFrustum.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathFrustumTest.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathFun.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathFun.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathHalfLimits.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathInt64.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathInterval.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathLimits.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathLine.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathLineAlgo.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathMath.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathMatrix.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathMatrixAlgo.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathMatrixAlgo.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathNamespace.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathPlane.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathPlatform.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathQuat.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathRandom.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathRandom.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathRoots.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathShear.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathShear.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathSphere.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathVec.cpp">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathVec.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/Imath/ImathVecAlgo.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/IlmBaseConfig.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake-build-debug/3rdparty/openexr/OpenEXRConfig.h">
+			<Option target="IlmImf"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVCompilerOptimizations.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVCompilerOptions.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectApacheAnt.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectCXXCompiler.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectOpenCL.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectPython.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectTrace.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectVTK.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDownload.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVExtraTargets.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindAtlas.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindFrameworks.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindIPP.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindIPPIW.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLAPACK.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLibsGUI.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLibsGrfmt.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLibsPerf.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLibsVideo.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindMKL.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindOpenBLAS.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindOpenEXR.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindProtobuf.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindWebP.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenABI.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenAndroidMK.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenConfig.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenHeaders.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenPkgconfig.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenSetupVars.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVInstallLayout.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVMinDepVersions.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVModule.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVPCHSupport.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVPackaging.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVUtils.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVVersion.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/platforms/OpenCV-Linux.cmake">
+			<Option virtualFolder="CMake Files\cmake\platforms\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx2.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx512.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx512common.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx512skx.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_fp16.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_popcnt.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse2.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse3.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse41.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse42.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_ssse3.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cxx11.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/ffmpeg_test.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/lapack_check.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/opencl.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/OpenCVConfig-version.cmake.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/OpenCVConfig.cmake.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/cmake_uninstall.cmake.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/custom_hal.hpp.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/cv_cpu_config.h.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/cvconfig.h.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/opencv_modules.hpp.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/setup_vars_linux.sh.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/core/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\core\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/core/include/opencv2/core/version.hpp">
+			<Option virtualFolder="CMake Files\modules\core\include\opencv2\core\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/core/misc/java/src/java/core+Core.jcode.in">
+			<Option virtualFolder="CMake Files\modules\core\misc\java\src\java\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/calib3d/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\calib3d\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudaarithm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudaarithm\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudabgsegm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudabgsegm\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudacodec/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudacodec\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudafeatures2d/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudafeatures2d\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudafilters/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudafilters\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudaimgproc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudaimgproc\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudalegacy/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudalegacy\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudaobjdetect/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudaobjdetect\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudaoptflow/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudaoptflow\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudastereo/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudastereo\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudawarping/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudawarping\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudev/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudev\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\dnn\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/features2d/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\features2d\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/flann/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\flann\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/highgui/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\highgui\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/imgcodecs/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\imgcodecs\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/imgproc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\imgproc\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\java\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/common.cmake">
+			<Option virtualFolder="CMake Files\modules\java\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/generator/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\java\generator\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/generator/android/java/org/opencv/android/OpenCVLoader.java.in">
+			<Option virtualFolder="CMake Files\modules\java\generator\android\java\org\opencv\android\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/generator/src/java/org/opencv/osgi/OpenCVNativeLoader.java.in">
+			<Option virtualFolder="CMake Files\modules\java\generator\src\java\org\opencv\osgi\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/js/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\js\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/ml/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\ml\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/objdetect/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\objdetect\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/photo/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\photo\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/common.cmake">
+			<Option virtualFolder="CMake Files\modules\python\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/python_loader.cmake">
+			<Option virtualFolder="CMake Files\modules\python\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/package/template/config-x.y.py.in">
+			<Option virtualFolder="CMake Files\modules\python\package\template\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/package/template/config.py.in">
+			<Option virtualFolder="CMake Files\modules\python\package\template\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/bindings/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\bindings\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\test\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/python2/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\python2\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/python3/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\python3\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/shape/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\shape\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/stitching/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\stitching\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/superres/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\superres\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/ts/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\ts\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/video/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\video\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/videoio/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\videoio\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/videostab/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\videostab\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/viz/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\viz\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/world/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\world\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/ippicv/ippicv.cmake">
+			<Option virtualFolder="CMake Files\3rdparty\ippicv\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/libwebp/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\libwebp\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\openexr\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmBaseConfig.h.cmakein">
+			<Option virtualFolder="CMake Files\3rdparty\openexr\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/OpenEXRConfig.h.cmakein">
+			<Option virtualFolder="CMake Files\3rdparty\openexr\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/protobuf/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\protobuf\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/quirc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\quirc\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/ittnotify/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\ittnotify\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/../../../../usr/local/share/eigen3/cmake/Eigen3Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\eigen3\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/../../../../usr/local/share/eigen3/cmake/Eigen3ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\eigen3\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/../../../../usr/local/share/eigen3/cmake/Eigen3Targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\eigen3\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/iw/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-debug\3rdparty\ippicv\ippicv_lnx\iw\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/include/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\include\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/doc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\doc\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/data/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\data\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/traincascade/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\traincascade\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/createsamples/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\createsamples\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/annotation/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\annotation\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/visualisation/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\visualisation\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\interactive-calibration\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/version/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\version\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

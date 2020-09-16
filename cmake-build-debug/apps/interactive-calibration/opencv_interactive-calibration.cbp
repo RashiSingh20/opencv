@@ -1,0 +1,541 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="opencv_interactive-calibration"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake\;CMake Files\cmake\platforms\;CMake Files\cmake\checks\;CMake Files\cmake\templates\;CMake Files\modules\;CMake Files\modules\core\;CMake Files\modules\core\include\;CMake Files\modules\core\include\opencv2\;CMake Files\modules\core\include\opencv2\core\;CMake Files\modules\core\misc\;CMake Files\modules\core\misc\java\;CMake Files\modules\core\misc\java\src\;CMake Files\modules\core\misc\java\src\java\;CMake Files\modules\calib3d\;CMake Files\modules\cudaarithm\;CMake Files\modules\cudabgsegm\;CMake Files\modules\cudacodec\;CMake Files\modules\cudafeatures2d\;CMake Files\modules\cudafilters\;CMake Files\modules\cudaimgproc\;CMake Files\modules\cudalegacy\;CMake Files\modules\cudaobjdetect\;CMake Files\modules\cudaoptflow\;CMake Files\modules\cudastereo\;CMake Files\modules\cudawarping\;CMake Files\modules\cudev\;CMake Files\modules\dnn\;CMake Files\modules\features2d\;CMake Files\modules\flann\;CMake Files\modules\highgui\;CMake Files\modules\imgcodecs\;CMake Files\modules\imgproc\;CMake Files\modules\java\;CMake Files\modules\java\generator\;CMake Files\modules\java\generator\android\;CMake Files\modules\java\generator\android\java\;CMake Files\modules\java\generator\android\java\org\;CMake Files\modules\java\generator\android\java\org\opencv\;CMake Files\modules\java\generator\android\java\org\opencv\android\;CMake Files\modules\java\generator\src\;CMake Files\modules\java\generator\src\java\;CMake Files\modules\java\generator\src\java\org\;CMake Files\modules\java\generator\src\java\org\opencv\;CMake Files\modules\java\generator\src\java\org\opencv\osgi\;CMake Files\modules\js\;CMake Files\modules\ml\;CMake Files\modules\objdetect\;CMake Files\modules\photo\;CMake Files\modules\python\;CMake Files\modules\python\package\;CMake Files\modules\python\package\template\;CMake Files\modules\python\bindings\;CMake Files\modules\python\test\;CMake Files\modules\python\python2\;CMake Files\modules\python\python3\;CMake Files\modules\shape\;CMake Files\modules\stitching\;CMake Files\modules\superres\;CMake Files\modules\ts\;CMake Files\modules\video\;CMake Files\modules\videoio\;CMake Files\modules\videostab\;CMake Files\modules\viz\;CMake Files\modules\world\;CMake Files\3rdparty\;CMake Files\3rdparty\ippicv\;CMake Files\3rdparty\libwebp\;CMake Files\3rdparty\openexr\;CMake Files\3rdparty\protobuf\;CMake Files\3rdparty\quirc\;CMake Files\3rdparty\ittnotify\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\usr\local\share\eigen3\;CMake Files\..\..\..\..\usr\local\share\eigen3\cmake\;CMake Files\cmake-build-debug\;CMake Files\cmake-build-debug\3rdparty\;CMake Files\cmake-build-debug\3rdparty\ippicv\;CMake Files\cmake-build-debug\3rdparty\ippicv\ippicv_lnx\;CMake Files\cmake-build-debug\3rdparty\ippicv\ippicv_lnx\iw\;CMake Files\include\;CMake Files\doc\;CMake Files\data\;CMake Files\apps\;CMake Files\apps\traincascade\;CMake Files\apps\createsamples\;CMake Files\apps\annotation\;CMake Files\apps\visualisation\;CMake Files\apps\interactive-calibration\;CMake Files\apps\version\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="opencv_interactive-calibration">
+				<Option output="/home/truth/github/opencv/cmake-build-debug/bin/opencv_interactive-calibration" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D__OPENCV_BUILD=1"/>
+					<Add option="-D__OPENCV_APPS=1"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/icv/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/iw/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug"/>
+					<Add directory="/home/truth/github/opencv/modules/core/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgproc/include"/>
+					<Add directory="/home/truth/github/opencv/modules/features2d/include"/>
+					<Add directory="/home/truth/github/opencv/modules/flann/include"/>
+					<Add directory="/home/truth/github/opencv/modules/highgui/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgcodecs/include"/>
+					<Add directory="/home/truth/github/opencv/modules/videoio/include"/>
+					<Add directory="/home/truth/github/opencv/modules/calib3d/include"/>
+					<Add directory="/home/truth/github/opencv/apps/interactive-calibration/PRIVATE"/>
+					<Add directory="/home/truth/github/opencv/include/opencv"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration/Makefile&quot;  VERBOSE=1 opencv_interactive-calibration"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="opencv_interactive-calibration/fast">
+				<Option output="/home/truth/github/opencv/cmake-build-debug/bin/opencv_interactive-calibration" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D__OPENCV_BUILD=1"/>
+					<Add option="-D__OPENCV_APPS=1"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/icv/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/iw/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug"/>
+					<Add directory="/home/truth/github/opencv/modules/core/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgproc/include"/>
+					<Add directory="/home/truth/github/opencv/modules/features2d/include"/>
+					<Add directory="/home/truth/github/opencv/modules/flann/include"/>
+					<Add directory="/home/truth/github/opencv/modules/highgui/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgcodecs/include"/>
+					<Add directory="/home/truth/github/opencv/modules/videoio/include"/>
+					<Add directory="/home/truth/github/opencv/modules/calib3d/include"/>
+					<Add directory="/home/truth/github/opencv/apps/interactive-calibration/PRIVATE"/>
+					<Add directory="/home/truth/github/opencv/include/opencv"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration/Makefile&quot;  VERBOSE=1 opencv_interactive-calibration/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/apps/interactive-calibration/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/calibController.cpp">
+			<Option target="opencv_interactive-calibration"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/calibController.hpp">
+			<Option target="opencv_interactive-calibration"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/calibPipeline.cpp">
+			<Option target="opencv_interactive-calibration"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/calibPipeline.hpp">
+			<Option target="opencv_interactive-calibration"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/frameProcessor.cpp">
+			<Option target="opencv_interactive-calibration"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/frameProcessor.hpp">
+			<Option target="opencv_interactive-calibration"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/main.cpp">
+			<Option target="opencv_interactive-calibration"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/parametersController.cpp">
+			<Option target="opencv_interactive-calibration"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/parametersController.hpp">
+			<Option target="opencv_interactive-calibration"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/rotationConverters.cpp">
+			<Option target="opencv_interactive-calibration"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/rotationConverters.hpp">
+			<Option target="opencv_interactive-calibration"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVCompilerOptimizations.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVCompilerOptions.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectApacheAnt.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectCXXCompiler.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectOpenCL.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectPython.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectTrace.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectVTK.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDownload.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVExtraTargets.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindAtlas.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindFrameworks.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindIPP.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindIPPIW.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLAPACK.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLibsGUI.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLibsGrfmt.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLibsPerf.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLibsVideo.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindMKL.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindOpenBLAS.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindOpenEXR.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindProtobuf.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindWebP.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenABI.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenAndroidMK.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenConfig.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenHeaders.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenPkgconfig.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenSetupVars.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVInstallLayout.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVMinDepVersions.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVModule.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVPCHSupport.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVPackaging.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVUtils.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVVersion.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/platforms/OpenCV-Linux.cmake">
+			<Option virtualFolder="CMake Files\cmake\platforms\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx2.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx512.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx512common.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx512skx.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_fp16.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_popcnt.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse2.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse3.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse41.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse42.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_ssse3.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cxx11.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/ffmpeg_test.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/lapack_check.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/opencl.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/OpenCVConfig-version.cmake.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/OpenCVConfig.cmake.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/cmake_uninstall.cmake.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/custom_hal.hpp.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/cv_cpu_config.h.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/cvconfig.h.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/opencv_modules.hpp.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/setup_vars_linux.sh.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/core/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\core\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/core/include/opencv2/core/version.hpp">
+			<Option virtualFolder="CMake Files\modules\core\include\opencv2\core\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/core/misc/java/src/java/core+Core.jcode.in">
+			<Option virtualFolder="CMake Files\modules\core\misc\java\src\java\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/calib3d/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\calib3d\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudaarithm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudaarithm\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudabgsegm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudabgsegm\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudacodec/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudacodec\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudafeatures2d/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudafeatures2d\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudafilters/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudafilters\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudaimgproc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudaimgproc\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudalegacy/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudalegacy\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudaobjdetect/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudaobjdetect\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudaoptflow/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudaoptflow\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudastereo/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudastereo\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudawarping/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudawarping\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudev/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudev\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\dnn\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/features2d/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\features2d\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/flann/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\flann\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/highgui/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\highgui\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/imgcodecs/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\imgcodecs\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/imgproc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\imgproc\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\java\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/common.cmake">
+			<Option virtualFolder="CMake Files\modules\java\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/generator/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\java\generator\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/generator/android/java/org/opencv/android/OpenCVLoader.java.in">
+			<Option virtualFolder="CMake Files\modules\java\generator\android\java\org\opencv\android\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/generator/src/java/org/opencv/osgi/OpenCVNativeLoader.java.in">
+			<Option virtualFolder="CMake Files\modules\java\generator\src\java\org\opencv\osgi\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/js/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\js\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/ml/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\ml\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/objdetect/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\objdetect\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/photo/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\photo\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/common.cmake">
+			<Option virtualFolder="CMake Files\modules\python\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/python_loader.cmake">
+			<Option virtualFolder="CMake Files\modules\python\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/package/template/config-x.y.py.in">
+			<Option virtualFolder="CMake Files\modules\python\package\template\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/package/template/config.py.in">
+			<Option virtualFolder="CMake Files\modules\python\package\template\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/bindings/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\bindings\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\test\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/python2/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\python2\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/python3/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\python3\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/shape/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\shape\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/stitching/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\stitching\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/superres/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\superres\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/ts/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\ts\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/video/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\video\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/videoio/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\videoio\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/videostab/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\videostab\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/viz/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\viz\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/world/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\world\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/ippicv/ippicv.cmake">
+			<Option virtualFolder="CMake Files\3rdparty\ippicv\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/libwebp/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\libwebp\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\openexr\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmBaseConfig.h.cmakein">
+			<Option virtualFolder="CMake Files\3rdparty\openexr\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/OpenEXRConfig.h.cmakein">
+			<Option virtualFolder="CMake Files\3rdparty\openexr\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/protobuf/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\protobuf\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/quirc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\quirc\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/ittnotify/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\ittnotify\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/../../../../usr/local/share/eigen3/cmake/Eigen3Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\eigen3\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/../../../../usr/local/share/eigen3/cmake/Eigen3ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\eigen3\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/../../../../usr/local/share/eigen3/cmake/Eigen3Targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\eigen3\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/iw/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-debug\3rdparty\ippicv\ippicv_lnx\iw\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/include/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\include\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/doc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\doc\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/data/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\data\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/traincascade/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\traincascade\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/createsamples/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\createsamples\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/annotation/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\annotation\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/visualisation/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\visualisation\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\interactive-calibration\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/version/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\version\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

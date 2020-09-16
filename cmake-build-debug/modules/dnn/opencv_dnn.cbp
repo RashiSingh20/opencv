@@ -1,0 +1,1185 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CodeBlocks_project_file>
+	<FileVersion major="1" minor="6"/>
+	<Project>
+		<Option title="opencv_dnn"/>
+		<Option makefile_is_custom="1"/>
+		<Option compiler="gcc"/>
+		<Option virtualFolders="CMake Files\;CMake Files\cmake\;CMake Files\cmake\platforms\;CMake Files\cmake\checks\;CMake Files\cmake\templates\;CMake Files\modules\;CMake Files\modules\core\;CMake Files\modules\core\include\;CMake Files\modules\core\include\opencv2\;CMake Files\modules\core\include\opencv2\core\;CMake Files\modules\core\misc\;CMake Files\modules\core\misc\java\;CMake Files\modules\core\misc\java\src\;CMake Files\modules\core\misc\java\src\java\;CMake Files\modules\calib3d\;CMake Files\modules\cudaarithm\;CMake Files\modules\cudabgsegm\;CMake Files\modules\cudacodec\;CMake Files\modules\cudafeatures2d\;CMake Files\modules\cudafilters\;CMake Files\modules\cudaimgproc\;CMake Files\modules\cudalegacy\;CMake Files\modules\cudaobjdetect\;CMake Files\modules\cudaoptflow\;CMake Files\modules\cudastereo\;CMake Files\modules\cudawarping\;CMake Files\modules\cudev\;CMake Files\modules\dnn\;CMake Files\modules\features2d\;CMake Files\modules\flann\;CMake Files\modules\highgui\;CMake Files\modules\imgcodecs\;CMake Files\modules\imgproc\;CMake Files\modules\java\;CMake Files\modules\java\generator\;CMake Files\modules\java\generator\android\;CMake Files\modules\java\generator\android\java\;CMake Files\modules\java\generator\android\java\org\;CMake Files\modules\java\generator\android\java\org\opencv\;CMake Files\modules\java\generator\android\java\org\opencv\android\;CMake Files\modules\java\generator\src\;CMake Files\modules\java\generator\src\java\;CMake Files\modules\java\generator\src\java\org\;CMake Files\modules\java\generator\src\java\org\opencv\;CMake Files\modules\java\generator\src\java\org\opencv\osgi\;CMake Files\modules\js\;CMake Files\modules\ml\;CMake Files\modules\objdetect\;CMake Files\modules\photo\;CMake Files\modules\python\;CMake Files\modules\python\package\;CMake Files\modules\python\package\template\;CMake Files\modules\python\bindings\;CMake Files\modules\python\test\;CMake Files\modules\python\python2\;CMake Files\modules\python\python3\;CMake Files\modules\shape\;CMake Files\modules\stitching\;CMake Files\modules\superres\;CMake Files\modules\ts\;CMake Files\modules\video\;CMake Files\modules\videoio\;CMake Files\modules\videostab\;CMake Files\modules\viz\;CMake Files\modules\world\;CMake Files\3rdparty\;CMake Files\3rdparty\ippicv\;CMake Files\3rdparty\libwebp\;CMake Files\3rdparty\openexr\;CMake Files\3rdparty\protobuf\;CMake Files\3rdparty\quirc\;CMake Files\3rdparty\ittnotify\;CMake Files\..\;CMake Files\..\..\;CMake Files\..\..\..\;CMake Files\..\..\..\..\;CMake Files\..\..\..\..\usr\;CMake Files\..\..\..\..\usr\local\;CMake Files\..\..\..\..\usr\local\share\;CMake Files\..\..\..\..\usr\local\share\eigen3\;CMake Files\..\..\..\..\usr\local\share\eigen3\cmake\;CMake Files\cmake-build-debug\;CMake Files\cmake-build-debug\3rdparty\;CMake Files\cmake-build-debug\3rdparty\ippicv\;CMake Files\cmake-build-debug\3rdparty\ippicv\ippicv_lnx\;CMake Files\cmake-build-debug\3rdparty\ippicv\ippicv_lnx\iw\;CMake Files\include\;CMake Files\doc\;CMake Files\data\;CMake Files\apps\;CMake Files\apps\traincascade\;CMake Files\apps\createsamples\;CMake Files\apps\annotation\;CMake Files\apps\visualisation\;CMake Files\apps\interactive-calibration\;CMake Files\apps\version\;"/>
+		<Build>
+			<Target title="all">
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/modules/dnn"/>
+				<Option type="4"/>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 all"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="opencv_dnn">
+				<Option output="/home/truth/github/opencv/cmake-build-debug/lib/libopencv_dnn.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/modules/dnn"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D__OPENCV_BUILD=1"/>
+					<Add option="-D_USE_MATH_DEFINES"/>
+					<Add option="-D__STDC_CONSTANT_MACROS"/>
+					<Add option="-D__STDC_LIMIT_MACROS"/>
+					<Add option="-D__STDC_FORMAT_MACROS"/>
+					<Add option="-DCV_OCL4DNN=1"/>
+					<Add option="-DHAVE_PROTOBUF=1"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/icv/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/iw/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug"/>
+					<Add directory="/home/truth/github/opencv/modules/dnn/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/modules/dnn"/>
+					<Add directory="/home/truth/github/opencv/modules/core/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgproc/include"/>
+					<Add directory="/home/truth/github/opencv/modules/dnn/misc/caffe"/>
+					<Add directory="/home/truth/github/opencv/modules/dnn/misc/tensorflow"/>
+					<Add directory="/home/truth/github/opencv/modules/dnn/misc/onnx"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/include/opencl/1.2"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/protobuf/src"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 opencv_dnn"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="opencv_dnn/fast">
+				<Option output="/home/truth/github/opencv/cmake-build-debug/lib/libopencv_dnn.so" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/modules/dnn"/>
+				<Option object_output="./"/>
+				<Option type="3"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D__OPENCV_BUILD=1"/>
+					<Add option="-D_USE_MATH_DEFINES"/>
+					<Add option="-D__STDC_CONSTANT_MACROS"/>
+					<Add option="-D__STDC_LIMIT_MACROS"/>
+					<Add option="-D__STDC_FORMAT_MACROS"/>
+					<Add option="-DCV_OCL4DNN=1"/>
+					<Add option="-DHAVE_PROTOBUF=1"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/icv/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/iw/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug"/>
+					<Add directory="/home/truth/github/opencv/modules/dnn/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/modules/dnn"/>
+					<Add directory="/home/truth/github/opencv/modules/core/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgproc/include"/>
+					<Add directory="/home/truth/github/opencv/modules/dnn/misc/caffe"/>
+					<Add directory="/home/truth/github/opencv/modules/dnn/misc/tensorflow"/>
+					<Add directory="/home/truth/github/opencv/modules/dnn/misc/onnx"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/include/opencl/1.2"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/home/truth/github/opencv/3rdparty/protobuf/src"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 opencv_dnn/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="opencv_perf_dnn">
+				<Option output="/home/truth/github/opencv/cmake-build-debug/bin/opencv_perf_dnn" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D__OPENCV_BUILD=1"/>
+					<Add option="-D_USE_MATH_DEFINES"/>
+					<Add option="-D__STDC_CONSTANT_MACROS"/>
+					<Add option="-D__STDC_LIMIT_MACROS"/>
+					<Add option="-D__STDC_FORMAT_MACROS"/>
+					<Add option="-DCV_OCL4DNN=1"/>
+					<Add option="-DHAVE_PROTOBUF=1"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/icv/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/iw/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug"/>
+					<Add directory="/home/truth/github/opencv/modules/ts/include"/>
+					<Add directory="/home/truth/github/opencv/modules/dnn/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgcodecs/include"/>
+					<Add directory="/home/truth/github/opencv/modules/core/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgproc/include"/>
+					<Add directory="/home/truth/github/opencv/modules/videoio/include"/>
+					<Add directory="/home/truth/github/opencv/modules/highgui/include"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 opencv_perf_dnn"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="opencv_perf_dnn/fast">
+				<Option output="/home/truth/github/opencv/cmake-build-debug/bin/opencv_perf_dnn" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D__OPENCV_BUILD=1"/>
+					<Add option="-D_USE_MATH_DEFINES"/>
+					<Add option="-D__STDC_CONSTANT_MACROS"/>
+					<Add option="-D__STDC_LIMIT_MACROS"/>
+					<Add option="-D__STDC_FORMAT_MACROS"/>
+					<Add option="-DCV_OCL4DNN=1"/>
+					<Add option="-DHAVE_PROTOBUF=1"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/icv/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/iw/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug"/>
+					<Add directory="/home/truth/github/opencv/modules/ts/include"/>
+					<Add directory="/home/truth/github/opencv/modules/dnn/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgcodecs/include"/>
+					<Add directory="/home/truth/github/opencv/modules/core/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgproc/include"/>
+					<Add directory="/home/truth/github/opencv/modules/videoio/include"/>
+					<Add directory="/home/truth/github/opencv/modules/highgui/include"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 opencv_perf_dnn/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="opencv_test_dnn">
+				<Option output="/home/truth/github/opencv/cmake-build-debug/bin/opencv_test_dnn" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D__OPENCV_TESTS=1"/>
+					<Add option="-D__OPENCV_BUILD=1"/>
+					<Add option="-D_USE_MATH_DEFINES"/>
+					<Add option="-D__STDC_CONSTANT_MACROS"/>
+					<Add option="-D__STDC_LIMIT_MACROS"/>
+					<Add option="-D__STDC_FORMAT_MACROS"/>
+					<Add option="-DCV_OCL4DNN=1"/>
+					<Add option="-DHAVE_PROTOBUF=1"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/icv/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/iw/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug"/>
+					<Add directory="/home/truth/github/opencv/modules/ts/include"/>
+					<Add directory="/home/truth/github/opencv/modules/dnn/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgcodecs/include"/>
+					<Add directory="/home/truth/github/opencv/modules/videoio/include"/>
+					<Add directory="/home/truth/github/opencv/modules/core/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgproc/include"/>
+					<Add directory="/home/truth/github/opencv/modules/highgui/include"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 opencv_test_dnn"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+			<Target title="opencv_test_dnn/fast">
+				<Option output="/home/truth/github/opencv/cmake-build-debug/bin/opencv_test_dnn" prefix_auto="0" extension_auto="0"/>
+				<Option working_dir="/home/truth/github/opencv/cmake-build-debug/bin"/>
+				<Option object_output="./"/>
+				<Option type="1"/>
+				<Option compiler="gcc"/>
+				<Compiler>
+					<Add option="-D__OPENCV_TESTS=1"/>
+					<Add option="-D__OPENCV_BUILD=1"/>
+					<Add option="-D_USE_MATH_DEFINES"/>
+					<Add option="-D__STDC_CONSTANT_MACROS"/>
+					<Add option="-D__STDC_LIMIT_MACROS"/>
+					<Add option="-D__STDC_FORMAT_MACROS"/>
+					<Add option="-DCV_OCL4DNN=1"/>
+					<Add option="-DHAVE_PROTOBUF=1"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/icv/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/iw/include"/>
+					<Add directory="/home/truth/github/opencv/cmake-build-debug"/>
+					<Add directory="/home/truth/github/opencv/modules/ts/include"/>
+					<Add directory="/home/truth/github/opencv/modules/dnn/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgcodecs/include"/>
+					<Add directory="/home/truth/github/opencv/modules/videoio/include"/>
+					<Add directory="/home/truth/github/opencv/modules/core/include"/>
+					<Add directory="/home/truth/github/opencv/modules/imgproc/include"/>
+					<Add directory="/home/truth/github/opencv/modules/highgui/include"/>
+					<Add directory="/usr/local/include/eigen3"/>
+					<Add directory="/usr/include/c++/5"/>
+					<Add directory="/usr/include/x86_64-linux-gnu/c++/5"/>
+					<Add directory="/usr/include/c++/5/backward"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include"/>
+					<Add directory="/usr/local/include"/>
+					<Add directory="/usr/lib/gcc/x86_64-linux-gnu/5/include-fixed"/>
+					<Add directory="/usr/include/x86_64-linux-gnu"/>
+					<Add directory="/usr/include"/>
+				</Compiler>
+				<MakeCommands>
+					<Build command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 opencv_test_dnn/fast"/>
+					<CompileFile command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 &quot;$file&quot;"/>
+					<Clean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+					<DistClean command="/usr/bin/make -j8 -f &quot;/home/truth/github/opencv/cmake-build-debug/modules/dnn/Makefile&quot;  VERBOSE=1 clean"/>
+				</MakeCommands>
+			</Target>
+		</Build>
+		<Unit filename="/home/truth/github/opencv/cmake-build-debug/cvconfig.h">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake-build-debug/modules/dnn/layers/layers_common.avx.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake-build-debug/modules/dnn/layers/layers_common.avx2.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake-build-debug/modules/dnn/opencl_kernels_dnn.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake-build-debug/modules/dnn/opencl_kernels_dnn.cpp.rule">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake-build-debug/modules/dnn/opencl_kernels_dnn.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake-build-debug/opencv2/opencv_modules.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/include/opencv2/dnn.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/include/opencv2/dnn/all_layers.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/include/opencv2/dnn/dict.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/include/opencv2/dnn/dnn.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/include/opencv2/dnn/dnn.inl.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/include/opencv2/dnn/layer.details.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/include/opencv2/dnn/layer.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/include/opencv2/dnn/shape_utils.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/include/opencv2/dnn/utils/inference_engine.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/misc/caffe/opencv-caffe.pb.cc">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/misc/onnx/opencv-onnx.pb.cc">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/misc/tensorflow/attr_value.pb.cc">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/misc/tensorflow/function.pb.cc">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/misc/tensorflow/graph.pb.cc">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/misc/tensorflow/op_def.pb.cc">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/misc/tensorflow/tensor.pb.cc">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/misc/tensorflow/tensor_shape.pb.cc">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/misc/tensorflow/types.pb.cc">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/misc/tensorflow/versions.pb.cc">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/perf/perf_caffe.cpp">
+			<Option target="opencv_perf_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/perf/perf_common.cpp">
+			<Option target="opencv_perf_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/perf/perf_convolution.cpp">
+			<Option target="opencv_perf_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/perf/perf_convolution3d.cpp">
+			<Option target="opencv_perf_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/perf/perf_layer.cpp">
+			<Option target="opencv_perf_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/perf/perf_main.cpp">
+			<Option target="opencv_perf_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/perf/perf_net.cpp">
+			<Option target="opencv_perf_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/perf/perf_precomp.hpp">
+			<Option target="opencv_perf_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/caffe/caffe_importer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/caffe/caffe_io.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/caffe/caffe_io.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/caffe/caffe_shrinker.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/caffe/glog_emulator.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/darknet/darknet_importer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/darknet/darknet_io.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/darknet/darknet_io.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/dnn.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/dnn_common.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/graph_simplifier.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/graph_simplifier.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/halide_scheduler.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/halide_scheduler.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ie_ngraph.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ie_ngraph.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/init.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/accum_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/batch_norm_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/blank_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/concat_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/const_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/convolution_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/correlation_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/crop_and_resize_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/detection_output_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/elementwise_layers.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/eltwise_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/flatten_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/flow_warp_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/fully_connected_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/layers_common.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/layers_common.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/layers_common.simd.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/lrn_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/max_unpooling_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/mvn_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/normalize_bbox_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/padding_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/permute_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/pooling_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/prior_box_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/proposal_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/recurrent_layers.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/region_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/reorg_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/reshape_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/resize_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/scale_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/shuffle_channel_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/slice_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/softmax_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/layers/split_layer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/nms.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/nms.inl.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ocl4dnn/include/common.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ocl4dnn/include/default_kernel_config.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ocl4dnn/include/math_functions.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ocl4dnn/include/ocl4dnn.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ocl4dnn/src/common.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ocl4dnn/src/math_functions.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ocl4dnn/src/ocl4dnn_conv_spatial.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ocl4dnn/src/ocl4dnn_inner_product.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ocl4dnn/src/ocl4dnn_lrn.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ocl4dnn/src/ocl4dnn_pool.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/ocl4dnn/src/ocl4dnn_softmax.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/onnx/onnx_graph_simplifier.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/onnx/onnx_graph_simplifier.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/onnx/onnx_importer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/op_halide.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/op_halide.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/op_inf_engine.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/op_inf_engine.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/activations.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/batchnorm.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/col2im.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/concat.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/conv_layer_spatial.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/conv_spatial_helper.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/detection_output.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/dummy.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/eltwise.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/gemm_buffer.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/gemm_image.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/im2col.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/lrn.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/math.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/matvec_mul.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/mvn.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/ocl4dnn_lrn.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/ocl4dnn_pooling.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/permute.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/pooling.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/prior_box.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/region.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/slice.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/softmax.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/opencl/softmax_loss.cl">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/precomp.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/tengine4dnn/include/tengine_graph_convolution.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/tengine4dnn/src/tengine_graph_convolution.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/tensorflow/tf_graph_simplifier.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/tensorflow/tf_graph_simplifier.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/tensorflow/tf_importer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/tensorflow/tf_io.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/tensorflow/tf_io.hpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/torch/THDiskFile.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/torch/THDiskFile.h">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/torch/THFile.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/torch/THFile.h">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/torch/THFilePrivate.h">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/torch/THGeneral.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/torch/THGeneral.h">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/src/torch/torch_importer.cpp">
+			<Option target="opencv_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/npy_blob.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/npy_blob.hpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_backends.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_caffe_importer.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_common.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_common.hpp">
+			<Option target="opencv_perf_dnn"/>
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_common.impl.hpp">
+			<Option target="opencv_perf_dnn"/>
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_darknet_importer.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_googlenet.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_halide_layers.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_ie_models.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_layers.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_main.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_misc.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_nms.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_onnx_importer.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_precomp.hpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_tf_importer.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/test/test_torch_importer.cpp">
+			<Option target="opencv_test_dnn"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVCompilerOptimizations.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVCompilerOptions.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectApacheAnt.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectCXXCompiler.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectOpenCL.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectPython.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectTrace.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDetectVTK.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVDownload.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVExtraTargets.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindAtlas.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindFrameworks.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindIPP.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindIPPIW.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLAPACK.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLibsGUI.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLibsGrfmt.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLibsPerf.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindLibsVideo.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindMKL.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindOpenBLAS.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindOpenEXR.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindProtobuf.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVFindWebP.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenABI.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenAndroidMK.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenConfig.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenHeaders.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenPkgconfig.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVGenSetupVars.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVInstallLayout.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVMinDepVersions.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVModule.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVPCHSupport.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVPackaging.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVUtils.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/OpenCVVersion.cmake">
+			<Option virtualFolder="CMake Files\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/platforms/OpenCV-Linux.cmake">
+			<Option virtualFolder="CMake Files\cmake\platforms\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx2.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx512.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx512common.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_avx512skx.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_fp16.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_popcnt.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse2.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse3.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse41.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_sse42.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cpu_ssse3.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/cxx11.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/ffmpeg_test.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/lapack_check.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/checks/opencl.cpp">
+			<Option virtualFolder="CMake Files\cmake\checks\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/OpenCVConfig-version.cmake.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/OpenCVConfig.cmake.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/cmake_uninstall.cmake.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/custom_hal.hpp.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/cv_cpu_config.h.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/cvconfig.h.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/opencv_modules.hpp.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake/templates/setup_vars_linux.sh.in">
+			<Option virtualFolder="CMake Files\cmake\templates\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/core/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\core\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/core/include/opencv2/core/version.hpp">
+			<Option virtualFolder="CMake Files\modules\core\include\opencv2\core\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/core/misc/java/src/java/core+Core.jcode.in">
+			<Option virtualFolder="CMake Files\modules\core\misc\java\src\java\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/calib3d/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\calib3d\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudaarithm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudaarithm\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudabgsegm/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudabgsegm\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudacodec/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudacodec\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudafeatures2d/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudafeatures2d\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudafilters/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudafilters\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudaimgproc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudaimgproc\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudalegacy/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudalegacy\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudaobjdetect/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudaobjdetect\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudaoptflow/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudaoptflow\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudastereo/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudastereo\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudawarping/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudawarping\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/cudev/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\cudev\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/dnn/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\dnn\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/features2d/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\features2d\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/flann/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\flann\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/highgui/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\highgui\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/imgcodecs/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\imgcodecs\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/imgproc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\imgproc\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\java\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/common.cmake">
+			<Option virtualFolder="CMake Files\modules\java\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/generator/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\java\generator\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/generator/android/java/org/opencv/android/OpenCVLoader.java.in">
+			<Option virtualFolder="CMake Files\modules\java\generator\android\java\org\opencv\android\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/java/generator/src/java/org/opencv/osgi/OpenCVNativeLoader.java.in">
+			<Option virtualFolder="CMake Files\modules\java\generator\src\java\org\opencv\osgi\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/js/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\js\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/ml/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\ml\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/objdetect/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\objdetect\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/photo/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\photo\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/common.cmake">
+			<Option virtualFolder="CMake Files\modules\python\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/python_loader.cmake">
+			<Option virtualFolder="CMake Files\modules\python\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/package/template/config-x.y.py.in">
+			<Option virtualFolder="CMake Files\modules\python\package\template\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/package/template/config.py.in">
+			<Option virtualFolder="CMake Files\modules\python\package\template\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/bindings/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\bindings\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/test/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\test\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/python2/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\python2\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/python/python3/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\python\python3\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/shape/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\shape\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/stitching/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\stitching\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/superres/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\superres\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/ts/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\ts\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/video/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\video\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/videoio/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\videoio\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/videostab/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\videostab\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/viz/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\viz\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/modules/world/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\modules\world\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/ippicv/ippicv.cmake">
+			<Option virtualFolder="CMake Files\3rdparty\ippicv\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/libwebp/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\libwebp\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\openexr\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/IlmBaseConfig.h.cmakein">
+			<Option virtualFolder="CMake Files\3rdparty\openexr\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/openexr/OpenEXRConfig.h.cmakein">
+			<Option virtualFolder="CMake Files\3rdparty\openexr\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/protobuf/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\protobuf\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/quirc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\quirc\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/3rdparty/ittnotify/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\3rdparty\ittnotify\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/../../../../usr/local/share/eigen3/cmake/Eigen3Config.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\eigen3\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/../../../../usr/local/share/eigen3/cmake/Eigen3ConfigVersion.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\eigen3\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/../../../../usr/local/share/eigen3/cmake/Eigen3Targets.cmake">
+			<Option virtualFolder="CMake Files\..\..\..\..\usr\local\share\eigen3\cmake\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/cmake-build-debug/3rdparty/ippicv/ippicv_lnx/iw/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\cmake-build-debug\3rdparty\ippicv\ippicv_lnx\iw\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/include/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\include\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/doc/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\doc\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/data/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\data\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/traincascade/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\traincascade\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/createsamples/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\createsamples\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/annotation/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\annotation\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/visualisation/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\visualisation\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/interactive-calibration/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\interactive-calibration\"/>
+		</Unit>
+		<Unit filename="/home/truth/github/opencv/apps/version/CMakeLists.txt">
+			<Option virtualFolder="CMake Files\apps\version\"/>
+		</Unit>
+	</Project>
+</CodeBlocks_project_file>

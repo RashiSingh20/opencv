@@ -20,7 +20,7 @@
 
 namespace cv
 {
-/* Limits on the maximum size of QR-codes and their content. */
+/** Limits on the maximum size of QR-codes and their content. */
 const int   max_payload_len = 8896;
 const int max_format_length = 15;
 const int max_version_length = 18;
@@ -28,7 +28,7 @@ const int  max_version = 40;
 const int  max_alignment = 7;
 //const int  max_poly = 64;
 const int  error_mode_occur = 99999;
-/*for the reserved value when reading the data*/
+/**for the reserved value when reading the data*/
 const int invalid_region_value = 110;
 const int  codeword_len = 8;
 
@@ -2453,13 +2453,13 @@ protected:
 QRDecode::QRDecode(){
 
 }
-/*convertToUTF8
+/**convertToUTF8
  * params @ src(the original info ) fromcode(the original coding mode)
  * func   @ convert from $(fromcode) to utf-8 and update the cur_str and cur_str_len
  * return @
  * */
 
-/*
+/**
  * params @ format(uint16_t for returning the format bits) which(select from two different place)
  * return @ can be correct or not
  */
@@ -2630,7 +2630,7 @@ uint8_t gfDiv(const uint8_t &x,const uint8_t& y) {
         return 0;
     return gf_exp[(255 - gf_log[y] + gf_log[x]) % 255];
 }
-/* polyDisplay
+/** polyDisplay
  * params : const Mat& p(polynomial),Output o(output pattern)
  * return :output string
  * */
@@ -3066,7 +3066,6 @@ void QRDecode::init(const Mat &src, const vector<Point2f> &points)
     eci = 0;
     fnc1_first = 0;
     fnc1_second = 0;
-    
     vector<Point2f> bbox = points;
     original = src.clone();
     intermediate = Mat::zeros(original.size(), CV_8UC1);
@@ -3682,7 +3681,6 @@ bool QRDecode::decodingProcess()
     if ((version_size - 17) % 4){
         return false;
     }
-
     /**estimated version_level*/
     version_level = (version_size - 17) / 4;
 
@@ -5146,7 +5144,7 @@ bool QREncoder::versionEstimate(const int &input_length,vector<int>&possible_ver
 int QREncoder::versionAuto(const std::string & input_str){
     vector<int> possible_version;
     /**first try to estimate the version range (0-9 , 10-26, 27-41)*/
-    versionEstimate(input_str.length(),possible_version);
+    versionEstimate((int)input_str.length(),possible_version);
     int v = 0;
     vector<uint8_t> payload_tmp;
     /**the beginning index of version */
@@ -5540,7 +5538,7 @@ bool QREncoder::generateBlock(const std::string& input , int mode ,struct autoEn
             result = encodeKanji(input,block.block_load );
             break;
     }
-    block.block_load_len = block.block_load.size();
+    block.block_load_len = (int)block.block_load.size();
     return  result;
 }
 
@@ -5555,7 +5553,7 @@ struct encodingMethods{
     int sum_len(){
         int bits_len = 0 ;
         for(size_t i = 0 ; i < blocks.size(); i++ ){
-            bits_len += blocks[i].block_load.size();
+            bits_len += (int)blocks[i].block_load.size();
         }
         return bits_len;
     }
