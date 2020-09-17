@@ -2366,7 +2366,7 @@ protected:
     /**@brief read from (x,y) as the bitpos^th bit of the  bytepos^th codeword
      * @param (x,y)
      */
-    void  readBit(const int x,const int y,const int count);
+    void  readBit(int x, int y,int& count);
     /**
     * @brief  rearrange the interleaved blocks for later codewode correction
      * */
@@ -2590,7 +2590,7 @@ bool QRDecode:: correctVersion(uint32_t& format)
 }
 
 
-void QRDecode::readBit(const int x,const int y, const int count){
+void QRDecode::readBit(int x, int y, int& count){
     /**judge the reserved area*/
     if (unmasked_data.ptr(y)[x]==invalid_region_value)
         return ;
@@ -2605,6 +2605,7 @@ void QRDecode::readBit(const int x,const int y, const int count){
     if (v){
         orignal_data[bytepos] |= (0x80 >> bitpos);
     }
+    count++;
     return;
 }
 
@@ -2805,9 +2806,7 @@ void QRDecode::readData(){
             x--;
         /**read*/
         readBit( x,  y, count);
-        count ++ ;
         readBit( x-1,  y, count);
-        count ++ ;
 
         y += dir;
         /**change direction when meets border*/
@@ -5027,7 +5026,7 @@ protected:
      * @brief write bit into the QR code
      * @param int x, int y ( current pixel postion), int& count(the number of current bit)
      */
-    void writeBit(const int x,const int y, const int count);
+    void writeBit(int x, int y, int& count);
     /**
      *@brief write data into the QRcode by zig-zag method
      */
@@ -6069,7 +6068,7 @@ void QREncoder::writeReservedArea(){
 }
 
 
-void QREncoder::writeBit(const int x,const int y, const int count){
+void QREncoder::writeBit(int x, int y, int& count){
     /**the bitpos^th bit of the  bytepos^th codeword*/
     int bytepos = count >> 3;/*equal to count/8 */
     int bitpos  = count & 7 ;/*equal to count%8 */
@@ -6087,6 +6086,7 @@ void QREncoder::writeBit(const int x,const int y, const int count){
         original.ptr(y)[x] = 0;
         masked_data.ptr(y)[x] = 0 ;
     }
+    count++;
     return ;
 }
 
@@ -6100,9 +6100,7 @@ void QREncoder::writeData(){
             x--;
         /**write*/
         writeBit( x,  y, count);
-        count ++;
         writeBit( x-1,  y, count);
-        count ++;
 
         y += dir;
         /**change direction when meets border*/
@@ -6205,22 +6203,11 @@ Mat QREncoder::QRcodeGenerate(){
 vector<Mat> QRCodeEncoder::generate(cv::String input_string, int mode, int version, int correction_level,
         int m, int eci, int s){
     QREncoder my_qrcode(input_string,mode,version,correction_level,m,eci,s);
-    mode_type = my_qrcode.mode_type;
-    version_level = my_qrcode.version_level;
-    ecc_level = my_qrcode.ecc_level ;
-    mask_type = my_qrcode.mask_type;
-    eci_num = my_qrcode.eci;
-    struct_num = s;
     return my_qrcode.my_qrcodes;
 }
 Mat QRCodeEncoder::generateSingle(cv::String input_string, int mode, int version , int correction_level  ,
                             int m , int eci){
     QREncoder my_qrcode(input_string,mode,version,correction_level,m,eci,1);
-    mode_type = my_qrcode.mode_type;
-    version_level = my_qrcode.version_level;
-    ecc_level = my_qrcode.ecc_level ;
-    mask_type = my_qrcode.mask_type;
-    eci_num = my_qrcode.eci;
     return my_qrcode.my_qrcodes[0];
 }
 
