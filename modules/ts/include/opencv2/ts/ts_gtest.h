@@ -21718,7 +21718,6 @@ class WithParamInterface {
 
 template <typename T>
 class TestWithParam : public Test, public WithParamInterface<T> {
-
 };
 
 // Macros for indicating success/failure in test code.

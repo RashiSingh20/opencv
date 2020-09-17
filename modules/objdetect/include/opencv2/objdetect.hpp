@@ -46,7 +46,6 @@
 
 #include "opencv2/core.hpp"
 
-
 /**
 @defgroup objdetect Object Detection
 
@@ -700,12 +699,6 @@ public:
                               int m = -1 , int eci= -1 , int s = 2 );
     Mat generateSingle(cv::String input_string, int mode = QR_MODE_AUTO, int version = 0, int correction_level =CORRECT_LEVEL_L ,int m=0  , int eci=0);
 
-    int mode_type;
-    int version_level;
-    int ecc_level;
-    int mask_type;
-    int eci_num;
-    int struct_num;
 };
 
 

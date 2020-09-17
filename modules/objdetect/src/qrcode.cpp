@@ -2366,7 +2366,7 @@ protected:
     /**@brief read from (x,y) as the bitpos^th bit of the  bytepos^th codeword
      * @param (x,y)
      */
-    void  readBit(int x, int y,int& count);
+    void  readBit(const int x,const int y,const int count);
     /**
     * @brief  rearrange the interleaved blocks for later codewode correction
      * */
@@ -2405,7 +2405,7 @@ protected:
     bool eciDecoding(int &index);
 
     /**@brief  decode the structure mode*/
-    bool structureDecoding(int &index);
+    bool structureAppendDecoding(int &index);
 
     bool fncDecoding();
     /**@brief  decode the mode of fnc1_first* */
@@ -2468,7 +2468,7 @@ bool QRDecode::readAndCorrectFormat(uint16_t& format){
     /**version_level<=6*/
     uint16_t my_format = 0;
     int my_size = (int)version_size;
-    Mat mat_format(1,max_format_length,CV_8UC1,Scalar(0));
+    //Mat mat_format(1,max_format_length,CV_8UC1,Scalar(0));
 
     /**read from the left-bottom and upper-right */
     const int xs[2][max_format_length] = {{8, 8, 8, 8, 8, 8, 8,
@@ -2502,10 +2502,10 @@ bool QRDecode::readAndCorrectFormat(uint16_t& format){
 }
 
 bool QRDecode::readAndCorrectVersion(uint32_t& verison){
-    /*version_level>=6*/
+    /**version_level>=6*/
     uint32_t my_version = 0;
     int my_size = (int)version_size;
-    Mat mat_version(1,max_version_length,CV_8UC1,Scalar(0));
+    //Mat mat_version(1,max_version_length,CV_8UC1,Scalar(0));
 
     /**read from the left-bottom and upper-right */
     const int xs[2][max_version_length] = {{5,5,5,
@@ -2590,7 +2590,7 @@ bool QRDecode:: correctVersion(uint32_t& format)
 }
 
 
-void QRDecode::readBit(int x, int y, int& count){
+void QRDecode::readBit(const int x,const int y, const int count){
     /**judge the reserved area*/
     if (unmasked_data.ptr(y)[x]==invalid_region_value)
         return ;
@@ -2605,7 +2605,7 @@ void QRDecode::readBit(int x, int y, int& count){
     if (v){
         orignal_data[bytepos] |= (0x80 >> bitpos);
     }
-    count++;
+    return;
 }
 
 
@@ -2803,12 +2803,14 @@ void QRDecode::readData(){
     while (x > 0) {
         if (x == 6)
             x--;
-        /*read*/
+        /**read*/
         readBit( x,  y, count);
+        count ++ ;
         readBit( x-1,  y, count);
+        count ++ ;
 
         y += dir;
-        /*change direction when meets border*/
+        /**change direction when meets border*/
         if (y < 0 || y >= version_size) {
             dir = -dir;
             x -= 2;
@@ -3473,7 +3475,7 @@ bool QRDecode::alphaDecoding(int &index){
     }
     return true;
 }
-bool QRDecode::structureDecoding(int &index){
+bool QRDecode::structureAppendDecoding(int &index){
     /**two Structured Append codewords follows indicators
      *  The first codeword is symbol sequence indicator
      *  the second one is parity data,
@@ -3641,7 +3643,7 @@ bool QRDecode::decodeCurrentStream(){
                 err = alphaDecoding(index);
                 break;
             case QR_MODE_STRUCTURE:
-                err = structureDecoding(index);
+                err = structureAppendDecoding(index);
                 break;
             case QR_MODE_BYTE:
                 err = byteDecoding(index);
@@ -5025,7 +5027,7 @@ protected:
      * @brief write bit into the QR code
      * @param int x, int y ( current pixel postion), int& count(the number of current bit)
      */
-    void writeBit(int x, int y, int& count);
+    void writeBit(const int x,const int y, const int count);
     /**
      *@brief write data into the QRcode by zig-zag method
      */
@@ -6067,7 +6069,7 @@ void QREncoder::writeReservedArea(){
 }
 
 
-void QREncoder::writeBit(int x, int y, int& count){
+void QREncoder::writeBit(const int x,const int y, const int count){
     /**the bitpos^th bit of the  bytepos^th codeword*/
     int bytepos = count >> 3;/*equal to count/8 */
     int bitpos  = count & 7 ;/*equal to count%8 */
@@ -6085,7 +6087,7 @@ void QREncoder::writeBit(int x, int y, int& count){
         original.ptr(y)[x] = 0;
         masked_data.ptr(y)[x] = 0 ;
     }
-    count++;
+    return ;
 }
 
 void QREncoder::writeData(){
@@ -6098,7 +6100,9 @@ void QREncoder::writeData(){
             x--;
         /**write*/
         writeBit( x,  y, count);
+        count ++;
         writeBit( x-1,  y, count);
+        count ++;
 
         y += dir;
         /**change direction when meets border*/
