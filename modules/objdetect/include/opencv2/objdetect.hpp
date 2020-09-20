@@ -695,10 +695,9 @@ public:
 
 class CV_EXPORTS_W QRCodeEncoder {
 public:
-    std::vector<Mat> generate(cv::String input_string, int mode, int version = 0, int correction_level = CORRECT_LEVEL_L ,
-                              int m = -1 , int eci= -1 , int s = 2 );
-    Mat generateSingle(cv::String input_string, int mode = QR_MODE_AUTO, int version = 0, int correction_level =CORRECT_LEVEL_L ,int m=0  , int eci=0);
-
+    bool generate(cv::String input,cv::OutputArray  output,int mode = QR_MODE_AUTO,
+             int version = 0, int correction_level = CORRECT_LEVEL_L ,
+             int mask_type = -1 ,  int structure_number = 2 );
 };
 
 
@@ -774,12 +773,6 @@ public:
             OutputArray points = noArray(),
             OutputArrayOfArrays straight_qrcode = noArray()
     ) const;
-    int mode_type;
-    int version_level;
-    int ecc_level;
-    int mask_type;
-    int eci_num;
-    int struct_num;
 
 #ifndef CV_DOXYGEN  // COMPATIBILITY
     inline bool decodeMulti(

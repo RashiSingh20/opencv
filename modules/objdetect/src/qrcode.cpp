@@ -2997,7 +2997,6 @@ bool  QRDecode::correctSingleBlock(int block_num , int block_head_index ,Mat & c
     if (calBlockSyndromes(corrected_block,ecc_num,synd)){
         return false;
     }
-
     corrected=corrected_block.clone();
 
     return true;
@@ -3067,6 +3066,7 @@ void QRDecode::init(const Mat &src, const vector<Point2f> &points)
     eci = 0;
     fnc1_first = 0;
     fnc1_second = 0;
+    
     vector<Point2f> bbox = points;
     original = src.clone();
     intermediate = Mat::zeros(original.size(), CV_8UC1);
@@ -3482,9 +3482,9 @@ bool QRDecode::structureAppendDecoding(int &index){
     if(remainingBitsCount(index)<16){
         return false;
     }
-    //int current_postion = getBits(4,final_data,index);
-    //int total_number = getBits(4,final_data,index);
-    //int parity_data = getBits(8,final_data,index);
+    getBits(4,final_data,index);//int current_postion =
+    getBits(4,final_data,index);//int total_number =
+    getBits(8,final_data,index);//int parity_data =
     return true;
 }
 
@@ -3611,7 +3611,7 @@ bool QRDecode::FNC1SecondDecoding(const std::string & cur_buffer){
 bool QRDecode::decodeCurrentStream(){
     bool err = true;
     int index =0;
-    /*test for output*/
+    /**test for output*/
     eci = UTF_8;
     mode_type = 0;
     while(remainingBitsCount(index)>=4){
@@ -3630,7 +3630,7 @@ bool QRDecode::decodeCurrentStream(){
                 mode_type = -1;
             }
         }
-        /*select the corresponding decode mode */
+        /**select the corresponding decode mode */
         switch (mode){
             case QR_MODE_NUL:
                 index = (int)final_data.size()-1;
@@ -3682,6 +3682,7 @@ bool QRDecode::decodingProcess()
     if ((version_size - 17) % 4){
         return false;
     }
+
     /**estimated version_level*/
     version_level = (version_size - 17) / 4;
 
@@ -3701,8 +3702,7 @@ bool QRDecode::decodingProcess()
         version_level = my_version;
     }
 
-
-    /**EC level �i1-2�j+Mask(3-5) + EC for this string( 6-15)
+    /**EC level (1-2)+Mask(3-5) + EC for this string( 6-15)
      * get rid of the ecc_code*/
     uint8_t fdata = my_format >> 10;
     ecc_level = eccCodeToLevel(fdata >> 3);
@@ -3757,12 +3757,6 @@ cv::String QRCodeDetector::decode(InputArray in, InputArray points,
     qrdec.init(inarr, src_points);
     bool ok = qrdec.fullDecodingProcess();
 
-    mode_type = qrdec.mode_type;
-    version_level = qrdec.version_level;
-    ecc_level = qrdec.ecc_level;
-    mask_type = qrdec.mask_type;
-    eci_num = qrdec.eci;
-    struct_num = -1 ;
 
     std::string decoded_info = qrdec.getDecodeInformation();
 
@@ -5005,7 +4999,7 @@ protected:
 
     /**@brief Convert the character string into a bit stream.
     */
-    void stringToBits();
+    bool stringToBits();
 
     /**@brief Get the data blocks by the bit stream and calculate the ecc codeword blocks.
      * @param vector<Mat>& data_blocks,
@@ -5178,7 +5172,7 @@ QREncoder::QREncoder(const std::string& input ,int mode,int v  = 0 ,int ecc = 0 
     fnc1_second_AI = 0;
     mask_type = mask;
     ecc_level = ecc;
-
+    version_level = v;
     mode_type = mode;
     /**use structure mode to split the QRcode into several segmemts*/
     int struct_num = ( mode == QR_MODE_STRUCTURE ? structure_num:1);
@@ -5315,6 +5309,9 @@ bool QREncoder::encodeAlpha(const std::string& input,vector<uint8_t>& output){
     /**last character*/
     if( str_len %2 !=0 ){
         int index = (int)alpha_map.find(input[i]);
+        if(index == -1)
+            return false;
+
         std::string per_byte = decToBin(index,6);
         loadString(per_byte,output, true);
     }
@@ -5693,39 +5690,41 @@ void QREncoder::padBitStream(){
 }
 
 
-void QREncoder::stringToBits(){
+bool QREncoder::stringToBits(){
+    int is_ok = true;
     switch (mode_type){
         case QR_MODE_NUM:
-            encodeNumeric(input_info,payload );
+            is_ok = encodeNumeric(input_info,payload );
             break;
         case QR_MODE_ALPHA:
-            encodeAlpha(input_info,payload );
+            is_ok = encodeAlpha(input_info,payload );
             break;
         case QR_MODE_STRUCTURE:
-            encodeStructure(input_info,payload );
+            is_ok = encodeStructure(input_info,payload );
             break;
         case QR_MODE_BYTE:
-            encodeByte(input_info,payload );
+            is_ok = encodeByte(input_info,payload );
             break;
         case QR_MODE_KANJI:
-            encodeKanji(input_info,payload );
+            is_ok = encodeKanji(input_info,payload );
             break;
         case QR_MODE_ECI:
-            encodeECI(input_info,payload );
+            is_ok = encodeECI(input_info,payload );
             break;
         case QR_MODE_FNC1FIRST:
             fnc1_first = true;
-            encodeFNC1(input_info,payload );
+            is_ok = encodeFNC1(input_info,payload );
             break;
         case QR_MODE_FNC1SECOND:
             fnc1_second = true;
-            encodeFNC2(input_info,payload );
+            is_ok = encodeFNC2(input_info,payload );
             break;
         default:
-            encodeAuto(input_info,payload );
+            is_ok = encodeAuto(input_info,payload );
             break;
     }
-    return ;
+
+    return is_ok ;
 };
 
 
@@ -5783,7 +5782,6 @@ void QREncoder::rearrangeBlocks(const vector<Mat>& data_blocks,const vector<Mat>
     /**total ecc codeword num*/
     int total_codeword_num = blocks*(col_border+cur_ecc_params->ecc_codewords);
     int is_not_equal = cur_ecc_params->data_codewords_in_G2 - cur_ecc_params->data_codewords_in_G1 ;
-    int rearranged_len = 0 ;
     int data_col = data_blocks[0].cols-1;
     int ecc_col = ecc_blocks[0].cols-1;
     /**rearrange process*/
@@ -5813,9 +5811,16 @@ void QREncoder::rearrangeBlocks(const vector<Mat>& data_blocks,const vector<Mat>
             bits = decToBin(ecc_blocks[cur_row].ptr(0)[index],8);
             tmp = ecc_blocks[cur_row].ptr(0)[index];
         }
-        rearranged_len++;
         rearranged_data.push_back(tmp);
     }
+    const int remainder_len []= {0,
+                                 0,7,7,7,7,7,0,0,0,0,//!1-10
+                                 0,0,0,3,3,3,3,3,3,3,//!11-20
+                                 4,4,4,4,4,4,4,3,3,3,//!
+                                 3,3,3,3,0,0,0,0,0,0};
+    int cur_remainder_len = remainder_len[version_level];
+    if(cur_remainder_len!=0)
+        rearranged_data.push_back(0);
 }
 
 void QREncoder::findAutoMaskType(){
@@ -6189,7 +6194,9 @@ void QREncoder::structureFinalMessage(){
 
 Mat QREncoder::QRcodeGenerate(){
     vector<Mat> data_blocks,ecc_blocks;
-    stringToBits();
+    if(!stringToBits()){
+        return masked_data;
+    }
     /**ecc coding is a little different*/
     padBitStream();
     eccGenerate(data_blocks,ecc_blocks);
@@ -6200,15 +6207,31 @@ Mat QREncoder::QRcodeGenerate(){
     return masked_data;
 }
 
-vector<Mat> QRCodeEncoder::generate(cv::String input_string, int mode, int version, int correction_level,
-        int m, int eci, int s){
-    QREncoder my_qrcode(input_string,mode,version,correction_level,m,eci,s);
-    return my_qrcode.my_qrcodes;
-}
-Mat QRCodeEncoder::generateSingle(cv::String input_string, int mode, int version , int correction_level  ,
-                            int m , int eci){
-    QREncoder my_qrcode(input_string,mode,version,correction_level,m,eci,1);
-    return my_qrcode.my_qrcodes[0];
-}
+bool QRCodeEncoder::generate(cv::String input,cv::OutputArray  output,int mode,
+              int version, int correction_level ,
+              int mask_type , int structure_number  ){
+    int output_type = output.kind();
 
+    QREncoder my_qrcode(input,mode,version,correction_level,mask_type,-1,structure_number);
+    if(my_qrcode.my_qrcodes.size() == 0)
+        return false;
+
+    vector<Mat> result = my_qrcode.my_qrcodes;
+    if(output_type == _InputArray::STD_VECTOR_MAT){
+        /**vector size*/
+        output.create(result.size(), 1, result[0].type());
+        /**get vector*/
+        std::vector<Mat> dst;
+        output.getMatVector(dst);
+
+        for(size_t i = 0 ; i < result.size() ; i ++ ){
+            Mat cur_mat = result[i];
+            output.getMatRef(i) =cur_mat;
+        }
+    }
+    else if(output_type == _InputArray::MAT){
+        output.assign(my_qrcode.my_qrcodes[0]);
+    }
+    return true;
+}
 }// namespace
