@@ -774,6 +774,7 @@ public:
             OutputArrayOfArrays straight_qrcode = noArray()
     ) const;
 
+
 #ifndef CV_DOXYGEN  // COMPATIBILITY
     inline bool decodeMulti(
             InputArray img, InputArray points,
@@ -830,6 +831,7 @@ CV_EXPORTS bool detectQRCode(InputArray in, std::vector<Point> &points, double e
     @param straight_qrcode Matrix of the type CV_8UC1 containing an binary straight QR code.
     */
 CV_EXPORTS bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode = noArray());
+
 //! @} objdetect
 }
 
