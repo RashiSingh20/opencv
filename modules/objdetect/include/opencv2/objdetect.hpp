@@ -695,9 +695,9 @@ public:
 
 class CV_EXPORTS_W QRCodeEncoder {
 public:
-    bool generate(cv::String input,cv::OutputArray  output,int mode = QR_MODE_AUTO,
-             int version = 0, int correction_level = CORRECT_LEVEL_L ,
-             int mask_type = -1 ,  int structure_number = 2 );
+    bool generate(cv::String input,cv::OutputArray  output,
+             int version = 0, int correction_level = CORRECT_LEVEL_L,int mode = QR_MODE_AUTO,
+             int structure_number = 1 );
 };
 
 
@@ -829,9 +829,7 @@ CV_EXPORTS bool detectQRCode(InputArray in, std::vector<Point> &points, double e
     @param decoded_info String information that is encrypted in QR code.
     @param straight_qrcode Matrix of the type CV_8UC1 containing an binary straight QR code.
     */
-CV_EXPORTS bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode);
-//CV_EXPORTS bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode, int &mode,int&version,int&ecc_level,int&mask_type,int&eci_num);
-
+CV_EXPORTS bool decodeQRCode(InputArray in, InputArray points, std::string &decoded_info, OutputArray straight_qrcode = noArray());
 //! @} objdetect
 }
 
