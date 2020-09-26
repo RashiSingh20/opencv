@@ -276,7 +276,7 @@ struct CharacterCapacity {
 };
 const CharacterCapacity version_capacity_database[max_version + 1] = {
         {
- //               0,
+ //!               0,
                 {
                         {0,1,0,0},
                         {0,0,0,0},
@@ -285,7 +285,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
- //               1,
+ //!               1,
                 {
                         {41,	25,	17,	10},
                         {34,	20,	14,	8},
@@ -295,7 +295,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
 
         },
         {
- //               2,
+ //!               2,
                 {
                         {77	,47	,32 ,20},
                         {63	,38	,26 ,16},
@@ -304,7 +304,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
- //               3,
+ //!               3,
                 {
                         {127,	77,	53,	32},
                         {101,	61,	42,	26},
@@ -313,7 +313,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-  //              4,
+  //!              4,
                 {
                         {187,	114	,78,	48},
                         {149,	90	,62,	38},
@@ -322,7 +322,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-  //              5,
+  //!              5,
                 {
                         {255,	154	,   106,	65},
                         {202,	122 ,	84 ,	52},
@@ -331,7 +331,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
- //               6,
+ //!               6,
                 {
                         {322,	195,	134,	82},
                         {255,	154,	106,	65},
@@ -340,7 +340,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-  //              7,
+  //!              7,
                 {
                         {370,	224,	154,	95},
                         {293,	178,	122,	75},
@@ -349,7 +349,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
- //               8,
+ //!               8,
                 {
                         {461,	279,	192,	118},
                         {365,	221,	152,	93},
@@ -358,7 +358,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
- //               9,
+ //!               9,
                 {
                         {552,	335,	230,	141},
                         {432,	262,	180,	111},
@@ -367,7 +367,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
- //               10,
+ //!               10,
                 {
                         {652,	395,	271,	167},
                         {513,	311,	213,	131},
@@ -376,7 +376,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
- //               11,
+ //!               11,
                 {
                         {772,	468,	321,	198},
                         {604,	366,	251,	155},
@@ -385,7 +385,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
- //               12,
+ //!               12,
                 {
                         {883,	535,	367,	226},
                         {691,	419,	287,	177},
@@ -394,7 +394,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-  //              13,
+  //!              13,
                 {
                         {1022,	619,	425,	262},
                         {796 ,	483,	331,	204},
@@ -403,7 +403,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-  //              14,
+  //!              14,
                 {
                         {1101,	667,	458,	282},
                         {871 ,	528,	362,	223},
@@ -412,7 +412,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //              15,
+                //!              15,
                 {
                         {1250,	758,	520,	320},
                         {991 ,	600,	412,	254},
@@ -421,7 +421,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               16,
+                //!               16,
                 {
                         {1408,	854,	586,	361},
                         {1082,	656,	450,	277},
@@ -430,7 +430,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //              17,
+                //!              17,
                 {
                         {1548,	938,	644,	397},
                         {1212,	734,	504,	310},
@@ -439,7 +439,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               18,
+                //!               18,
                 {
                         {1725,	1046,	718,	442},
                         {1346,	816 ,	560,	345},
@@ -448,7 +448,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               19,
+                //!               19,
                 {
                         {1903,	1153,	792,	488},
                         {1500,	909 ,	624,	384},
@@ -457,7 +457,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               20,
+                //!               20,
                 {
                         {2061,	1249,	858,	528},
                         {1600,	970 ,	666,	410},
@@ -466,7 +466,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               21,
+                //!               21,
                 {
                         {2232,	1352,	929,	572},
                         {1708,	1035,	711,	438},
@@ -476,7 +476,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
 
         },
         {
-                //               22,
+                //!               22,
                 {
                         {2409,	1460,	1003,	618},
                         {1872,	1134,	779 ,	480},
@@ -485,7 +485,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               23,
+                //!               23,
                 {
                         {2620,	1588,	1091,	672},
                         {2059,	1248,	857 ,	528},
@@ -494,7 +494,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //              24,
+                //!              24,
                 {
                         {2812,	1704,	1171,	721},
                         {2188,	1326,	911	,   561},
@@ -503,7 +503,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //              25,
+                //!              25,
                 {
                         {3057,	1853,	1273,	784},
                         {2395,	1451,	997 ,	614},
@@ -512,7 +512,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               26,
+                //!               26,
                 {
                         {3283,	1990,	1367,	842},
                         {2544,	1542,	1059,	652},
@@ -521,7 +521,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //              27,
+                //!              27,
                 {
                         {3517,	2132,	1465,	902},
                         {2701,	1637,	1125,	692},
@@ -530,7 +530,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               28,
+                //!               28,
                 {
                         {3669,	2223,	1528,	940},
                         {2857,	1732,	1190,	732},
@@ -539,7 +539,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               29,
+                //!               29,
                 {
                         {3909,	2369,	1628,	1002},
                         {3035,	1839,	1264,	778},
@@ -548,7 +548,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               30,
+                //!               30,
                 {
                         {4158,	2520,	1732,	1066},
                         {3289,	1994,	1370,	843},
@@ -557,7 +557,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               31,
+                //!               31,
                 {
                         {4417,	2677,	1840,	1132},
                         {3486,	2113,	1452,	894},
@@ -567,7 +567,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
 
         },
         {
-                //               32,
+                //!               32,
                 {
                         {4686,	2840,	1952,	1201},
                         {3693,	2238,	1538,	947},
@@ -576,7 +576,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               33,
+                //!               33,
                 {
                         {4965,	3009,	2068,	1273},
                         {3909,	2369,	1628,	1002},
@@ -585,7 +585,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //              34,
+                //!              34,
                 {
                         {5253,	3183,	2188,	1347},
                         {4134,	2506,	1722,	1060},
@@ -594,7 +594,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //              35,
+                //!              35,
                 {
                         {5529,	3351,	2303,	1417},
                         {4343,	2632,	1809,	1113},
@@ -603,7 +603,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               36,
+                //!               36,
                 {
                         {5836,	3537,	2431,	1496},
                         {4588,	2780,	1911,	1176},
@@ -612,7 +612,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //              37,
+                //!              37,
                 {
                         {6153,	3729,	2563,	1577},
                         {4775,	2894,	1989,	1224},
@@ -621,7 +621,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               38,
+                //!               38,
                 {
                         {6479,	3927,	2699,	1661},
                         {5039,	3054,	2099,	1292},
@@ -630,7 +630,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               39,
+                //!               39,
                 {
                         {6743,	4087,	2809,	1729},
                         {5313,	3220,	2213,	1362},
@@ -639,7 +639,7 @@ const CharacterCapacity version_capacity_database[max_version + 1] = {
                 }
         },
         {
-                //               40,
+                //!               40,
                 {
                         {7089,	4296,	2953,	1817},
                         {5596,	3391,	2331,	1435},
@@ -1260,7 +1260,7 @@ static bool checkQRInputImage(InputArray img, Mat& gray)
 
     if (img.cols() <= 20 || img.rows() <= 20)
     {
-        return false;  //! image data is not enough for providing reliable results
+        return false;  // image data is not enough for providing reliable results
     }
     int incn = img.channels();
     CV_Check(incn, incn == 1 || incn == 3 || incn == 4, "");
@@ -1739,7 +1739,6 @@ bool QRDetect::localization()
             }
         }
     }
-
     return true;
 
 }
@@ -2211,8 +2210,15 @@ protected:
     bool versionDefinition();
     bool samplingForVersion();
     bool decodingProcess();
-
+    /**
+     * params @ format(uint16_t for returning the format bits) which(select from two different place)
+     * return @ can be correct or not
+     */
     bool readAndCorrectFormat(uint16_t& format);
+    /**
+     * params @ format(uint32_t for returning the version bits) which(select from two different place)
+     * return @ can be correct or not
+     */
     bool readAndCorrectVersion(uint32_t& version);
 
     /**
@@ -2220,6 +2226,10 @@ protected:
      *  @params uint16_t& format
      */
     bool correctFormat(uint16_t& format);
+    /**
+     *  @brief error correct
+     *  @params uint32_t& format
+     */
     bool correctVersion(uint32_t& format);
 
     /**
@@ -2231,7 +2241,7 @@ protected:
      * */
     void  readData();
 
-    /**@brief read from (x,y) as the bitpos^th bit of the  bytepos^th codeword
+    /**@brief read from (x,y)
      * @param (x,y)
      */
     int readBit(int x, int y);
@@ -2276,10 +2286,10 @@ protected:
     bool structureAppendDecoding(int &index);
 
     bool fncDecoding();
-/**
- * @brief calculate the remaining number of bits
- * @param ptr(current bit postion)
- * */
+    /**
+     * @brief calculate the remaining number of bits
+     * @param ptr(current bit postion)
+     * */
     int remainingBitsCount(const int &index);
 
     Mat original, no_border_intermediate, intermediate, straight;
@@ -2312,13 +2322,7 @@ protected:
     float test_perspective_size;
 
 };
-QRDecode::QRDecode(){
-
-}
-/**
- * params @ format(uint16_t for returning the format bits) which(select from two different place)
- * return @ can be correct or not
- */
+QRDecode::QRDecode(){}
 
 bool QRDecode::readAndCorrectFormat(uint16_t& format){
     /**version_level<=6*/
@@ -2335,6 +2339,7 @@ bool QRDecode::readAndCorrectFormat(uint16_t& format){
     bool err;
 
     for(read_round = 0 ; read_round < 2 ; read_round ++ ){
+        /**read in from qrcode mat*/
         for (int i = 0; i <max_format_length; i++) {
             uint8_t value=(straight.ptr<uint8_t>(ys[read_round][i])[xs[read_round][i]]==0);
             my_format = my_format*2 + value ;
@@ -2390,12 +2395,14 @@ bool QRDecode::readAndCorrectVersion(uint32_t& verison){
     int read_round = 0;
     bool err;
     for(read_round = 0 ; read_round < 2 ; read_round ++ ){
+        /**read from two areas*/
         for (int i = 0; i <max_version_length; i++) {
+            /**read bits from qr mat*/
             uint8_t value=(straight.ptr<uint8_t>(ys[read_round][i])[xs[read_round][i]]==0);
             my_version = my_version*2 + value ;
         }
         err = correctVersion(my_version);
-
+        /**if the version information can't be corrected ,then read from the other area*/
         if(!err){
             my_version = 0 ;
             continue;
@@ -2758,18 +2765,16 @@ Mat findErrorLocator(const vector<uint8_t>&synd,size_t & errors_len){
 
 vector<int > findErrors(const Mat& sigma,const size_t &errors_len,const int & msg_len){
     vector <int> error_index;
-    /*optimize to just check the interesting symbols*/
+    /**optimize to just check the interesting symbols*/
     for(int i = 0; i < msg_len ; i ++){
         int index=msg_len-i-1;
-        /* if a^(n-i) is the error postion ,then a^-(n-i) is the root of the poly Sigma
+        /** if a^(n-i) is the error postion ,then a^-(n-i) is the root of the poly Sigma
              * use Chien's search to evaluate the polynomial such that each evaluation only takes constant time
              */
         if(gfPolyEvaluate(sigma,gfInverse(gfPow(2,index)))==0){
             error_index.push_back(index);
         }
     }
-    /*print out for debugging*/
-    //CV_Assert((int)error_index.size()==errors_len);
     if(error_index.size()!=errors_len)
         error_index.clear();
     return error_index;
@@ -2777,13 +2782,12 @@ vector<int > findErrors(const Mat& sigma,const size_t &errors_len,const int & ms
 }
 
 Mat errorCorrect(const Mat & msg_in ,const vector<uint8_t>&synd,const Mat & e_loc_poly,const vector<int> &error_index){
-
     size_t border = synd.size();
     size_t err_len= error_index.size();
     Mat msg_out = msg_in.clone() ;
 
     Mat syndrome(1,(int)border,CV_8UC1,Scalar(0));
-    /*change syndrom to mat from calculation*/
+    /**change syndrom to mat from calculation*/
     for(size_t i = 1 ; i < border ; i++){
         syndrome.ptr(0)[i]=synd[i];
     }
@@ -2821,9 +2825,7 @@ Mat errorCorrect(const Mat & msg_in ,const vector<uint8_t>&synd,const Mat & e_lo
 
 bool  QRDecode::correctSingleBlock(int block_num , int block_head_index ,Mat & corrected){
     int cur_length=0;
-
     int ecc_num=cur_ecc_params->ecc_codewords;
-
     if(block_num<cur_ecc_params->num_blocks_in_G1){
         cur_length=cur_ecc_params->data_codewords_in_G1+ecc_num;
     }
@@ -3095,6 +3097,7 @@ bool QRDecode::samplingForVersion()
             experimentalFrequencyElem = expVal;
         }
     }
+
     straight = Mat(Size(version_size, version_size), CV_8UC1, Scalar(0));
     for (int r = 0; r < version_size * version_size; r++)
     {
@@ -3312,9 +3315,9 @@ bool QRDecode::structureAppendDecoding(int &index){
     if(remainingBitsCount(index)<16){
         return false;
     }
-    getBits(4,final_data,index);//int current_postion =
-    getBits(4,final_data,index);//int total_number =
-    getBits(8,final_data,index);//int parity_data =
+    getBits(4,final_data,index);//!int current_postion =
+    getBits(4,final_data,index);//!int total_number =
+    getBits(8,final_data,index);//!int parity_data =
     return true;
 }
 
@@ -3340,7 +3343,7 @@ bool QRDecode::fncDecoding(){
     if(fnc1_first && cur_str_len == 0){
         loadString("]Q3",cur_str);
     }
-    else if(fnc1_second && cur_str_len == 0){//
+    else if(fnc1_second && cur_str_len == 0){
         loadString("]Q5",cur_str);
     }
     return true;
@@ -3434,7 +3437,7 @@ bool QRDecode::decodingProcess()
     err = readAndCorrectFormat(my_format);
     if(!err)
         return err;
-
+    /**read version information if the version of qrcode is more than 5*/
     if(version_level>=6){
         err = readAndCorrectVersion(my_version);
         if(!err)
@@ -3490,14 +3493,12 @@ cv::String QRCodeDetector::decode(InputArray in, InputArray points,
 
     vector<Point2f> src_points;
     points.copyTo(src_points);
-
     CV_Assert(src_points.size() == 4);
     CV_CheckGT(contourArea(src_points), 0.0, "Invalid QR code source points");
 
     QRDecode qrdec;
     qrdec.init(inarr, src_points);
     bool ok = qrdec.fullDecodingProcess();
-
 
     std::string decoded_info = qrdec.getDecodeInformation();
 
@@ -4691,7 +4692,6 @@ protected:
      * @brief Convert the character string into a bit stream by the encoding of byte mode.
      * @param input (Input data string)
      * @param output (Output payload bit stream)
-
      */
     bool encodeByte(const std::string& input,vector<uint8_t>& output);
     /**
@@ -4760,7 +4760,7 @@ protected:
     void writeReservedArea();
     /**
      * @brief write bit into the QR code
-     * @param int x, int y ( current pixel postion), int& count(the number of current bit)
+     * @param int x, int y ( current pixel postion), int value(the value at <x,y>)
      */
     bool writeBit(int x, int y,int value);
     /**
@@ -4773,10 +4773,15 @@ protected:
     void structureFinalMessage();
     /**
      * @brief generate the format bit-stream with EC level and mask type
-     * @param format_array
-     * @param type (Mask type)
+     * @param mask_type_num (Mask type)
+     * @param format_array (output result)
      */
     void formatGenerate(const int& mask_type_num , Mat & format_array);
+    /**
+     * @brief generate the version bit-stream with version level
+     * @param version_level_num
+     * @param version_array (output result)
+     */
     void versionInfoGenerate(const int& version_level_num , Mat & version_array);
 
     /**
@@ -4824,12 +4829,7 @@ protected:
 
 };
 
-int QREncoder::findVersionCapacity(const int &input_length ,const int &ecc ,const int & version_begin, const int & version_end ){//, const int &mode
-//   /**QR_MODE_NUM   = 1:  ->0
-//      QR_MODE_ALPHA = 2:  ->1
-//      QR_MODE_BYTE  = 4:  ->2
-//      QR_MODE_KANJI = 8:  ->3*/
-//    int mode_index = (int)log2(mode);
+int QREncoder::findVersionCapacity(const int &input_length ,const int &ecc ,const int & version_begin, const int & version_end ){
     int i,version_index,data_codewords;
     const int byte_len = 8;
     const int not_found = -1 ;
@@ -4837,7 +4837,7 @@ int QREncoder::findVersionCapacity(const int &input_length ,const int &ecc ,cons
     /**find the version according to the number of data codewords*/
     for( i = version_begin ; i < version_end ; i++ ){
         const BlockParams* tmp_ecc_params =  ( &(version_info_database[i].ecc[ecc]));
-        //std::shared_ptr<BlockParams> tmp_ecc_params = std::make_shared<BlockParams>(version_info_database[i].ecc[ecc_level]);//const_cast<BlockParams>(&;
+        //std::shared_ptr<BlockParams> tmp_ecc_params = std::make_shared<BlockParams>(version_info_database[i].ecc[ecc_level]);
         /**calcutlate the total data codewords of current version level*/
         data_codewords = version_info_database[i].total_codewords
                              -
@@ -4851,9 +4851,6 @@ int QREncoder::findVersionCapacity(const int &input_length ,const int &ecc ,cons
     return version_index;
 }
 
-/**
- *
- * */
 bool QREncoder::versionEstimate(const int &input_length,vector<int>&possible_version){
     possible_version.clear();
     if(input_length > version_capacity_database[40].ec_level[ecc_level].encoding_modes[1])
@@ -4942,7 +4939,7 @@ void QREncoder::init(const std::string& input ,int mode,int v  = 0 ,int ecc = 0 
         version_level = (v > 0 ? v : versionAuto(input_info));
         /**initialize the output payload*/
         payload.clear();
-        payload.reserve(max_payload_len);//memset(payload,0,sizeof(uint8_t)*max_payload_len);
+        payload.reserve(max_payload_len);
         format = Mat(Size(1, 15), CV_8UC1, Scalar(255));
         version_reserved = Mat(Size(1, 18), CV_8UC1, Scalar(255));
         /**initialize version information*/
@@ -4970,12 +4967,12 @@ void QREncoder::formatGenerate(const int& mask_type_num , Mat & format_array){
     std::string version_bits =EC_level + Mask_type;
     /** get shift*/
     Mat binary_bit = (Mat_<uint8_t >(1,5)<<
-                                         version_bits[4]-'0',version_bits[3]-'0',version_bits[2]-'0',version_bits[1]-'0',version_bits[0]-'0');//low-->high
+                                         version_bits[4]-'0',version_bits[3]-'0',version_bits[2]-'0',version_bits[1]-'0',version_bits[0]-'0');//!low-->high
     Mat shift = Mat(Size(10,1),CV_8UC1,Scalar(0));
     hconcat(shift,binary_bit,Polynomial);
 
     /**length of format_generator is 11 not max_format_length*/
-    Mat format_generator  = (Mat_<uint8_t >(1,11)<<1,1,1,0,1, 1,0,0,1,0, 1);//low-->high
+    Mat format_generator  = (Mat_<uint8_t >(1,11)<<1,1,1,0,1, 1,0,0,1,0, 1);//!low-->high
 
     /**get ecc by division*/
     Mat ecc_code = gfPolyDiv(Polynomial,format_generator,10);
@@ -5058,7 +5055,7 @@ bool QREncoder::encodeAlpha(const std::string& input,vector<uint8_t>& output){
     return true;
 }
 
-bool QREncoder::encodeByte(const std::string& input,vector<uint8_t>& output){//,int &output_len){
+bool QREncoder::encodeByte(const std::string& input,vector<uint8_t>& output){
     int bits = 8;
     /**check version_level to update the bit counter*/
     if(version_level>9)
@@ -5299,8 +5296,8 @@ struct encodingMethods{
 bool QREncoder::encodeAuto(const std::string& input,vector<uint8_t>& output){
 
     std::string mode_char_set [2] ;
-    mode_char_set[0]= "0123456789";///numeric
-    mode_char_set[1]= "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";///alphanumeric
+    mode_char_set[0]= "0123456789";//!numeric
+    mode_char_set[1]= "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";//!alphanumeric
 
     /**DP strategy*/
     vector<encodingMethods> strategy;
@@ -5340,14 +5337,14 @@ bool QREncoder::encodeAuto(const std::string& input,vector<uint8_t>& output){
                 previous = strategy[j];
                 /**second is new */
                 std::string sub_string = cur_string.substr(j,str_len-j);
-                autoEncodePerBlock blocks[3];//numeric,alpha,byte;
+                autoEncodePerBlock blocks[3];//!numeric,alpha,byte;
                 if(!generateBlock(sub_string,QR_MODE_NUM,blocks[0])){
                     blocks[0].block_load_len=error_mode_occur;
                 }
                 if(!generateBlock(sub_string,QR_MODE_ALPHA,blocks[1])){
                     blocks[1].block_load_len=error_mode_occur;
                 }
-                generateBlock(sub_string,QR_MODE_BYTE,blocks[2]);//byte);
+                generateBlock(sub_string,QR_MODE_BYTE,blocks[2]);//!byte;
                 int index = 0 ;
                 int min_len = error_mode_occur;
                 for(int p = 0 ; p < 3 ; p ++ ){
@@ -5378,7 +5375,7 @@ bool QREncoder::encodeAuto(const std::string& input,vector<uint8_t>& output){
 
 
 QRencodeMode QREncoder::fncModeSelect(const std::string& input ){
-    String mode_char_set = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";///alphanumeric
+    String mode_char_set = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ $%*+-./:";//!alphanumeric
     for (int i = 0 ; i < 0 ; i++ ){
         /**can't find in alpha */
         if((int)mode_char_set.find(input[i])==-1){
@@ -5395,7 +5392,6 @@ void QREncoder::padBitStream(){
     int total_data = version_info->total_codewords - cur_ecc_params->ecc_codewords*(cur_ecc_params->num_blocks_in_G1+cur_ecc_params->num_blocks_in_G2);
     total_data *=8;
     int pad_num = total_data - (int)payload.size();
-    //CV_Assert(pad_num>=0);
     if(pad_num <= 0)
         return;
     else if (pad_num <= 4){
@@ -5471,8 +5467,6 @@ void QREncoder::eccGenerate(vector<Mat>& data_blocks,vector<Mat>& ecc_blocks){
     int EC_codewords = cur_ecc_params->ecc_codewords;
     /**read position*/
     int pay_index = 0;
-    /**length between two groups*/
-    //int is_not_equal = cur_ecc_params->data_codewords_in_G2 - cur_ecc_params->data_codewords_in_G1 ;
     /**generator for ecc code */
     Mat G_x = polyGenerator(EC_codewords);
     /**total blocks number*/
@@ -5497,12 +5491,6 @@ void QREncoder::eccGenerate(vector<Mat>& data_blocks,vector<Mat>& ecc_blocks){
         Mat shift = Mat(Size(EC_codewords,1),CV_8UC1,Scalar(0));
         hconcat(shift,Block_i,dividend);
         ecc_i = gfPolyDiv(dividend,G_x,EC_codewords);
-
-        /**align the data codeword by padding last 0 if G2 is longer than G1*/
-//        if(is_not_equal&&i<cur_ecc_params->num_blocks_in_G1){
-//            Mat padding = Mat(Size(1,1),CV_8UC1,Scalar(0));
-//            hconcat(padding,Block_i,Block_i);
-//        }
 
         data_blocks.push_back(Block_i);
         ecc_blocks.push_back(ecc_i);
