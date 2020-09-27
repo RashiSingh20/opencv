@@ -28,7 +28,7 @@ namespace opencv_test { namespace {
         };
         std::string encode_decode_qrcode_images_name[] = {" "};
 
-        const Size fixed_size = Size(600,600);
+        const Size fixed_size = Size(600, 600);
         const int border_width = 2;
         const int auto_mode = -1;
         int countDiffPixels(cv::Mat in1, cv::Mat in2);
@@ -150,8 +150,8 @@ namespace opencv_test { namespace {
             const std::string name_current_image = GetParam();
             const std::string root = "qrcode/decode";
 
-            std::string image_path = findDataFile(root +"/"+ name_current_image);
-            const std::string dataset_config = findDataFile(root + "/"+"dataset_config.json");
+            std::string image_path = findDataFile(root + "/" + name_current_image);
+            const std::string dataset_config = findDataFile(root + "/" + "dataset_config.json");
             FileStorage file_config(dataset_config, FileStorage::READ);
             ASSERT_TRUE(file_config.isOpened()) << "Can't read validation data: " << dataset_config;
             {
@@ -159,7 +159,7 @@ namespace opencv_test { namespace {
                 size_t images_count = static_cast<size_t>(images_list.size());
                 ASSERT_GT(images_count, 0u) << "Can't find validation data entries in 'test_images': " << dataset_config;
 
-                for (size_t index = 0; index < images_count; index++)
+                for (size_t index = 0; index < images_count; index ++)
                 {
                     FileNode config = images_list[(int)index];
                     std::string name_test_image = config["image_name"];
@@ -168,23 +168,23 @@ namespace opencv_test { namespace {
                         std::vector<Point> corners;
                         std::string decoded_info;
                         /**get corner points with 2-pixel borders*/
-                        for (int i = 0; i < 4; i++)
+                        for (int i = 0; i < 4; i ++)
                         {
                             int x = config["x"][i];
                             int y = config["y"][i];
-                            corners.push_back(Point(x,y));
+                            corners.push_back(Point(x, y));
                         }
                         Mat src = imread(image_path, IMREAD_GRAYSCALE), straight_barcode;
                         ASSERT_FALSE(src.empty()) << "Can't read image: " << image_path;
                         /**pure qr-code without borders and with the size of 600x600*/
-                        Mat src_no_border = src(Rect(corners[0],corners[2])).clone();
-                        resize(src_no_border,src_no_border,fixed_size,0,0,INTER_AREA);
+                        Mat src_no_border = src(Rect(corners[0], corners[2])).clone();
+                        resize(src_no_border, src_no_border, fixed_size, 0, 0, INTER_AREA);
                         /**corners for QR image(without borders and fixed size of (600,600))*/
                         std::vector<Point> decode_corners(4);
-                        decode_corners[0] = Point(0,0);
-                        decode_corners[1] = Point(src_no_border.rows - 1 , 0);
-                        decode_corners[2] = Point(src_no_border.rows - 1 , src_no_border.cols - 1);
-                        decode_corners[3] = Point(0 , src_no_border.cols - 1);
+                        decode_corners[0] = Point(0, 0);
+                        decode_corners[1] = Point(src_no_border.rows - 1, 0);
+                        decode_corners[2] = Point(src_no_border.rows - 1, src_no_border.cols - 1);
+                        decode_corners[3] = Point(0, src_no_border.cols - 1);
 
                         EXPECT_TRUE(decodeQRCode(src_no_border, decode_corners, decoded_info, straight_barcode));
                         ASSERT_FALSE(decoded_info.empty());
@@ -207,8 +207,8 @@ namespace opencv_test { namespace {
             const std::string name_current_image = GetParam();
             const std::string root = "qrcode/encode";
 
-            std::string image_path = findDataFile(root +"/"+ name_current_image);
-            const std::string dataset_config = findDataFile(root +"/"+ "dataset_config.json");
+            std::string image_path = findDataFile(root + "/" + name_current_image);
+            const std::string dataset_config = findDataFile(root + "/" + "dataset_config.json");
             FileStorage file_config(dataset_config, FileStorage::READ);
 
             ASSERT_TRUE(file_config.isOpened()) << "Can't read validation data: " << dataset_config;
@@ -217,7 +217,7 @@ namespace opencv_test { namespace {
                 size_t images_count = static_cast<size_t>(images_list.size());
                 ASSERT_GT(images_count, 0u) << "Can't find validation data entries in 'test_images': " << dataset_config;
 
-                for (size_t index = 0; index < images_count; index++)
+                for (size_t index = 0; index < images_count; index ++)
                 {
                     FileNode config = images_list[(int)index];
                     std::string name_test_image = config["image_name"];
@@ -258,13 +258,12 @@ namespace opencv_test { namespace {
             const int min_version = 1;
             const int test_max_version = 7;
             const int max_ecc = 3;
-            const std::string dataset_config = findDataFile(root +"/"+ "symbol_sets.json");
-            const std::string version_config =findDataFile(root +"/"+ "capacity.json");
+            const std::string dataset_config = findDataFile(root + "/" + "symbol_sets.json");
+            const std::string version_config =findDataFile(root + "/" + "capacity.json");
 
             FileStorage file_config(dataset_config, FileStorage::READ);
             FileStorage capacity_config(version_config, FileStorage::READ);
             ASSERT_TRUE(file_config.isOpened()&&capacity_config.isOpened()) << "Can't read validation data: " << dataset_config;
-
 
             FileNode mode_list = file_config["symbols_sets"];
             FileNode capacity_list = capacity_config["version_ecc_capacity"];
@@ -272,17 +271,20 @@ namespace opencv_test { namespace {
             size_t mode_count = static_cast<size_t>(mode_list.size());
             ASSERT_GT(mode_count, 0u) << "Can't find validation data entries in 'test_images': " << dataset_config;
 
-            for (size_t index = 0; index < mode_count; index++){
+            for (size_t index = 0; index < mode_count; index ++)
+            {
                 /**loop each mode*/
                 FileNode config = mode_list[(int)index];
                 /**find corresponding symbol set*/
                 std::string cur_mode = config["mode"];
                 std::string symbol_set = config["symbols_set"];
 
-                for(int j = min_version ; j <= test_max_version ; j ++ ){
+                for(int j = min_version; j <= test_max_version; j ++)
+                {
                     /**Loop each version level (1:7)*/
-                    FileNode capa_config = capacity_list[j-1];
-                    for(int m = 0 ; m <= max_ecc ; m ++ ){
+                    FileNode capa_config = capacity_list[j - 1];
+                    for(int m = 0; m <= max_ecc; m ++)
+                    {
                         /**loop each ecc level*/
                         std::string cur_level = capa_config["verison_level"];
                         const int cur_capacity = capa_config["ecc_level"][m];
@@ -290,10 +292,10 @@ namespace opencv_test { namespace {
                         /**generate the input string **/
                         std::string input_info = symbol_set;
                         std::random_shuffle(input_info.begin(),input_info.end());
-                        if((int)input_info.length() > cur_capacity){
-                            input_info = input_info.substr(0,cur_capacity-1);
+                        if((int)input_info.length() > cur_capacity)
+                        {
+                            input_info = input_info.substr(0,cur_capacity - 1);
                         }
-
                         /**get the encoded QR codes */
                         QRCodeEncoder my_encoder;
                         vector<Mat> qrcodes;
@@ -301,16 +303,17 @@ namespace opencv_test { namespace {
                         ASSERT_TRUE(generate_success) << "Can't generate this QR image :("<<"mode : "<<index<<
                                                       " version : "<<j<<" ecc_level : "<<m<<")";
                         std::string output_info = "";
-                        for(size_t n = 0; n < qrcodes.size() ; n++ ){
+                        for(size_t n = 0; n < qrcodes.size() ; n ++)
+                        {
                             Mat src = qrcodes[n];
-                            src = src(Range(border_width,src.rows-border_width),Range(border_width,src.rows-border_width)).clone();
-                            resize(src,src,Size(600,600),0,0,INTER_AREA);
+                            src = src(Range(border_width, src.rows-border_width), Range(border_width, src.rows-border_width)).clone();
+                            resize(src, src, Size(600, 600), 0, 0, INTER_AREA);
                             /**set points and resize*/
                             std::vector<Point> corners(4);
                             corners[0] = Point(0,0);
-                            corners[1] = Point(src.rows-1,0);
-                            corners[2] = Point(src.rows-1,src.cols-1);
-                            corners[3] = Point(0,src.cols-1);
+                            corners[1] = Point(src.rows - 1, 0);
+                            corners[2] = Point(src.rows - 1, src.cols - 1);
+                            corners[3] = Point(0, src.cols - 1);
 
                             std::string decoded_info ;
                             Mat straight_barcode;

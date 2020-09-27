@@ -700,7 +700,6 @@ public:
              int structure_number = 1 );
 };
 
-
 class CV_EXPORTS_W QRCodeDetector
 {
 public:
