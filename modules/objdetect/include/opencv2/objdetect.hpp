@@ -696,8 +696,8 @@ public:
 class CV_EXPORTS_W QRCodeEncoder {
 public:
     bool generate(cv::String input,cv::OutputArray  output,
-             int version = 0, int correction_level = CORRECT_LEVEL_L,int mode = QR_MODE_AUTO,
-             int structure_number = 1 );
+                  int version = 0, int correction_level = CORRECT_LEVEL_L,int mode = QR_MODE_AUTO,
+                  int structure_number = 1, Size output_size = Size(23, 23));
 };
 
 class CV_EXPORTS_W QRCodeDetector

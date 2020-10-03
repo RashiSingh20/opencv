@@ -56,32 +56,32 @@ namespace opencv_test { namespace {
 
                 /**read from test set*/
                 Mat src = imread(image_path, IMREAD_GRAYSCALE), straight_barcode;
-                std::vector<Point> src_corners(4);
+                std::vector<Point> corners(4);
                 /**corners for src image(with 2 pixels border)*/
-                src_corners[0] = Point(border_width,border_width);
-                src_corners[1] = Point(src.rows - border_width , border_width);
-                src_corners[2] = Point(src.rows - border_width , src.cols - border_width);
-                src_corners[3] = Point(border_width , src.cols - border_width);
-                /**pure qr-image without borders , which is enlarged to 600x600*/
-                Mat src_no_border = src(Rect(src_corners[0],src_corners[2])).clone();
-                resize(src_no_border,src_no_border,Size(600,600),0,0,INTER_AREA);
-
+                corners[0] = Point(border_width,border_width);
+                corners[1] = Point(src.rows - border_width , border_width);
+                corners[2] = Point(src.rows - border_width , src.cols - border_width);
+                corners[3] = Point(border_width , src.cols - border_width);
+                /**enlarged to 600x600 and change the coordinates*/
+                Mat resized_src;
+                resize(src, resized_src, fixed_size, 0, 0, INTER_AREA);
+                double width_ratio =  resized_src.cols * 1.0 / src.cols ;
+                double height_ratio = resized_src.rows * 1.0 / src.rows;
+                for(size_t j = 0; j < corners.size(); j ++)
+                {
+                corners[j].x = corners[j].x * width_ratio;
+                corners[j].y = corners[j].y * height_ratio;
+                }
                 std::string decoded_info;
                 ASSERT_FALSE(src.empty()) << "Can't read image: " << image_path;
-                /**corners for QR image(without borders and fixed size of (600,600))*/
-                std::vector<Point> decode_corners(4);
-                decode_corners[0] = Point(0,0);
-                decode_corners[1] = Point(src_no_border.rows - 1 , 0);
-                decode_corners[2] = Point(src_no_border.rows - 1 , src_no_border.cols - 1);
-                decode_corners[3] = Point(0 , src_no_border.cols - 1);
 
-                EXPECT_TRUE(decodeQRCode(src_no_border, decode_corners, decoded_info, straight_barcode))<< "ERROR : " << image_path;
+                EXPECT_TRUE(decodeQRCode(resized_src, corners, decoded_info, straight_barcode))<< "ERROR : " << image_path;
 
                 file_config << "x" << "[:";
-                for (size_t j = 0; j < src_corners.size(); j++) { file_config << src_corners[j].x; }
+                for (size_t j = 0; j < corners.size(); j++) { file_config << corners[j].x; }
                 file_config << "]";
                 file_config << "y" << "[:";
-                for (size_t j = 0; j < src_corners.size(); j++) { file_config << src_corners[j].y; }
+                for (size_t j = 0; j < corners.size(); j++) { file_config << corners[j].y; }
                 file_config << "]";
                 /**use escape character for alternative interpretation in a character's sequence for “]” */
                 size_t max_size = decoded_info.size();
@@ -114,21 +114,25 @@ namespace opencv_test { namespace {
 
                 /**read from test set*/
                 Mat src = imread(image_path, IMREAD_GRAYSCALE), straight_barcode;
-                src = src(Range(border_width,src.rows-border_width),Range(border_width,src.rows-border_width)).clone();
-                resize(src,src,fixed_size,0,0,INTER_AREA);
-
+                std::vector<Point2f> corners(4);
+                corners[0] = Point2f(border_width, border_width);
+                corners[1] = Point2f(src.cols - border_width, border_width);
+                corners[2] = Point2f(src.cols - border_width, src.rows - border_width);
+                corners[3] = Point2f(border_width, src.rows - border_width);
+                Mat resized_src;
+                resize(src, resized_src, fixed_size, 0, 0, INTER_AREA);
+                double width_ratio =  resized_src.cols * 1.0 / src.cols ;
+                double height_ratio = resized_src.rows * 1.0 / src.rows;
+                for(size_t j = 0; j < corners.size(); j++)
+                {
+                corners[j].x = corners[j].x * width_ratio;
+                corners[j].y = corners[j].y * height_ratio;
+                }
 
                 std::string decoded_info;
                 ASSERT_FALSE(src.empty()) << "Can't read image: " << image_path;
 
-                /**add the corner points*/
-                std::vector<Point> corners(4);
-                corners[0] = Point(0,0);
-                corners[1] = Point(src.rows-1,0);
-                corners[2] = Point(src.rows-1,src.cols-1);
-                corners[3] = Point(0,src.cols-1);
-
-                EXPECT_TRUE(decodeQRCode(src, corners, decoded_info, straight_barcode))<< "ERROR : " << image_path;
+                EXPECT_TRUE(decodeQRCode(resized_src, corners, decoded_info, straight_barcode))<< "ERROR : " << image_path;
                 /**use escape character for alternative interpretation in a character's sequence for “]” */
                 for(size_t t = 0 ; t < decoded_info.size() ; t++ ){
                     if(decoded_info[t] == ']'||decoded_info[t] == '}'||decoded_info[t] == '['||decoded_info[t] == '{'){
@@ -177,16 +181,10 @@ namespace opencv_test { namespace {
                         Mat src = imread(image_path, IMREAD_GRAYSCALE), straight_barcode;
                         ASSERT_FALSE(src.empty()) << "Can't read image: " << image_path;
                         /**pure qr-code without borders and with the size of 600x600*/
-                        Mat src_no_border = src(Rect(corners[0], corners[2])).clone();
-                        resize(src_no_border, src_no_border, fixed_size, 0, 0, INTER_AREA);
-                        /**corners for QR image(without borders and fixed size of (600,600))*/
-                        std::vector<Point> decode_corners(4);
-                        decode_corners[0] = Point(0, 0);
-                        decode_corners[1] = Point(src_no_border.rows - 1, 0);
-                        decode_corners[2] = Point(src_no_border.rows - 1, src_no_border.cols - 1);
-                        decode_corners[3] = Point(0, src_no_border.cols - 1);
+                        Mat resized_src;
+                        resize(src, resized_src, fixed_size, 0, 0, INTER_AREA);
 
-                        EXPECT_TRUE(decodeQRCode(src_no_border, decode_corners, decoded_info, straight_barcode));
+                        EXPECT_TRUE(decodeQRCode(resized_src, corners, decoded_info, straight_barcode));
                         ASSERT_FALSE(decoded_info.empty());
                         std::string original_info = config["info"];
                         EXPECT_EQ(decoded_info, original_info);
@@ -306,18 +304,26 @@ namespace opencv_test { namespace {
                         for(size_t n = 0; n < qrcodes.size() ; n ++)
                         {
                             Mat src = qrcodes[n];
-                            src = src(Range(border_width, src.rows-border_width), Range(border_width, src.rows-border_width)).clone();
-                            resize(src, src, Size(600, 600), 0, 0, INTER_AREA);
-                            /**set points and resize*/
-                            std::vector<Point> corners(4);
-                            corners[0] = Point(0,0);
-                            corners[1] = Point(src.rows - 1, 0);
-                            corners[2] = Point(src.rows - 1, src.cols - 1);
-                            corners[3] = Point(0, src.cols - 1);
+
+                            std::vector<Point2f> corners(4);
+                            corners[0] = Point2f(border_width, border_width);
+                            corners[1] = Point2f(src.cols - border_width, border_width);
+                            corners[2] = Point2f(src.cols - border_width, src.rows - border_width);
+                            corners[3] = Point2f(border_width, src.rows - border_width);
+
+                            Mat resized_src;
+                            resize(src, resized_src, fixed_size, 0, 0, INTER_AREA);
+                            double width_ratio =  resized_src.cols * 1.0 / src.cols ;
+                            double height_ratio = resized_src.rows * 1.0 / src.rows;
+                            for(size_t p = 0; p < corners.size(); p ++)
+                            {
+                                corners[p].x = corners[p].x * width_ratio;
+                                corners[p].y = corners[p].y * height_ratio;
+                            }
 
                             std::string decoded_info ;
                             Mat straight_barcode;
-                            bool success = decodeQRCode(src, corners, decoded_info, straight_barcode);
+                            bool success = decodeQRCode(resized_src, corners, decoded_info, straight_barcode);
                             ASSERT_TRUE(success) << "The generated QRcode is not same as test data."<<"mode : "<<index<<
                                                  " version : "<<j<<" ecc_level : "<<m;
                             output_info += decoded_info;
