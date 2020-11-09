@@ -113,7 +113,7 @@ TEST_P(Test_Torch_layers, run_convolution)
 {
     // Output reference values are in range [23.4018, 72.0181]
     double l1 = (target == DNN_TARGET_OPENCL_FP16 || target == DNN_TARGET_MYRIAD) ? 0.08 : default_l1;
-    double lInf = (target == DNN_TARGET_OPENCL_FP16 || target == DNN_TARGET_MYRIAD) ? 0.42 : default_lInf;
+    double lInf = (target == DNN_TARGET_OPENCL_FP16 || target == DNN_TARGET_MYRIAD) ? 0.43 : default_lInf;
     runTorchNet("net_conv", "", false, true, true, l1, lInf);
 }
 
@@ -165,7 +165,7 @@ TEST_P(Test_Torch_layers, run_concat)
 TEST_P(Test_Torch_layers, run_depth_concat)
 {
     runTorchNet("net_depth_concat", "", false, true, true, 0.0,
-                target == DNN_TARGET_OPENCL_FP16 ? 0.021 : 0.0);
+                target == DNN_TARGET_OPENCL_FP16 ? 0.032 : 0.0);
 }
 
 TEST_P(Test_Torch_layers, run_deconv)
@@ -359,6 +359,10 @@ TEST_P(Test_Torch_nets, ENet_accuracy)
         if (target == DNN_TARGET_MYRIAD)      applyTestTag(CV_TEST_TAG_DNN_SKIP_IE_MYRIAD, CV_TEST_TAG_DNN_SKIP_IE_NN_BUILDER);
         throw SkipTestException("");
     }
+#endif
+#if defined(INF_ENGINE_RELEASE) && INF_ENGINE_VER_MAJOR_GE(2021010000)
+    if (backend == DNN_BACKEND_INFERENCE_ENGINE_NGRAPH)
+        applyTestTag(CV_TEST_TAG_DNN_SKIP_IE_NGRAPH);
 #endif
     if (backend == DNN_BACKEND_INFERENCE_ENGINE_NGRAPH && target != DNN_TARGET_CPU)
     {
